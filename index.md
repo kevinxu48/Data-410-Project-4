@@ -1,4 +1,4 @@
-## A Comparison Between Locally Weighted Regression and Random Forest Regression with the "Cars" Dataset
+## A Comparison Between Locally Weighted Regression and Random Forest Regression using the "Cars" Dataset
 
 You can use the [editor on GitHub](https://github.com/kevinxu48/DATA-410-Project-2/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
 
