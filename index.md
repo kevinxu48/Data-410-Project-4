@@ -91,7 +91,7 @@ rf = RandomForestRegressor(n_estimators=150,max_depth=3)
 Syntax highlighted code block
 
 # Comparison of the Regression Techniques using 10-Fold validations
-To find the cross-validated MSE of both regressions, two separate functions were created 
+To find the cross-validated MSE of both regressions, two separate functions were created, since Lowess is not an SKlearn model.
 ```
 # KFold function for Lowess Regression
 
