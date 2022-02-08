@@ -11,6 +11,7 @@ def tricubic(x):
   return np.where(d>1,0,70/81*(1-d**3)**3)
 ```
 ```
+# Plot of the Tricubic Kernel
 y = tricubic(x)
 fig, ax = plt.subplots()
 ax.plot(x,y,lw=2)
@@ -25,6 +26,7 @@ def Epanechnikov(x):
   return np.where(np.abs(x)>1,0,3/4*(1-np.abs(x)**2)) 
 ```
 ```
+# Plot of the Epanechnikov Kernel
 y = Epanechnikov(x)
 fig, ax = plt.subplots()
 ax.plot(x,y,lw=2)
@@ -34,6 +36,7 @@ plt.show()
 
 
 ```
+# Plot of the Quartic Kernel
 # Quartic kernel
 def Quartic(x):
   if len(x.shape) == 1:  
