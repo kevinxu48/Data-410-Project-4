@@ -52,7 +52,7 @@ plt.show()
 ![quartic](https://user-images.githubusercontent.com/98488236/152915763-a6cf2c21-96e8-44ff-9e27-f0d9568cab31.png)
 
 ### Implementation of the Lowess Regression
-Python and SKlearn do not have a built in implementation of Lowess Regression, so to use it we must create our own function.
+Python and SKlearn do not have an implementation of Lowess Regression, so to use it we must define our own function.
 
 ```
 def lowess_ag(x, y, f=2. / 3., iter=3):
