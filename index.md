@@ -134,8 +134,8 @@ def DoKFold(model,x,y,k,rseed):
 
 ```
 To find the cross-validated MSE of both regressions
-### Header 3
-
+## Optimizing the Hyperparameters
+First, for Lowess Regression, to find the optimal kernel and value for tau, we perform multiple K-Fold validations using different combinations of the two.
 - Bulleted
 - List
 
