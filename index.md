@@ -94,6 +94,7 @@ Syntax highlighted code block
 To find the cross-validated MSE of both regressions, two separate functions were created 
 ```
 # KFold function for Lowess Regression
+
 def DoKFoldLoess(x,y,k, kern, tau, rseed):
   scale = SS()
   mse_lwr = []
