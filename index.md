@@ -58,7 +58,7 @@ plt.show()
 
 ### Implementation of the Lowess Regression
 Python and SKlearn do not have an implementation of Lowess Regression, so to use it we must define our own function.
-
+```
 def lowess_reg(x, y, xnew, kern, tau):
     # We expect x to the sorted increasingly
     n = len(x)
@@ -81,7 +81,7 @@ def lowess_reg(x, y, xnew, kern, tau):
 ```
 ## Random Forest Regression
 Random Forest is a Regression technique discussed in DATA 310, which 
-```markdown
+
 Syntax highlighted code block
 
 # Header 1
