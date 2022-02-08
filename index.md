@@ -1,7 +1,7 @@
 # A Comparison Between Locally Weighted Regression and Random Forest Regression
 
 ## Locally Weighted Regression (Loess)
-You can use the [editor on GitHub](https://github.com/kevinxu48/DATA-410-Project-2/edit/gh-pages/index.md) to maintain and preview the content for your website in Markdown files.
+In locally weighted regression, points are weighted by proximity to the current x in question using a kernel, which in this case is a weighting function that the user decides on. Some examples of kernels include: Tricubic, Epanechnikov (parabolic), and quartic (biweight). In this project we implemented the kernels in python
 
 Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
