@@ -90,8 +90,49 @@ rf = RandomForestRegressor(n_estimators=150,max_depth=3)
 ```
 Syntax highlighted code block
 
-# Header 1
-## Header 2
+# Comparison of the Regression Techniques using 10-Fold validations
+To find the cross-validated MSE of both regressions, two separate functions were created 
+```
+# KFold function for Lowess Regression
+def DoKFoldLoess(x,y,k, kern, tau, rseed):
+  scale = SS()
+  mse_lwr = []
+  kf = KFold(n_splits=k,shuffle=True,random_state=rseed)
+  for idxtrain, idxtest in kf.split(x):
+    ytrain = y[idxtrain]
+    xtrain = x[idxtrain]
+    xstrain = scale.fit_transform(xtrain.reshape(-1,1))
+    ytest = y[idxtest]
+    xtest = x[idxtest]
+    xstest = scale.transform(xtest.reshape(-1,1))
+    yhat_lwr = lowess_reg(xstrain.ravel(),ytrain,xstest.ravel(),kern,tau)
+    mse_lwr.append(mse(ytest,yhat_lwr))
+  return np.mean(mse_lwr)
+
+```
+
+```
+# KFold function for sklearn models
+
+def DoKFold(model,x,y,k,rseed):
+  scale = SS()
+  mse_train = []
+  mse_test = []
+  kf = KFold(n_splits=k,shuffle=True,random_state=rseed)
+  for idxtrain, idxtest in kf.split(x):
+    ytrain = y[idxtrain]
+    xtrain = x[idxtrain]
+    xstrain = scale.fit_transform(xtrain.reshape(-1,1))
+    ytest = y[idxtest]
+    xtest = x[idxtest]
+    xstest = scale.transform(xtest.reshape(-1,1))
+    model.fit(xstrain,ytrain)
+    mse_train.append(mse(ytrain,model.predict(xstrain)))
+    mse_test.append(mse(ytest,model.predict(xstest)))
+  return np.mean(mse_test)
+
+```
+To find the cross-validated MSE of both regressions
 ### Header 3
 
 - Bulleted
