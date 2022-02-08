@@ -1,9 +1,28 @@
 # A Comparison Between Locally Weighted Regression and Random Forest Regression
 
 ## Locally Weighted Regression (Loess)
-In locally weighted regression, points are weighted by proximity to the current x in question using a kernel, which in this case is a weighting function that the user decides on. Some examples of kernels include: Tricubic, Epanechnikov (parabolic), and quartic (biweight). In this project we implemented the kernels in python
+In locally weighted regression, points are weighted by proximity to the current x in question using a kernel, which in this case is a weighting function that the user decides on. Some examples of kernels include: Uniform, Tricubic, Epanechnikov (parabolic), and quartic (biweight). In this project we implemented the Tricubic, Epanechnikov, and quartic kernels in python as follows:
+```
+def tricubic(x):
+  if len(x.shape) == 1:  # use a conditional to reshape if it is a row vector
+    x = x.reshape(-1,1)
+  d = np.sqrt(np.sum(x**2,axis=1))
+  return np.where(d>1,0,70/81*(1-d**3)**3)
+```
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
+```
+def Epanechnikov(x):
+  if len(x.shape) == 1:  
+    x = x.reshape(-1,1)
+  return np.where(np.abs(x)>1,0,3/4*(1-np.abs(x)**2)) 
+```
+
+```
+def Quartic(x):
+  if len(x.shape) == 1:  
+    x = x.reshape(-1,1)
+  return np.where(np.abs(x)>1,0,15/16*(1-np.abs(x)**2)**2) 
+```
 
 ### Markdown
 
