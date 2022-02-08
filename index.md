@@ -80,8 +80,14 @@ def lowess_reg(x, y, xnew, kern, tau):
     return f(xnew)
 ```
 ## Random Forest Regression
-Random Forest is a Regression technique discussed in DATA 310, which involves picking a random set of points in the data and building regression trees. In the case of regression, the mean prediction of the trees is outputted for each forest grown. Sklearn has a Random Forest Regressor class that we import, and there are three hyperparameters to consider: number of trees in the forest, the maximum depth of the tree, and the minimum number of samples required to split an internal node
+Random Forest is a Regression technique discussed in DATA 310, which involves picking a random set of points in the data and building regression trees. In the case of regression, the mean prediction of the trees is outputted for each forest grown. Sklearn has a Random Forest Regressor class that we import, and there are three hyperparameters to consider: number of trees in the forest, the maximum depth of the tree, and the minimum number of samples required to split an internal node.
 
+To find the optimal values for the hyperparameters, we
+
+```
+from sklearn.ensemble import RandomForestRegressor
+rf = RandomForestRegressor(n_estimators=150,max_depth=3)
+```
 Syntax highlighted code block
 
 # Header 1
