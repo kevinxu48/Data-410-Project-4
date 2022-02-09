@@ -136,7 +136,32 @@ def DoKFold(model,x,y,k,rseed):
 ```
 To find the cross-validated MSE of both regressions
 ## Optimizing the Hyperparameters
-First, for Lowess Regression, to find the optimal kernel and value for tau, we perform multiple K-Fold validations using different combinations of the two.
+First, for Lowess Regression, to find the optimal kernel and value for tau, we perform multiple 10-Fold validations with different combinations of the two using three for-loops. 
+``` 
+# find optimal tau for tricubic kernel
+
+k = 10
+t_range = np.arange(0.01,0.3, step=.01)
+test_mse = []
+for t in t_range:
+  te_mse = DoKFoldLoess(x,y,k,tricubic, t, 410)
+  test_mse.append(np.mean(te_mse))
+```
+
+```
+# plot the test mse to find the best value for tau
+
+idx = np.argmin(test_mse)
+print([t_range[idx], test_mse[idx]])
+plt.plot(t_range,test_mse, '-xr',label='Test')
+plt.xlabel('tau value')
+plt.ylabel('Avg. MSE')
+plt.title('K-fold validation with k = ' + str(k))
+plt.show()
+```
+[0.2, 17.638049656558326]
+
+
 
 ### Optimizing Number of Trees and Max Depth
 First, we found that a max_depth of 3 in conjunction with , gave the lowest MSE values for Random Forest, so all that was left was to find optimal values for n_estimators. This was done using a for loop and plotting 
