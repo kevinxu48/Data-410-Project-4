@@ -79,6 +79,7 @@ def lowess_reg(x, y, xnew, kern, tau):
     f = interp1d(x, yest,fill_value='extrapolate')
     return f(xnew)
 ```
+
 ## Random Forest Regression
 Random Forest is a Regression technique discussed in DATA 310, which involves picking a random set of points in the data and building regression trees. In the case of regression, the mean prediction of the trees is outputted for each forest grown. Sklearn has a Random Forest Regressor class that we import, and there are two hyperparameters that we will consider: number of trees in the forest and the maximum depth of the tree.
 
@@ -160,12 +161,11 @@ plt.ylabel('Avg. MSE')
 plt.title('K-fold validation with k = ' + str(k))
 plt.show()
 ```
+[142, 17.866590990045857]
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+![MSE](https://user-images.githubusercontent.com/98488236/153284569-0e3435a5-5321-4866-a075-b9d390d09109.png)
+
 
 ## Conclusion
 
 By comparing the Locally Weighted Regression with Random Forest Regression on the "Cars" dataset, we found that The Loess produced a smaller cross-validated MSE than that of Random Forest. Since we desire smaller MSE values, we can conclude that Locally Weighted Regression is superior to Random Forest Regression in this example. Given the prevalence and importance of Random Forest, this project demonstrates the significance and potential of Locally Weighted Regression.
-### Support or Contact
-
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
