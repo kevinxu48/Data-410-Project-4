@@ -135,8 +135,9 @@ def DoKFold(model,x,y,k,rseed):
 
 ```
 To find the cross-validated MSE of both regressions
-## Optimizing the Hyperparameters
-First, for Lowess Regression, to find the optimal kernel and value for tau, we perform multiple 10-Fold validations with different combinations of the two using three for-loops. 
+# Optimizing the Hyperparameters
+First, for Lowess Regression, to find the optimal kernel and value for tau, we perform multiple 10-Fold validations with different combinations of the two using three for-loops.
+## Optimal Tau for Tricubic kernel
 ``` 
 # find optimal tau for tricubic kernel
 
@@ -160,10 +161,20 @@ plt.title('K-fold validation with k = ' + str(k))
 plt.show()
 ```
 [0.2, 17.638049656558326]
+![tricubicmse](https://user-images.githubusercontent.com/98488236/153296675-f4ae3c37-0607-4bfa-a19d-26145736ed74.png)
+
+The same code was repeated, except switching the 'tricubic' kernel for the 'Epanechnikov' and 'quartic' kernels. The results and plots obtained were
+### Optimal Tau for Epanechnikov kernel
+[0.16, 17.640646421523392]
+![epanechnikovmse](https://user-images.githubusercontent.com/98488236/153298160-b0e42109-eb4c-4a00-bc48-d92e8e1e2e50.png)
 
 
+### Optimal Tau for Quartic kernel
+[0.2, 17.645295248233868]
+![quarticmse](https://user-images.githubusercontent.com/98488236/153298413-b28cf387-fbbf-4a0d-b827-4f38074cb55a.png)
 
-### Optimizing Number of Trees and Max Depth
+
+## Optimizing Number of Trees and Max Depth
 First, we found that a max_depth of 3 in conjunction with , gave the lowest MSE values for Random Forest, so all that was left was to find optimal values for n_estimators. This was done using a for loop and plotting 
 
 ```
