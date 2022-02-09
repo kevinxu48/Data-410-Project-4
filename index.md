@@ -173,8 +173,10 @@ The same code was repeated, except switching the 'tricubic' kernel for the 'Epan
 [0.2, 17.645295248233868]
 ![quarticmse](https://user-images.githubusercontent.com/98488236/153298413-b28cf387-fbbf-4a0d-b827-4f38074cb55a.png)
 
+Hence, we got that a tricubic kernel with a tau value of 0.2, produced the best cross-validated MSE of about 17.638.
 
-## Optimizing Number of Trees and Max Depth
+
+## Optimizing Number of Trees and Max Depth for Random Forest
 First, we found that a max_depth of 3 in conjunction with , gave the lowest MSE values for Random Forest, so all that was left was to find optimal values for n_estimators. This was done using a for loop and plotting 
 
 ```
