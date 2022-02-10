@@ -1,19 +1,23 @@
 # A Comparison Between Locally Weighted Regression and Random Forest Regression
 
 # Locally Weighted Regression (Lowess)
-In locally weighted regression, points are weighted by their proximity to a fitted data point using a kernel, which in this case is a weighting function that the user decides on, and will serve as one of two hyperparameters for our function. Some examples of kernels include: Uniform, Tricubic, Epanechnikov (parabolic), and quartic (biweight), but typically the algorithm uses a tri-cubic weight function. The kernel gives the most weight to the data points nearest to the point of estimation and the least weight to the data points that are furthest away. 
+The main idea in locally weighted regression is to apply linear regression along specific intervals to approximate a nonlinear curve. A local set of points are bounded by a region and weighted by their proximity to a target point $x_0$ using a kernel, which in this case is a weighting function that the user decides on, and will serve as one of two hyperparameters for the function that we will define. We then get a fitted model with only the point of the model that are close to the target point $x_0$. The target point then moves away on the x axis and the procedure repeats for each points.
+
+Some examples of kernels include: Uniform, Tricubic, Epanechnikov (parabolic), and quartic (biweight), but typically the algorithm uses a tri-cubic weight function. The kernel gives the most weight to the data points nearest to the point of estimation and the least weight to the data points that are furthest away. 
 ![lowess-pred-1](https://user-images.githubusercontent.com/98488236/153333566-4816a54d-b7c3-47ad-87be-aabefcccf3c6.gif)
 
 The other hyperparameter in our function is tau, which is called the "bandwidth" or the "smoothing parameter" and it controls how flexible the Lowess function will be by determining how much of the data will be used to fit each local curve.
 
 ### Advantages of Lowess
+The main advantage and appeal of Lowess is the fact that it does not require the specification of a global function to fit a model to the entire dataset, only subsets of the data. Instead we only have to choose a kernel and a tau value.
 
 ### Disadvantages of Lowess
-The main limitation of Lowess is that you need a relatively large sampled dataset to produce useful models because it needs to observe a sufficient amount of data subsets to perform local fitting, which can be imprecise if there is not enough data.
+A big limitation of Lowess is that you need a relatively large sampled dataset to produce useful models because it needs to observe a sufficient amount of data subsets to perform local fitting, which can be imprecise if there is not enough data.
 
 In addition, since Lowess is a Least Squares method, it is also hurt by the presence of outliers, since they would still have a great effect on the slope of the locally fitted regression line. 
 
-### Implementation of Kernels
+Lowess is also a computationally intensive method, since a regression model is computed for each point
+## Implementation of Kernels
 In this project we defined the Tricubic, Epanechnikov, and quartic kernels in python as follows:
 ```
 # Tricubic kernel
