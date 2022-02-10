@@ -3,7 +3,7 @@
 # Locally Weighted Regression (Lowess)
 The main idea in locally weighted regression is to apply linear regression along specific intervals to approximate a nonlinear curve by fitting and modeling low degree polynomial models to specific subsets of the data. From this a function is built that represents the deterministic component of the variation in the data for every point, while avoiding the random error in the variation. 
 
-Moreover, a local set of points are bounded by a region and weighted by their proximity through Euclidean distance to a target point $x_0$ using a kernel, which in this case is a weighting function that the user decides on, and will serve as one of two hyperparameters for the function that we will define. We then get a fitted model with only the point of the model that are close to the target point $x_0$. The target point then moves away on the x axis and the procedure repeats for each points.
+Moreover, a local set of points are bounded by a region and weighted by their proximity through Euclidean distance to a target point x0 using a kernel, which in this case is a weighting function that the user decides on, and will serve as one of two hyperparameters for the function that we will define. We then get a fitted model with only the point of the model that are close to the target point x0. The target point then moves away on the x axis and the procedure repeats for each points.
 
 *Example of how the Locally Weighted Regression works*
 
@@ -14,7 +14,7 @@ Some examples of kernels include: Uniform, Tricubic, Epanechnikov (parabolic), a
 
 The other hyperparameter in our function is tau, which is called the "bandwidth" or the "smoothing parameter" and it controls how flexible the Lowess function will be by determining how much of the data will be used to fit each local curve.
 
-*Example of Loess with tricubic kernel and $y$ as a sine function*
+*Example of Loess with tricubic kernel and y as a sine function*
 ![lowess](https://user-images.githubusercontent.com/98488236/153338162-96c1cccc-4086-46b9-9e77-3903639acf5a.png)
 We can see that Lowess Regression with a tricubic kernel was able to almost perfectly fit a model to the sine function $y$, despite the noise, making it a strong learner model.
 ### Advantages of Lowess
@@ -102,20 +102,29 @@ def lowess_reg(x, y, xnew, kern, tau):
 ```
 
 # Random Forest Regression
-Random Forest is a versatile algorithm discussed in DATA 310 that can perform both regression and classification tasks. It involves picking a random set of points in the data and building regression trees. It involves the concept of **bootstrapping**, which is sampling from a dataset with replacement and **feature bagging**, which is when a random subset of the feature dimensions at each split in the growth of individual DTs..
+Random Forest is a versatile algorithm discussed in DATA 310 that can perform both regression and classification tasks. It involves picking a random set of points in the data and building regression trees. It involves the concept of **bootstrapping**, which is sampling from a dataset with replacement and **feature bagging**, which is when a random subset of the feature dimensions at each split in the growth of individual DTs. This means that at each split of the Decision tree, the model randomly considers only a small subset of features rather than all of the features of the model.
 
-In the case of regression, the mean prediction of the trees is outputted for each forest grown. Compared to individual Decision Trees, Random Forests avoid the problem of overfitting data
+### Advantages of Random Forests
+First, Random Forests are versatile and can perform both regression and classification. In the case of regression, the mean prediction of the trees is outputted for each forest grown. Compared to individual Decision Trees, Random Forests avoid the problem of overfitting data.
+
+Random Forest Regression also handles large datasets well and works especially well with non-linear data compared to other regression techniques.
+### Disadvantages of Random Forests
+Random Forests can be hard to visualize compared to single decision trees and often require large memory for storage.
+
+Even though it is less likely to be overfit than individual Decision Trees, Random Forests can still overfit if the hyperparameters are not properly tuned, so we will tune them in this project.
+
+## Implementation of Random Forests
 Sklearn has a Random Forest Regressor class that we import, and there are many hyperparemeters that we can tune to find a better model. For this project we will consider two hyperparameters for simplicity: number of trees in the forest and the maximum depth of each tree.
 
 ![random forest](https://user-images.githubusercontent.com/98488236/153299496-9cbddba2-c965-4dd7-b8fa-d23941da6f47.png)
 
-
-
 ```
-from sklearn.ensemble import RandomForestRegressor
-rf = RandomForestRegressor(n_estimators=150,max_depth=3)
+# import Random Forest Regressor from sklearn library
+from sklearn.ensemble import RandomForestRegressor as RFR
+rfr = RFR(n_estimators=150,max_depth=3)
 ```
-Syntax highlighted code block
+
+We will later find optimal values for the number of trees and max depth
 
 # Comparison of the Regression Techniques using 10-Fold validations
 To find the cross-validated MSE of both regressions, two separate functions were created, since Lowess is not an SKlearn model.
