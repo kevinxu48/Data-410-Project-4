@@ -113,6 +113,7 @@ In this example, we use a single Regression tree to predict the price of a car b
 
 
 *Python Regression Tree Example*
+
 <img width="502" alt="RegressionTreePython" src="https://user-images.githubusercontent.com/98488236/153451519-b7b2f8c7-30d1-4987-9559-e8ae1750cd67.png">
 
 Random Forest Regression also involves the concept of **bootstrapping**, which is sampling from a dataset with replacement and **feature bagging**, which is when a random subset of the feature dimensions is selected at each split in the growth of each Decision Trees. 
@@ -186,7 +187,7 @@ def DoKFold(model,x,y,k,rseed):
   return np.mean(mse_test)
 
 ```
-To find the cross-validated MSE of both regressions
+
 # Optimizing the Hyperparameters
 First, for Lowess Regression, to find the optimal kernel and value for tau, we perform multiple 10-Fold validations with different combinations of the two using three for-loops.
 ## Optimal Tau for Tricubic kernel
