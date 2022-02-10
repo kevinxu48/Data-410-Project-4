@@ -104,6 +104,9 @@ def lowess_reg(x, y, xnew, kern, tau):
 # Random Forest Regression
 Random Forest is a versatile algorithm discussed in DATA 310 that can perform both regression and classification tasks. It involves picking a random set of points in the data and building regression trees. It involves the concept of **bootstrapping**, which is sampling from a dataset with replacement and **feature bagging**, which is when a random subset of the feature dimensions at each split in the growth of individual DTs. This means that at each split of the Decision tree, the model randomly considers only a small subset of features rather than all of the features of the model.
 
+*Random Forest General Example*
+
+![random forest](https://user-images.githubusercontent.com/98488236/153299496-9cbddba2-c965-4dd7-b8fa-d23941da6f47.png)
 ### Advantages of Random Forests
 First, Random Forests are versatile and can perform both regression and classification. In the case of regression, the mean prediction of the trees is outputted for each forest grown. Compared to individual Decision Trees, Random Forests avoid the problem of overfitting data.
 
@@ -116,7 +119,6 @@ Even though it is less likely to be overfit than individual Decision Trees, Rand
 ## Implementation of Random Forests
 Sklearn has a Random Forest Regressor class that we import, and there are many hyperparemeters that we can tune to find a better model. For this project we will consider two hyperparameters for simplicity: number of trees in the forest and the maximum depth of each tree.
 
-![random forest](https://user-images.githubusercontent.com/98488236/153299496-9cbddba2-c965-4dd7-b8fa-d23941da6f47.png)
 
 ```
 # import Random Forest Regressor from sklearn library
