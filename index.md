@@ -1,6 +1,6 @@
 # A Comparison Between Locally Weighted Regression and Random Forest Regression
 
-# Locally Weighted Regression (Lowess)
+## Locally Weighted Regression (Lowess)
 The main idea in locally weighted regression is to apply linear regression along specific intervals to approximate a nonlinear curve by fitting and modeling low degree polynomial models to specific subsets of the data. From this, a function is built that represents the deterministic component of the variation in the data for every point, while trying to avoid the random error in the variation. 
 
 Moreover, a local set of points are bounded by a region and weighted by their proximity through Euclidean distance to a target point x0 using a kernel. In the context of Lowess, the kernel is a weighting function that the user decides on, and will serve as one of two hyperparameters for the function that we will later define. We then get a fitted model with only the point of the model that are close to the target point x0. The target point then moves away on the x axis and the procedure repeats for each points.
