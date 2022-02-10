@@ -103,10 +103,14 @@ def lowess_reg(x, y, xnew, kern, tau):
 
 # Random Forest Regression
 Random Forest is a versatile algorithm discussed in DATA 310 that can perform both regression and classification tasks. The regression tasks require picking a random set of points in the data and building Regression or **Decision Trees**, which are nested if-else conditions, and the splitting of a tree are decided based on criteria such as the gini impurity. 
-*Example of a single Decision Tree*
-![DecisionTreeExample](https://user-images.githubusercontent.com/98488236/153451668-f0f8905e-8bff-4673-a949-89316eb768ae.png)
 
 In this example, we use a single Regression tree to predict the price of a car by using a combination of features such as wheelbase and horsepower.
+
+*Example of a single Decision Tree*
+
+![DecisionTreeExample](https://user-images.githubusercontent.com/98488236/153451668-f0f8905e-8bff-4673-a949-89316eb768ae.png)
+
+
 
 *Python Regression Tree Example*
 <img width="502" alt="RegressionTreePython" src="https://user-images.githubusercontent.com/98488236/153451519-b7b2f8c7-30d1-4987-9559-e8ae1750cd67.png">
