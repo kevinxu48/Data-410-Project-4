@@ -258,7 +258,7 @@ plt.show()
 
 Hence, we got that 142 trees in the forest with a maximum depth of 3 produced an MSE of about 17.866. 
 
-Despite, trying our best to obtain a tau and the kernel that minimized the cross-validated test MSE, this value obtained for Random Forest Regression is still lower than that obtained from Lowess Regression.
+Despite, trying our best to obtain a tau and the kernel that minimized the cross-validated test MSE, this value obtained for Random Forest Regression is still greater/worse than that obtained from Lowess Regression.
 ## Conclusion
 
 By comparing the Locally Weighted Regression with Random Forest Regression on the "Cars" dataset, we found that, after tuning the hyperparameters for both Regression techniques, Lowess Regression produced a smaller cross-validated MSE: 17.638, than that produced by Random Forest Regression: 17.866. Moreover, even the suboptimal kernels implemented, Epanechnikov and quartic, also produced MSE values that were lower than Random Forest's 17.866.
