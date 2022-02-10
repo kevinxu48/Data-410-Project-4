@@ -230,7 +230,7 @@ Hence, we got that a tricubic kernel with a tau value of 0.2, produced the best 
 
 
 ## Optimizing Number of Trees and Max Depth for Random Forest
-First, we found that a max_depth of 3 in conjunction with , gave the lowest MSE values for Random Forest, so all that was left was to find optimal values for n_estimators. This was done using a for loop and plotting 
+As for Random Forest, we found that a max_depth of 3 in conjunction with any value of n_estimators outperformed other values for max_depth and gave the lowest MSE values. Hence, all that was left was to find optimal values for n_estimators paired with a maximum depth of 3. This was done using a for loop and plotting the MSE values of the test sets to find the number of trees that produced the minimum value.
 
 ```
 k = 10
