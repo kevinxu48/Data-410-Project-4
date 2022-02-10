@@ -190,7 +190,7 @@ def DoKFold(model,x,y,k,rseed):
 
 # Optimizing the Hyperparameters
 First, for Lowess Regression, to find the optimal kernel and value for tau, we perform multiple 10-Fold validations with different combinations of the two using three for-loops.
-## Optimal Tau for Tricubic kernel
+### Optimal Tau for Tricubic kernel
 ``` 
 # find optimal tau for tricubic kernel
 
