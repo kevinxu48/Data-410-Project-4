@@ -6,12 +6,14 @@ The main idea in locally weighted regression is to apply linear regression along
 Moreover, a local set of points are bounded by a region and weighted by their proximity through Euclidean distance to a target point $x_0$ using a kernel, which in this case is a weighting function that the user decides on, and will serve as one of two hyperparameters for the function that we will define. We then get a fitted model with only the point of the model that are close to the target point $x_0$. The target point then moves away on the x axis and the procedure repeats for each points.
 
 *Example of how the Locally Weighted Regression works*
+
 ![lowess-pred-1](https://user-images.githubusercontent.com/98488236/153333566-4816a54d-b7c3-47ad-87be-aabefcccf3c6.gif)
 
 
 Some examples of kernels include: Uniform, Tricubic, Epanechnikov (parabolic), and quartic (biweight), but typically the algorithm uses a tri-cubic weight function. The kernel gives the most weight to the data points nearest to the point of estimation and the least weight to the data points that are furthest away. 
 
 The other hyperparameter in our function is tau, which is called the "bandwidth" or the "smoothing parameter" and it controls how flexible the Lowess function will be by determining how much of the data will be used to fit each local curve.
+
 *Example of Loess with tricubic kernel and y as a noisy sine function*
 ![lowess](https://user-images.githubusercontent.com/98488236/153338162-96c1cccc-4086-46b9-9e77-3903639acf5a.png)
 
