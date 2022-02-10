@@ -123,7 +123,7 @@ This means that at each split of the Decision tree, the model randomly considers
 
 ![random forest](https://user-images.githubusercontent.com/98488236/153299496-9cbddba2-c965-4dd7-b8fa-d23941da6f47.png)
 ### Advantages of Random Forests
-First, Random Forests are versatile and can perform both regression and classification. In the case of regression, the mean prediction of the trees is outputted for each forest grown. Compared to individual Decision Trees, Random Forests avoid the problem of overfitting data.
+As previously stated, Random Forests are versatile and can perform both tasks in regression and classification. In the case of regression, the mean prediction of the trees is outputted for each forest grown. Compared to individual Decision Trees, Random Forests avoid the problem of overfitting data.
 
 Random Forest Regression also handles large datasets well and works especially well with non-linear data compared to other regression techniques.
 ### Disadvantages of Random Forests
