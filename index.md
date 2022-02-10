@@ -102,7 +102,9 @@ def lowess_reg(x, y, xnew, kern, tau):
 ```
 
 # Random Forest Regression
-Random Forest is a versatile algorithm discussed in DATA 310 that can perform both regression and classification tasks. It involves picking a random set of points in the data and building regression trees. It involves the concept of **bootstrapping**, which is sampling from a dataset with replacement and **feature bagging**, which is when a random subset of the feature dimensions at each split in the growth of individual DTs. This means that at each split of the Decision tree, the model randomly considers only a small subset of features rather than all of the features of the model.
+Random Forest is a versatile algorithm discussed in DATA 310 that can perform both regression and classification tasks. It involves picking a random set of points in the data and building regression trees. It involves the concept of **bootstrapping**, which is sampling from a dataset with replacement and **feature bagging**, which is when a random subset of the feature dimensions is selected at each split in the growth of each Decision Trees. 
+
+This means that at each split of the Decision tree, the model randomly considers only a small subset of features and the best split feature from the subset is used to split each node in a tree, unlike in regular **bagging** where all features are considered for the splitting of a node.
 
 *Random Forest General Example*
 
