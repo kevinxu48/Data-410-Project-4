@@ -25,7 +25,7 @@ A big limitation of Lowess is that you need a relatively large sampled dataset t
 
 In addition, since Lowess is a Least Squares method, it is also hurt by the presence of outliers, since they would still have a great effect on the slope of the locally fitted regression line. 
 
-Lowess is also a computationally intensive method, since a regression model is computed for each point
+Lowess is also a computationally intensive method, since a regression model is computed for each point.
 ## Implementation of Kernels
 In this project we defined the Tricubic, Epanechnikov, and quartic kernels in python as follows:
 ```
