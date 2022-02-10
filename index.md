@@ -16,7 +16,7 @@ The other hyperparameter in our function is tau, which is called the "bandwidth"
 
 *Example of Loess with tricubic kernel and $y$ as a sine function*
 ![lowess](https://user-images.githubusercontent.com/98488236/153338162-96c1cccc-4086-46b9-9e77-3903639acf5a.png)
-We can see that Lowess Regression was able to almost perfectly fit a model to the sine function $y$, despite the noise, making it a strong learner model.
+We can see that Lowess Regression with a tricubic kernel was able to almost perfectly fit a model to the sine function $y$, despite the noise, making it a strong learner model.
 ### Advantages of Lowess
 The main advantage and appeal of Lowess is the fact that it does not require the specification of a global function to fit a model to the entire dataset, only subsets of the data. Instead we only have to choose a kernel and a tau value.
 
