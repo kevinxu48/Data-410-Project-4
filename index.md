@@ -2,9 +2,16 @@
 
 # Locally Weighted Regression (Lowess)
 In locally weighted regression, points are weighted by their proximity to a fitted data point using a kernel, which in this case is a weighting function that the user decides on, and will serve as one of two hyperparameters for our function. Some examples of kernels include: Uniform, Tricubic, Epanechnikov (parabolic), and quartic (biweight), but typically the algorithm uses a tri-cubic weight function. The kernel gives the most weight to the data points nearest to the point of estimation and the least weight to the data points that are furthest away. 
-![lowess](https://user-images.githubusercontent.com/98488236/153328752-727cbe76-14fe-40eb-8a0e-21c762bd84dd.png)
+![lowess-pred-1](https://user-images.githubusercontent.com/98488236/153333566-4816a54d-b7c3-47ad-87be-aabefcccf3c6.gif)
 
 The other hyperparameter in our function is tau, which is called the "bandwidth" or the "smoothing parameter" and it controls how flexible the Lowess function will be by determining how much of the data will be used to fit each local curve.
+
+### Advantages of Lowess
+
+### Disadvantages of Lowess
+The main limitation of Lowess is that you need a relatively large sampled dataset to produce useful models because it needs to observe a sufficient amount of data subsets to perform local fitting, which can be imprecise if there is not enough data.
+
+In addition, since Lowess is a Least Squares method, it is also hurt by the presence of outliers, since they would still have a great effect on the slope of the locally fitted regression line. 
 
 ### Implementation of Kernels
 In this project we defined the Tricubic, Epanechnikov, and quartic kernels in python as follows:
@@ -209,7 +216,7 @@ plt.show()
 
 ![MSE](https://user-images.githubusercontent.com/98488236/153284569-0e3435a5-5321-4866-a075-b9d390d09109.png)
 
-Hence, we got that 142 trees in the forest with a maximum depth of 3 produced an MSE of about 17.866. Despite, trying our best to obtain hyperparemters that minimized the cross-validated test MSE, this value is still lower than that obtained from Lowess Regression.
+Hence, we got that 142 trees in the forest with a maximum depth of 3 produced an MSE of about 17.866. Despite, trying our best to obtain a tau and the kernel that minimized the cross-validated test MSE, this value obtained for Random Forest Regression is still lower than that obtained from Lowess Regression.
 ## Conclusion
 
 By comparing the Locally Weighted Regression with Random Forest Regression on the "Cars" dataset, we found that The Loess produced a smaller cross-validated MSE than that of Random Forest. Since we desire smaller MSE values, we can conclude that Locally Weighted Regression is superior to Random Forest Regression in this example. Given the prevalence and importance of Random Forest, this project demonstrates the significance and potential of Locally Weighted Regression.
