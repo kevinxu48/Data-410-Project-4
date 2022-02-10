@@ -123,13 +123,13 @@ This means that at each split of the Decision tree, the model randomly considers
 
 ![random forest](https://user-images.githubusercontent.com/98488236/153299496-9cbddba2-c965-4dd7-b8fa-d23941da6f47.png)
 ### Advantages of Random Forests
-As previously stated, Random Forests are versatile and can perform both tasks in regression and classification. In the case of regression, the mean prediction of the trees is outputted for each forest grown. Compared to individual Decision Trees, Random Forests avoid the problem of overfitting data.
+As previously stated, Random Forests are versatile and can perform both tasks in regression and classification. In the case of regression, the mean prediction of the trees is outputted for each forest grown, so unlike individual Decision Trees, Random Forests better avoids the problem of overfitting data.
 
 Random Forest Regression also handles large datasets well and works especially well with non-linear data compared to other regression techniques.
 ### Disadvantages of Random Forests
 Random Forests can be hard to visualize compared to single decision trees and often require large memory for storage.
 
-Even though it is less likely to be overfit than individual Decision Trees, Random Forests can still overfit if the hyperparameters are not properly tuned, so we will tune them in this project.
+Even though it is less likely to be overfit than individual Decision Trees, Random Forests can still overfit if the hyperparameters are not properly tuned, so we will try to optimize them in this project.
 
 ## Implementation of Random Forests
 Sklearn has a Random Forest Regressor class that we import, and there are many hyperparemeters that we can tune to find a better model. For this project we will consider two hyperparameters for simplicity: number of trees in the forest and the maximum depth of each tree.
