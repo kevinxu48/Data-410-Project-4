@@ -12,7 +12,7 @@ where F is the model or regressor we consider.
 ## Feature Selection
 One important factor in multivariate regression is choosing the features that are the most important. There is often multicolinearity between certain independent variables, so removing the irrelevant or redundant features will improve learning accuracy on the training data and reduces the overall run time.
 
-To actually perform the feature selection, we multiply the <img src="https://render.githubusercontent.com/render/math?math=n"> variables in the selected model by a binary weight vector: <img src="https://render.githubusercontent.com/render/math?math=(w_1,w_2,\cdots, w_n)"> which has the value 1 if a variable should be included in the model or a value of 0 otherwise.
+To actually perform the feature selection, we multiply the <img src="https://render.githubusercontent.com/render/math?math=n"> variables in the selected model by a binary weight vector <img src="https://render.githubusercontent.com/render/math?math=(w_1,w_2,\cdots, w_n)">, <img src="https://render.githubusercontent.com/render/math?math=w_p\in \{0,1\}"> which has the value 1 if a variable should be included in the model or a value of 0 otherwise.
 
 Lowess is also a computationally intensive method, since a regression model is computed for each point.
 ## Implementation of Kernels
