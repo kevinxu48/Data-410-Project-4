@@ -1,7 +1,7 @@
 # Multivariate Regression Analysis and Gradient Boosting
 
 ## Multivariate Regression Analysis
-Multivariate regression is a regression technique that estimates a regression model with more than one dependent/response variable, while using more than one predictor variable in a multivariate regression model, the model is a multivariate multiple regression.
+Multivariate regression is a regression technique that estimates a regression model with one or more dependent/response variable, while using more than one independent/predictor variable in a multivariate regression model, the model is a multivariate multiple regression.
 
 In general for Multivariate models, for <img src="https://render.githubusercontent.com/render/math?math=n"> number of features, we want 
 
@@ -15,7 +15,7 @@ To actually perform the feature selection, we multiply the <img src="https://ren
 
 
 ## Types of Multivariate Regression 
-One of the most common type of multivariate Regression is linear regression, which fits a linear equation to given data in an attempt to model the relationship between a single independent variable and a dependent variable, with any other features having weights of 0. 
+One of the most common type of multivariate Regression is multiple linear regression, which fits a linear equation to given data in an attempt to model the relationship between a single independent variable and a dependent variable, with any other features having weights of 0. 
 
 ### Advantages of Multivariate Regression
 Multivariate analysis may reduce the likelihood of making Type I errors (rejecting a true null hypothesis).
