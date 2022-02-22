@@ -1,4 +1,4 @@
-# A Comparison Between Multivariate Regression Analysis and Gradient Boosting
+# Multivariate Regression Analysis and Gradient Boosting
 
 ## Multivariate Regression Analysis
 Multivariate regression is a regression technique that estimates a regression model with more than one dependent/response variable, while using more than one predictor variable in a multivariate regression model, the model is a multivariate multiple regression.
