@@ -276,6 +276,8 @@ Since we desire smaller MSE values, we can conclude that Locally Weighted Regres
 ## References
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3049417/
 
+https://brilliant.org/wiki/multivariate-regression/#:~:text=Multivariate%20Regression%20is%20a%20method,responses)%2C%20are%20linearly%20related.&text=A%20mathematical%20model%2C%20based%20on,and%20other%20more%20complicated%20questions.
+
 https://machinelearningmastery.com/gentle-introduction-gradient-boosting-algorithm-machine-learning/
 
 https://towardsdatascience.com/understanding-adaboost-2f94f22d5bfe
