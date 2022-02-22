@@ -6,6 +6,7 @@ Multivariate regression is a regression technique that estimates a single regres
 In general, for p number of features, we want 
 
 <img src="http://www.sciweavers.org/tex2img.php?eq=E%28y%7C%20X_1%2C%20X_2%2C%5Ccdots%2C%20X_p%29%20%3A%3D%20F%28X_1%2C%20X_2%2C%5Ccdots%2C%20X_p%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="E(y| X_1, X_2,\cdots, X_p) := F(X_1, X_2,\cdots, X_p)" width="318" height="21" />
+
 where F is the model or regressor we consider.
 
 *Example of how the Locally Weighted Regression works*
