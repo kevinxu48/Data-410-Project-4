@@ -3,8 +3,9 @@
 ## Multivariate Regression Analysis
 Multivariate regression is a regression technique that estimates a single regression model with more than one outcome variable. When there is more than one predictor variable in a multivariate regression model, the model is a multivariate multiple regression.
 
-In general, for p number of features, we want 
-<img src="https://render.githubusercontent.com/render/math?math=E(y|X_1,X_2,\cdots, X_p) = F(X_1,X_2,\cdots, X_p)">
+In general, for <img src="https://render.githubusercontent.com/render/math?math=n"> number of features, we want 
+
+<img src="https://render.githubusercontent.com/render/math?math=E(y|X_1,X_2,\cdots, X_n) = F(X_1,X_2,\cdots, X_n)">
 where F is the model or regressor we consider.
 
 *Example of how the Locally Weighted Regression works*
