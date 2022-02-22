@@ -8,22 +8,11 @@ In general for Multivariate models, for <img src="https://render.githubuserconte
 <img src="https://render.githubusercontent.com/render/math?math=E(y|X_1,X_2,\cdots, X_n) = F(X_1,X_2,\cdots, X_n) = Y">
 where F is the model or regressor we consider.
 
-*Example of how the Locally Weighted Regression works*
 
-Some examples of kernels include: Uniform, Tricubic, Epanechnikov (parabolic), and quartic (biweight), but typically the algorithm uses a tri-cubic weight function. The kernel gives the most weight to the data points nearest to the point of estimation and the least weight to the data points that are furthest away. 
+## Feature Selection
+One important factor in multivariate regression is choosing the features that are the most important. There is often multicolinearity between certain independent variables, so removing the irrelevant or redundant features will improve learning accuracy on the training data and reduces the overall run time.
 
-The other hyperparameter in our function is tau, which is called the "bandwidth" or the "smoothing parameter" and it controls how flexible the Lowess function will be by determining how much of the data will be used to fit each local curve.
-
-*Example of Loess with tricubic kernel and y as a sine function*
-![lowess](https://user-images.githubusercontent.com/98488236/153338162-96c1cccc-4086-46b9-9e77-3903639acf5a.png)
-We can see that Lowess Regression with a tricubic kernel was able to almost perfectly fit a model to the sine function y, despite the noise, making it a strong learner model.
-### Advantages of Lowess
-The main advantage and appeal of Lowess is the fact that it does not require the specification of a global function to fit a model to the entire dataset, only subsets of the data. Instead we only have to choose a kernel and a tau value.
-
-### Disadvantages of Lowess
-A big limitation of Lowess is that you need a relatively large sampled dataset to produce useful models because it needs to observe a sufficient amount of data subsets to perform local fitting, which can be imprecise if there is not enough data.
-
-In addition, since Lowess is a Least Squares method, it is also hurt by the presence of outliers, since they would still have a great effect on the slope of the locally fitted regression line. 
+To actually perform the feature selection, we multiply the <img src="https://render.githubusercontent.com/render/math?math=n"> variables in the selected model by a binary weight vector: <img src="https://render.githubusercontent.com/render/math?math=(w_1,w_2,\cdots, w_n)"> which has the value 1 if a variable should be included in the model or a value of 0 otherwise.
 
 Lowess is also a computationally intensive method, since a regression model is computed for each point.
 ## Implementation of Kernels
