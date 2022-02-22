@@ -2,10 +2,13 @@
 
 ## Multivariate Regression Analysis
 Multivariate regression is a regression technique that estimates a single regression model with more than one outcome variable. When there is more than one predictor variable in a multivariate regression model, the model is a multivariate multiple regression.
+
+In general, for p number of features, we want 
+
+<img src="http://www.sciweavers.org/tex2img.php?eq=E%28y%7C%20X_1%2C%20X_2%2C%5Ccdots%2C%20X_p%29%20%3A%3D%20F%28X_1%2C%20X_2%2C%5Ccdots%2C%20X_p%29&bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0" align="center" border="0" alt="E(y| X_1, X_2,\cdots, X_p) := F(X_1, X_2,\cdots, X_p)" width="318" height="21" />
+where F is the model or regressor we consider.
+
 *Example of how the Locally Weighted Regression works*
-
-![lowess-pred-1](https://user-images.githubusercontent.com/98488236/153333566-4816a54d-b7c3-47ad-87be-aabefcccf3c6.gif)
-
 
 Some examples of kernels include: Uniform, Tricubic, Epanechnikov (parabolic), and quartic (biweight), but typically the algorithm uses a tri-cubic weight function. The kernel gives the most weight to the data points nearest to the point of estimation and the least weight to the data points that are furthest away. 
 
