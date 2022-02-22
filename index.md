@@ -8,13 +8,21 @@ In general for Multivariate models, for <img src="https://render.githubuserconte
 <img src="https://render.githubusercontent.com/render/math?math=E(y|X_1,X_2,\cdots, X_n) = F(X_1,X_2,\cdots, X_n) = Y">
 where F is the model or regressor we consider.
 
-
 ## Feature Selection
-One important factor in multivariate regression is choosing the features that are the most important. There is often multicolinearity between certain independent variables, so removing the irrelevant or redundant features will improve learning accuracy on the training data and reduces the overall run time.
+One important factor in multivariate regression is choosing the features that are the most important. There is often multicolinearity between certain independent variables, so removing the irrelevant or redundant features will improve learning accuracy on the training data and reduces the overall run time. Often, the most **parsimonious** model is selected with the least number of explanatory variables possible while still explaining the data.
 
-To actually perform the feature selection, we multiply the <img src="https://render.githubusercontent.com/render/math?math=n"> variables in the selected model by a binary weight vector <img src="https://render.githubusercontent.com/render/math?math=(w_1,w_2,\cdots, w_n)">, <img src="https://render.githubusercontent.com/render/math?math=w_p\in \{0,1\}"> which has the value 1 if a variable should be included in the model or a value of 0 otherwise. This vector of weights is known as the *sparsity pattern* or the incidence matrix.
+To actually perform the feature selection, we multiply the <img src="https://render.githubusercontent.com/render/math?math=n"> variables in the selected model by a binary weight vector <img src="https://render.githubusercontent.com/render/math?math=(w_1,w_2,\cdots, w_n)">, <img src="https://render.githubusercontent.com/render/math?math=w_p\in \{0,1\}"> which has the value 1 if a variable should be included in the model or a value of 0 otherwise. This vector of weights is known as the **sparsity pattern** or the incidence matrix.
 
-Lowess is also a computationally intensive method, since a regression model is computed for each point.
+
+## Types of Multivariate Regression 
+One of the most common type of multivariate Regression is linear regression, which fits a linear equation to given data in an attempt to model the relationship between a single independent variable and a dependent variable, with any other features having weights of 0. 
+
+### Advantages of Multivariate Regression
+Multivariate analysis may reduce the likelihood of making Type I errors (rejecting a true null hypothesis).
+
+### Disadvantages of Multivariate Regression
+The process of feature selection leaves the possibility of lurking variables, which is when the relationship between two variables is significantly affected by the presence of a third variable which has not been included in the modeling. Unsuitable for small data sets because 
+
 ## Implementation of Kernels
 In this project we defined the Tricubic, Epanechnikov, and quartic kernels in python as follows:
 ```
