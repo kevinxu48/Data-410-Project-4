@@ -13,17 +13,20 @@ One important factor in multivariate regression is choosing the features that ar
 
 To actually perform the feature selection, we multiply the <img src="https://render.githubusercontent.com/render/math?math=n"> variables in the selected model by a binary weight vector <img src="https://render.githubusercontent.com/render/math?math=(w_1,w_2,\cdots, w_n)">, <img src="https://render.githubusercontent.com/render/math?math=w_p\in \{0,1\}"> which has the value 1 if a variable should be included in the model or a value of 0 otherwise. This vector of weights is known as the **sparsity pattern** or the incidence matrix.
 
-
 ## Types of Multivariate Regression 
 One of the most common type of multivariate Regression is multiple linear regression, which fits a linear equation to given data in an attempt to model the relationship between a single independent variable and a dependent variable, with any other features having weights of 0. 
 
+### Possible Applications of Multivariate Regression
+- One way 
 ### Advantages of Multivariate Regression
 Multivariate analysis may reduce the likelihood of making Type I errors (rejecting a true null hypothesis).
 
 ### Disadvantages of Multivariate Regression
 The process of feature selection leaves the possibility of lurking variables, which is when the relationship between two variables is significantly affected by the presence of a third variable which has not been included in the modeling. Unsuitable for small data sets because 
 
-## Implementation of Kernels
+## Gradient Boosting
+The concept of Gradient boosting originated with the idea of turning a *weak learner*, a learner whose performance is marginally better than random guessing, into a stronger learner.
+
 In this project we defined the Tricubic, Epanechnikov, and quartic kernels in python as follows:
 ```
 # Tricubic kernel
@@ -264,3 +267,5 @@ Since we desire smaller MSE values, we can conclude that Locally Weighted Regres
 
 ## References
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3049417/
+
+https://machinelearningmastery.com/gentle-introduction-gradient-boosting-algorithm-machine-learning/
