@@ -1,10 +1,7 @@
 # A Comparison Between Multivariate Regression Analysis and Gradient Boosting
 
-## Locally Weighted Regression (Lowess)
-The main idea in locally weighted regression is to apply linear regression along specific intervals to approximate a nonlinear curve by fitting and modeling low degree polynomial models to specific subsets of the data. From this, a function is built that represents the deterministic component of the variation in the data for every point, while trying to avoid the random error in the variation. 
-
-Moreover, a local set of points are bounded by a region and weighted by their proximity through Euclidean distance to a target point x0 using a kernel. In the context of Lowess, the kernel is a weighting function that the user decides on, and will serve as one of two hyperparameters for the function that we will later define. We then get a fitted model with only the point of the model that are close to the target point x0. The target point then moves away on the x axis and the procedure repeats for each points.
-
+## Multivariate Regression Analysis
+Multivariate regression is a regression technique that estimates a single regression model with more than one outcome variable. When there is more than one predictor variable in a multivariate regression model, the model is a multivariate multiple regression.
 *Example of how the Locally Weighted Regression works*
 
 ![lowess-pred-1](https://user-images.githubusercontent.com/98488236/153333566-4816a54d-b7c3-47ad-87be-aabefcccf3c6.gif)
@@ -264,3 +261,6 @@ Despite, trying our best to obtain a tau and the kernel that minimized the cross
 By comparing the Locally Weighted Regression with Random Forest Regression on the "Cars" dataset, we found that, after tuning the hyperparameters for both Regression techniques, Lowess Regression produced a smaller cross-validated MSE: 17.638, than that produced by Random Forest Regression: 17.866. Moreover, even the suboptimal kernels implemented, Epanechnikov and quartic, also produced MSE values that were lower than Random Forest's 17.866.
 
 Since we desire smaller MSE values, we can conclude that Locally Weighted Regression is superior to Random Forest Regression in this example using the cars dataset. Given the prevalence and importance of Random Forest, this project is a great introduction in demonstrating the significance and potential of Locally Weighted Regression.
+
+## References
+https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3049417/
