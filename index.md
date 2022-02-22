@@ -24,12 +24,19 @@ Multivariate analysis may reduce the likelihood of making Type I errors (rejecti
 ### Disadvantages of Multivariate Regression
 The process of feature selection leaves the possibility of lurking variables, which is when the relationship between two variables is significantly affected by the presence of a third variable which has not been included in the modeling. Unsuitable for small data sets because 
 
-## Gradient Boosting
-The concept of Gradient boosting originated with the idea of turning a *weak learner*, a learner whose performance is marginally better than random guessing, into a stronger learner. Say we are given a weak learner such as a regressor <img src="https://render.githubusercontent.com/render/math?math=F"> that for <img src="https://render.githubusercontent.com/render/math?math=n"> observations makes predictions: <img src="https://render.githubusercontent.com/render/math?math=F(x_i)"> for the ith observation for <img src="https://render.githubusercontent.com/render/math?math=i \in \{1,2,\cdots, n\}">. To turn <img src="https://render.githubusercontent.com/render/math?math=F"> into a stronger learner, a decision tree <img src="https://render.githubusercontent.com/render/math?math=h"> is trained.
+# Gradient Boosting for Regression
+The concept of Gradient boosting originated with the idea of turning a *weak learner*, a learner whose performance is marginally better than random guessing, into a stronger learner. Moreover, it combines the concept of Gradient Descent and "Boosting", such that an additive model such as a Decision Tree is added to a weak learner to minimize the loss function, which is the goal of Gradient Descent.
 
-In this project we defined the Tricubic, Epanechnikov, and quartic kernels in python as follows:
-```
-# Tricubic kernel
+Say we are given a weak learner such as a regressor <img src="https://render.githubusercontent.com/render/math?math=F"> that for <img src="https://render.githubusercontent.com/render/math?math=n"> observations makes predictions: <img src="https://render.githubusercontent.com/render/math?math=F(x_i)"> for the ith observation for <img src="https://render.githubusercontent.com/render/math?math=i \in \{1,2,\cdots, n\}">.
+
+A loss function to be optimized.
+A weak learner to make predictions.
+An additive model to add weak learners to minimize the loss function.
+To turn <img src="https://render.githubusercontent.com/render/math?math=F"> into a stronger learner, a decision tree <img src="https://render.githubusercontent.com/render/math?math=h"> is trained with the goal of predicting the residuals.
+
+In other words, every leaf will contain a prediction as to the value of the residual 
+## Extreme Gradient Boosting (XGB)
+XGB is an implementation of Gradient Boosting in which regularization parameters are , and is faster, more memory efficient and accurate compared to other implementations of Gradient Boosting.
 def tricubic(x):
   if len(x.shape) == 1:  # use a conditional to reshape if it is a row vector
     x = x.reshape(-1,1)
