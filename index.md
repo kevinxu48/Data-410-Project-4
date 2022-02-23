@@ -29,13 +29,15 @@ Gradient Boosting can be used for both classification and regression problems, b
 
 In general, say we are given a weak learner such as a regressor <img src="https://render.githubusercontent.com/render/math?math=F"> that for <img src="https://render.githubusercontent.com/render/math?math=n"> observations makes predictions: <img src="https://render.githubusercontent.com/render/math?math=F(x_i)"> for the ith observation for <img src="https://render.githubusercontent.com/render/math?math=i \in \{1,2,\cdots, n\}">.
 
-To turn <img src="https://render.githubusercontent.com/render/math?math=F"> into a stronger learner, a decision tree <img src="https://render.githubusercontent.com/render/math?math=h"> is trained with the goal of predicting the residuals with the outputs being the residuals <img src="https://render.githubusercontent.com/render/math?math=y_i - F(x_i)">.
+To turn <img src="https://render.githubusercontent.com/render/math?math=F"> into a stronger learner, a decision tree <img src="https://render.githubusercontent.com/render/math?math=h"> is trained with the goal of predicting the residuals with the outputs being the residuals <img src="https://render.githubusercontent.com/render/math?math=y_i - F(x_i)"> which are the difference between the observed and predicted values.
 
 To start, Gradient Boost will start by making a single leaf that represents the initial guess for the weights of all the samples. Gradient Boost's first prediction is the average value of the dependent variable, and a Decision Tree is built from this prediction that has a restricted number of leaves. The algorithm will continue to build trees based on the errors of previous trees, and only stops until additional trees do not improve the fit or it reaches the max number of trees you will set as a hyperparameter.
+
+*Description of how residuals are calculated and used to build the trees*
 ![gradientboosting](https://user-images.githubusercontent.com/98488236/155253952-775739d0-fd0a-4e1a-a228-553192934fee.png)
 
 
-To prevent overfitting and reduce variance, Gradient Boost utilizes a learning rate between 0 and 1
+To prevent overfitting and reduce variance, each tree's contribution to the prediction is scaled with a learning rate between 0 and 1
 ## Extreme Gradient Boosting (XGB)
 XGB is an implementation of Gradient Boosting in which regularization parameters are , and is faster, more memory efficient and accurate compared to other implementations of Gradient Boosting.
 def tricubic(x):
