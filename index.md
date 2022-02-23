@@ -17,8 +17,11 @@ To actually perform the feature selection, we multiply the <img src="https://ren
 One of the most common type of multivariate Regression is multiple linear regression, which fits a linear equation to given data in an attempt to model the relationship between a single independent variable and a dependent variable, with any other features having weights of 0. 
 
 
-### Possible Applications of Multivariate Regression
-- One way 
+### Applications of Multivariate Regression
+Here are some of the applications of Multivariate Regression on data that we will perform in this project:
+- Predict the miles per gallon of a car given variables such as its weight, number of cylinder, and engine displacement
+- Predict the median value of a house given variables such as average number of rooms, amount per capita crime, proportions of non-retail business acres per town, etc.
+- Predict the strength of concrete given variables such as the amount of concrete, fly ash, water, etc. present in the mixture, and the age in days 
 ### Advantages of Multivariate Regression
 Multivariate analysis may reduce the likelihood of making Type I errors (rejecting a true null hypothesis).
 
