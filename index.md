@@ -18,7 +18,7 @@ One of the most common type of multivariate Regression is multiple linear regres
 
 
 ### Applications of Multivariate Regression
-Here are some of the applications of Multivariate Regression on data that we will perform in this project:
+Here are some regression problems that we will solve using Multivariate Regression in this project:
 - Predict the miles per gallon of a car given variables such as its weight, number of cylinder, and engine displacement
 - Predict the median value of a house given variables such as average number of rooms, amount per capita crime, proportions of non-retail business acres per town, etc.
 - Predict the strength of concrete given variables such as the amount of concrete, fly ash, water, etc. present in the mixture, and the age in days 
