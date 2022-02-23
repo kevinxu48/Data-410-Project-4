@@ -34,10 +34,12 @@ To start the algorithm, a single leaf is created that represents the initial gue
 *Description of how residuals are calculated and used to build the trees*
 ![gradientboosting](https://user-images.githubusercontent.com/98488236/155253952-775739d0-fd0a-4e1a-a228-553192934fee.png)
 
+To prevent overfitting and reduce variance, each tree's contribution to the prediction can be scaled with a learning rate between 0 and 1.
 
-To prevent overfitting and reduce variance, each tree's contribution to the prediction is scaled with a learning rate between 0 and 1
 ## Extreme Gradient Boosting (XGB)
-XGB is an implementation of Gradient Boosting in which regularization parameters are , and is faster, more memory efficient and accurate compared to other implementations of Gradient Boosting.
+XGB is an open source implementation of Gradient Boosting in which regularization parameters are , and is faster, more memory efficient and accurate compared to other implementations of Gradient Boosting. XGBoost has multiple hyperparameters that we can tune: the objective/learning task which is MSE in this project, the number of gradient boosted trees, the maximum depth of the trees, Gamma-the minimum loss reduction required to partition a leaf, Lambda and Alpha- the L1 and L2 norms respectively that control the weights, and the learning rate.
+
+
 def tricubic(x):
   if len(x.shape) == 1:  # use a conditional to reshape if it is a row vector
     x = x.reshape(-1,1)
