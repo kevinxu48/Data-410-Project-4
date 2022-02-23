@@ -31,7 +31,7 @@ In general, say we are given a weak learner such as a regressor <img src="https:
 
 To turn <img src="https://render.githubusercontent.com/render/math?math=F"> into a stronger learner, a decision tree <img src="https://render.githubusercontent.com/render/math?math=h"> is trained with the goal of predicting the residuals.
 
-To start, Gradient Boost will start by making a single leaf that represents the initial guess for the weights of all the samples. Gradient Boost's first prediction is the average value of the dependent variable, and a Decision Tree is built from this prediction that has a restricted number of leaves. The algorithm will continue to build trees based on the errors of previous trees.
+To start, Gradient Boost will start by making a single leaf that represents the initial guess for the weights of all the samples. Gradient Boost's first prediction is the average value of the dependent variable, and a Decision Tree is built from this prediction that has a restricted number of leaves. The algorithm will continue to build trees based on the errors of previous trees, and only stops until additional trees do not improve the fit or it reaches the max number of trees you will set as a hyperparameter.
 
 ## Extreme Gradient Boosting (XGB)
 XGB is an implementation of Gradient Boosting in which regularization parameters are , and is faster, more memory efficient and accurate compared to other implementations of Gradient Boosting.
