@@ -292,7 +292,7 @@ for t in t_range:
 ```
 ```
 # plot the test mse to find the best value for n_estimators
-
+```
 idx = np.argmin(test_mse)
 print([t_range[idx], test_mse[idx]])
 plt.plot(t_range,test_mse, '-xr',label='Test')
