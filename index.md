@@ -16,7 +16,7 @@ To actually perform the feature selection, we multiply the <img src="https://ren
 ## Types of Multivariate Regression 
 One of the most common type of multivariate Regression is multiple linear regression, which fits a linear equation to given data in an attempt to model the relationship between a single independent variable and a dependent variable, with any other features having weights of 0. 
 
-
+Another type is logistic regression which uses a logistic function to model a binary dependent variable.
 ### Applications of Multivariate Regression
 Here are some regression problems that we will solve using Multivariate Regression in this project:
 - Predict the miles per gallon of a car given variables such as its weight, number of cylinder, and engine displacement
