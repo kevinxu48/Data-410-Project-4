@@ -76,15 +76,28 @@ To implement XGB in python, we can simply install the xgboost package by running
 ```
 import xgboost as xgb
 ```
+## Advantages of XGB
+-
+
+## Disadvantages of XGB
 
 # Comparison of Various Regression Methods
 ## New Kernels for Lowess
-def tricubic(x):
-  if len(x.shape) == 1:  # use a conditional to reshape if it is a row vector
+In addition to the tricubic, quartic, and Epanechnikov kernels we implemented in project 2, this project will implement two additional kernels: Triweight and Cosine.
+```
+# Triweight Kernel
+def Triweight(x):
+  if len(x.shape) == 1:
     x = x.reshape(-1,1)
   d = np.sqrt(np.sum(x**2,axis=1))
-  return np.where(d>1,0,70/81*(1-d**3)**3)
-```
+  return np.where(d>1,0,35/32*(1-d**2)**3)
+
+# Cosine Kernel
+def Cosine(x):
+  if len(x.shape) == 1:
+    x = x.reshape(-1,1)
+  d = np.sqrt(np.sum(x**2,axis=1))
+  return np.where(d>1,0,np.pi/4*(np.cos((np.pi/2) *d)) 
 ```
 # Plot of the Tricubic Kernel
 y = tricubic(x)
