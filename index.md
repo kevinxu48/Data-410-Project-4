@@ -332,3 +332,5 @@ https://towardsdatascience.com/xgboost-python-example-42777d01001e
 https://towardsdatascience.com/machine-learning-part-18-boosting-algorithms-gradient-boosting-in-python-ef5ae6965be4
 
 https://www.geeksforgeeks.org/ml-gradient-boosting/
+
+https://en.wikipedia.org/wiki/Kernel_(statistics)
