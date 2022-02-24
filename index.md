@@ -20,11 +20,15 @@ One important factor in multivariate regression is choosing the features that ar
 To actually perform the feature selection, we multiply the <img src="https://render.githubusercontent.com/render/math?math=n"> variables in the selected model by a binary weight vector <img src="https://render.githubusercontent.com/render/math?math=(w_1,w_2,\cdots, w_n)">, <img src="https://render.githubusercontent.com/render/math?math=w_p\in \{0,1\}"> which has the value 1 if a variable should be included in the model or a value of 0 otherwise. This vector of weights is known as the **sparsity pattern** or the incidence matrix.
 
 Given the sparsity pattern, the mathematical function of a Multivariate regression model is usually of the form: 
-
-<img src="https://render.githubusercontent.com/render/math?math=\large{ Y = \beta_0 + \beta_1\cdot X_1 + \cdots + \beta_p\cdot X_p + \sigma\epsilon}">, where <img src="https://render.githubusercontent.com/render/math?math=Y = \beta_i"> determines the contribution of the independent variable <img src="https://render.githubusercontent.com/render/math?math=Y = X_i"> and <img src="https://render.githubusercontent.com/render/math?math=Y = \sigma"> is the residual standard deviation with the random noise <img src="https://render.githubusercontent.com/render/math?math=\epsilon"> i.i.d. with expected value of 0. The sparsity pattern means that a subset of the <img src="https://render.githubusercontent.com/render/math?math=\beta">'s will be 0. 
+![mlr model](https://user-images.githubusercontent.com/98488236/155565976-21670880-71ec-46f3-a823-44cdadcf699a.jpg)
+ where <img src="https://render.githubusercontent.com/render/math?math=\beta_i"> determines the contribution of the independent variable <img src="https://render.githubusercontent.com/render/math?math=Y = X_i"> and <img src="https://render.githubusercontent.com/render/math?math=\sigma"> is the residual standard deviation with the residuals being i.i.d. with an expected value of 0. The sparsity pattern means that a subset of the <img src="https://render.githubusercontent.com/render/math?math=\beta">'s will be 0. 
 
 ## Rank Deficiency
-Moreover, we
+Moreover, we can solve for the weights by utilizing some Algebra to obtain:
+
+![equation](https://user-images.githubusercontent.com/98488236/155569885-3253811f-acd1-4f05-92f1-e6befd4f0c6b.jpg)
+
+However, we reach a problem when <img src="https://render.githubusercontent.com/render/math?math=X^TX}"> is not invertible, which can happen when X is not a square matrix or in general when the columns of X form a linearly dependent set.
 
 ### Applications of Multivariate Regression
 Here are some regression problems that we will solve using Multivariate Regression in this project:
