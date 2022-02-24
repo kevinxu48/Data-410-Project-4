@@ -29,15 +29,14 @@ Moreover, we can solve for the weights by utilizing some Algebra and the method 
 
 ![equation](https://user-images.githubusercontent.com/98488236/155569885-3253811f-acd1-4f05-92f1-e6befd4f0c6b.jpg)
 
-However, we reach a problem when <img src="https://render.githubusercontent.com/render/math?math=X^TX"> is not invertible, which can happen when you have too little data such that there are more columns than rows in X or in general if the columns of X form a linearly dependent set; this is known as **rank deficiency**. 
+However, we reach a problem when <img src="https://render.githubusercontent.com/render/math?math=X^TX"> is not invertible, which can happen when you have too little data such that there are more columns than rows in X or if there is strong multicolinearity between some of the independent variables; this is known as **rank deficiency**. 
 
 *Example of rank deficient data*
 
 ![rank deficient](https://user-images.githubusercontent.com/98488236/155574702-22481663-87ae-4e87-968e-3fa7b34a0dc4.jpg)
 
 
-To bypass this issue we can take the <img src="https://render.githubusercontent.com/render/math?math=X^TX"> matrix and add the identity matrix scaled by some small value <img src="https://render.githubusercontent.com/render/math?math=\lambda">.
-
+To bypass this issue we can take the <img src="https://render.githubusercontent.com/render/math?math=X^TX"> matrix and add the identity matrix scaled by some small value <img src="https://render.githubusercontent.com/render/math?math=\lambda">. We can also use **Regularization**, such as the L1 and L2 regularization models to minimize the sum of the square residuals.
 ### Applications of Multivariate Regression
 Here are some regression problems that we will solve using Multivariate Regression in this project:
 - Predict the miles per gallon of a car given variables such as its weight, number of cylinder, and engine displacement
