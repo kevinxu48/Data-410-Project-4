@@ -36,17 +36,19 @@ However, we reach a problem when <img src="https://render.githubusercontent.com/
 ![rank deficient](https://user-images.githubusercontent.com/98488236/155574702-22481663-87ae-4e87-968e-3fa7b34a0dc4.jpg)
 
 
-To bypass this issue we can take the <img src="https://render.githubusercontent.com/render/math?math=X^TX"> matrix and add the identity matrix scaled by some small value <img src="https://render.githubusercontent.com/render/math?math=\lambda">. We can also use **Regularization**, such as the L1 and L2 regularization models to minimize the sum of the square residuals.
+To bypass this issue we can take the <img src="https://render.githubusercontent.com/render/math?math=X^TX"> matrix and add the identity matrix scaled by some small value <img src="https://render.githubusercontent.com/render/math?math=\lambda">. In the case of multicolinearity, we can use **Regularization** techniques, such as the L1 and L2 regularization models to minimize the sum of the square residuals.
 ### Applications of Multivariate Regression
 Here are some regression problems that we will solve using Multivariate Regression in this project:
 - Predict the miles per gallon of a car given variables such as its weight, number of cylinder, and engine displacement
 - Predict the median value of a house given variables such as average number of rooms, amount per capita crime, proportions of non-retail business acres per town, etc.
 - Predict the strength of concrete given variables such as the amount of concrete, fly ash, water, etc. present in the mixture, and the age in days 
 ### Advantages of Multivariate Regression
-Multivariate analysis may reduce the likelihood of making Type I errors (rejecting a true null hypothesis).
-
+- We are able to find relationships between the dependent variable and the independent variables, specifically we can find the relative influence of the predictor variables to the target variable
+- Since there are multiple variables to consider, the conclusions drawn tend to be more accurate and better represent real-life situations
+- Multivariate analysis may reduce the likelihood of making Type I errors (rejecting a true null hypothesis).
 ### Disadvantages of Multivariate Regression
-The process of feature selection leaves the possibility of lurking variables, which is when the relationship between two variables is significantly affected by the presence of a third variable which has not been included in the modeling. Unsuitable for small data sets because 
+- The process of feature selection leaves the possibility of lurking variables, which is when the relationship between two variables is significantly affected by the presence of a third variable which has not been included in the modeling.
+- Unsuitable for small data sets because of the problems of rank deficiency
 
 # Gradient Boosting for Regression
 Gradient Boosting can be used for both classification and regression problems, but for this project we will mainly focus on its regression applications. The concept of Gradient boosting originated with the idea of turning a *weak learner*, a learner whose performance is marginally better than random guessing, into a stronger learner. Moreover, it combines the concept of Gradient Descent and "Boosting", such that an additive model in the form of a Decision Tree is added to a weak learner to optimize a loss function, in our case we will minimize the Mean Squared Error on the test sets through the addition of our Decision Tree.
