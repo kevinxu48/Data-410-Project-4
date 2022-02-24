@@ -23,7 +23,7 @@ Notice for a model with two independent variables, a plane is fitted to the data
 ## Feature Selection
 One important factor in multivariate regression is choosing the features that are the most important. There is often multicolinearity between certain independent variables, so removing the irrelevant or redundant features will improve learning accuracy on the training data and reduces the overall run time. Often, the most **parsimonious** model is selected with the least number of explanatory variables possible while still explaining the data.
 
-In this project, we will use **Principle Component Analysis (PCA)** to determine the three most important features when there are multiple to consider. PCA is a dimensionality reduction technique contribution of a subset of features based on finding the direction of the biggest variablity or variance. Such directions, that summarize most of the variablility in the data, are called principal components.
+In this project, we will use **Principle Component Analysis (PCA)** to determine the three most important features when there are multiple to consider. PCA is a dimensionality reduction technique used to obtain a subset of features based on the direction of the biggest variablity. by projecting (dot product) the original data into the reduced PCA space using the eigenvectors of the correlation matrix which are known as the principal components and results in linear combinations of the original data that summarize most of the variablility.
 
 *Example of PCA in 2 dimensions*
 ![PCA2d](https://user-images.githubusercontent.com/98488236/155624717-9d8ba64c-4c6c-495c-a6fa-a7db1893c0b1.PNG)
