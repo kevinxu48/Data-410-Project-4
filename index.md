@@ -1,22 +1,31 @@
 # Multivariate Regression Analysis and Gradient Boosting
 
 ## Multivariate Regression Analysis
-Multivariate regression is a regression technique that estimates a regression model with one dependent/response variable, while using more than one independent/predictor variable in a multivariate regression model, the model is a multivariate multiple regression. Moreover, the dependent variable Y is a vector of multiple outcomes.
+Multivariate regression is a regression technique that estimates a regression model with one dependent/response variable, while using more than one independent/predictor variable in a multivariate regression model, the model is a multivariate multiple regression. 
 
 In general for Multivariate models, for <img src="https://render.githubusercontent.com/render/math?math=n"> number of features, we want 
 
 <img src="https://render.githubusercontent.com/render/math?math=E(y|X_1,X_2,\cdots, X_n) = F(X_1,X_2,\cdots, X_n) = Y">
 where F is the model or regressor we consider.
 
+One of the most common type of multivariate Regression is multiple linear regression, which fits a linear equation to given data in an attempt to model the relationship between a single independent variable and a dependent variable, with any other features having weights of 0. 
+
+*Example of *
+![multivariate reg](https://user-images.githubusercontent.com/98488236/155559992-a3eaf59e-dff7-442b-a75c-b0515f9c1422.gif)
+
+
 ## Feature Selection
 One important factor in multivariate regression is choosing the features that are the most important. There is often multicolinearity between certain independent variables, so removing the irrelevant or redundant features will improve learning accuracy on the training data and reduces the overall run time. Often, the most **parsimonious** model is selected with the least number of explanatory variables possible while still explaining the data.
 
 To actually perform the feature selection, we multiply the <img src="https://render.githubusercontent.com/render/math?math=n"> variables in the selected model by a binary weight vector <img src="https://render.githubusercontent.com/render/math?math=(w_1,w_2,\cdots, w_n)">, <img src="https://render.githubusercontent.com/render/math?math=w_p\in \{0,1\}"> which has the value 1 if a variable should be included in the model or a value of 0 otherwise. This vector of weights is known as the **sparsity pattern** or the incidence matrix.
 
-## Types of Multivariate Regression 
-One of the most common type of multivariate Regression is multiple linear regression, which fits a linear equation to given data in an attempt to model the relationship between a single independent variable and a dependent variable, with any other features having weights of 0. 
+Given the sparsity pattern, the mathematical function of a Multivariate regression model is usually of the form: 
 
-Another type is logistic regression which uses a logistic function to model a binary dependent variable.
+<img src="https://render.githubusercontent.com/render/math?math=\large{ Y = \beta_0 + \beta_1\cdot X_1 + \cdots + \beta_p\cdot X_p + \sigma\epsilon}">, where <img src="https://render.githubusercontent.com/render/math?math=Y = \beta_i"> determines the contribution of the independent variable <img src="https://render.githubusercontent.com/render/math?math=Y = X_i"> and <img src="https://render.githubusercontent.com/render/math?math=Y = \sigma"> is the residual standard deviation with the random noise <img src="https://render.githubusercontent.com/render/math?math=\epsilon"> i.i.d. with expected value of 0. The sparsity pattern means that a subset of the <img src="https://render.githubusercontent.com/render/math?math=\beta">'s will be 0. 
+
+## Rank Deficiency
+Moreover, we
+
 ### Applications of Multivariate Regression
 Here are some regression problems that we will solve using Multivariate Regression in this project:
 - Predict the miles per gallon of a car given variables such as its weight, number of cylinder, and engine displacement
@@ -283,6 +292,8 @@ Since we desire smaller MSE values, we can conclude that Locally Weighted Regres
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3049417/
 
 https://brilliant.org/wiki/multivariate-regression/#:~:text=Multivariate%20Regression%20is%20a%20method,responses)%2C%20are%20linearly%20related.&text=A%20mathematical%20model%2C%20based%20on,and%20other%20more%20complicated%20questions.
+
+https://towardsdatascience.com/applied-multivariate-regression-faef8ddbf807
 
 https://machinelearningmastery.com/gentle-introduction-gradient-boosting-algorithm-machine-learning/
 
