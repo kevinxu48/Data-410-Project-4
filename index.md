@@ -1,7 +1,7 @@
 # Multivariate Regression Analysis and Gradient Boosting
 
 ## Multivariate Regression Analysis
-Multivariate regression is a regression technique that estimates a regression model with one dependent/response variable, while using more than one independent/predictor variable in a multivariate regression model, the model is a multivariate multiple regression.
+Multivariate regression is a regression technique that estimates a regression model with one dependent/response variable, while using more than one independent/predictor variable in a multivariate regression model, the model is a multivariate multiple regression. Moreover, the dependent variable Y is a vector of multiple outcomes.
 
 In general for Multivariate models, for <img src="https://render.githubusercontent.com/render/math?math=n"> number of features, we want 
 
