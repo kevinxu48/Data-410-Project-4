@@ -27,9 +27,7 @@ In this project, we will use **Principle Component Analysis (PCA)** to determine
 
 *Example of PCA in 2 dimensions*
 
-![PCA2d](https://user-images.githubusercontent.com/98488236/155625613-5d0e4223-62af-4058-8f61-558e7741339e.PNG width="100" height="100")
-
-
+<img src="https://user-images.githubusercontent.com/98488236/155625613-5d0e4223-62af-4058-8f61-558e7741339e.PNG" width=40% height=40%>
 
 To actually perform the feature selection, we multiply the <img src="https://render.githubusercontent.com/render/math?math=n"> variables in the selected model by a binary weight vector <img src="https://render.githubusercontent.com/render/math?math=(w_1,w_2,\cdots, w_n)">, <img src="https://render.githubusercontent.com/render/math?math=w_p\in \{0,1\}"> which has the value 1 if a variable should be included in the model or a value of 0 otherwise. This vector of weights is known as the **sparsity pattern** or the incidence matrix.
 
