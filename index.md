@@ -32,6 +32,7 @@ Moreover, we can solve for the weights by utilizing some Algebra and the method 
 However, we reach a problem when <img src="https://render.githubusercontent.com/render/math?math=X^TX"> is not invertible, which can happen when you have too little data such that there are more columns than rows in X or in general if the columns of X form a linearly dependent set; this is known as **rank deficiency**. 
 
 *Example of rank deficient data*
+
 ![rank deficient](https://user-images.githubusercontent.com/98488236/155574702-22481663-87ae-4e87-968e-3fa7b34a0dc4.jpg)
 
 
