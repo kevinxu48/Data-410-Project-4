@@ -26,6 +26,7 @@ One important factor in multivariate regression is choosing the features that ar
 To actually perform the feature selection, we multiply the <img src="https://render.githubusercontent.com/render/math?math=n"> variables in the selected model by a binary weight vector <img src="https://render.githubusercontent.com/render/math?math=(w_1,w_2,\cdots, w_n)">, <img src="https://render.githubusercontent.com/render/math?math=w_p\in \{0,1\}"> which has the value 1 if a variable should be included in the model or a value of 0 otherwise. This vector of weights is known as the **sparsity pattern** or the incidence matrix.
 
 Given the sparsity pattern, the mathematical function of a Multivariate regression model is usually of the form: 
+
 ![mlr model](https://user-images.githubusercontent.com/98488236/155565976-21670880-71ec-46f3-a823-44cdadcf699a.jpg)
 
  where <img src="https://render.githubusercontent.com/render/math?math=\beta_i"> determines the contribution of the independent variable <img src="https://render.githubusercontent.com/render/math?math=Y = X_i"> and <img src="https://render.githubusercontent.com/render/math?math=\sigma"> is the residual standard deviation with the residuals being i.i.d. with an expected value of 0. The sparsity pattern means that a subset of the <img src="https://render.githubusercontent.com/render/math?math=\beta">'s will be 0. 
@@ -71,7 +72,13 @@ To prevent overfitting and reduce variance, each tree's contribution to the pred
 ## Extreme Gradient Boosting (XGB)
 XGB is an open source implementation of Gradient Boosting in which regularization parameters are , and is faster, more memory efficient and accurate compared to other implementations of Gradient Boosting. XGBoost has multiple hyperparameters that we can tune: the objective/learning task which is MSE in this project, the number of gradient boosted trees, the maximum depth of the trees, Gamma-the minimum loss reduction required to partition a leaf, Lambda and Alpha- the L1 and L2 norms respectively that control the weights, and the learning rate.
 
+To implement XGB in python, we can simply install the xgboost package by running 
+```
+import xgboost as xgb
+```
 
+# Comparison of Various Regression Methods
+## New Kernels for Lowess
 def tricubic(x):
   if len(x.shape) == 1:  # use a conditional to reshape if it is a row vector
     x = x.reshape(-1,1)
@@ -313,6 +320,8 @@ https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3049417/
 https://brilliant.org/wiki/multivariate-regression/#:~:text=Multivariate%20Regression%20is%20a%20method,responses)%2C%20are%20linearly%20related.&text=A%20mathematical%20model%2C%20based%20on,and%20other%20more%20complicated%20questions.
 
 https://towardsdatascience.com/applied-multivariate-regression-faef8ddbf807
+
+https://towardsdatascience.com/graphs-and-ml-multiple-linear-regression-c6920a1f2e70
 
 https://machinelearningmastery.com/gentle-introduction-gradient-boosting-algorithm-machine-learning/
 
