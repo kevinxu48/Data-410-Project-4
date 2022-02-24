@@ -21,14 +21,21 @@ To actually perform the feature selection, we multiply the <img src="https://ren
 
 Given the sparsity pattern, the mathematical function of a Multivariate regression model is usually of the form: 
 ![mlr model](https://user-images.githubusercontent.com/98488236/155565976-21670880-71ec-46f3-a823-44cdadcf699a.jpg)
+
  where <img src="https://render.githubusercontent.com/render/math?math=\beta_i"> determines the contribution of the independent variable <img src="https://render.githubusercontent.com/render/math?math=Y = X_i"> and <img src="https://render.githubusercontent.com/render/math?math=\sigma"> is the residual standard deviation with the residuals being i.i.d. with an expected value of 0. The sparsity pattern means that a subset of the <img src="https://render.githubusercontent.com/render/math?math=\beta">'s will be 0. 
 
 ## Rank Deficiency
-Moreover, we can solve for the weights by utilizing some Algebra to obtain:
+Moreover, we can solve for the weights by utilizing some Algebra and the method of Least Squares to obtain:
 
 ![equation](https://user-images.githubusercontent.com/98488236/155569885-3253811f-acd1-4f05-92f1-e6befd4f0c6b.jpg)
 
-However, we reach a problem when <img src="https://render.githubusercontent.com/render/math?math=X^TX}"> is not invertible, which can happen when X is not a square matrix or in general when the columns of X form a linearly dependent set.
+However, we reach a problem when <img src="https://render.githubusercontent.com/render/math?math=X^TX"> is not invertible, which can happen when you have too little data such that there are more columns than rows in X or in general if the columns of X form a linearly dependent set; this is known as **rank deficiency**. 
+
+*Example of rank deficient data*
+![rank deficient](https://user-images.githubusercontent.com/98488236/155574702-22481663-87ae-4e87-968e-3fa7b34a0dc4.jpg)
+
+
+To bypass this issue we can take the <img src="https://render.githubusercontent.com/render/math?math=X^TX"> matrix and add the identity matrix scaled by some small value <img src="https://render.githubusercontent.com/render/math?math=\lambda">.
 
 ### Applications of Multivariate Regression
 Here are some regression problems that we will solve using Multivariate Regression in this project:
