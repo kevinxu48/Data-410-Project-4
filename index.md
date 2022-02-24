@@ -27,7 +27,7 @@ In this project, we will use **Principle Component Analysis (PCA)** to determine
 
 *Example of PCA in 2 dimensions*
 
-![PCA2d](https://user-images.githubusercontent.com/98488236/155625613-5d0e4223-62af-4058-8f61-558e7741339e.PNG)
+![PCA2d](https://user-images.githubusercontent.com/98488236/155625613-5d0e4223-62af-4058-8f61-558e7741339e.PNG =250x250)
 
 
 
