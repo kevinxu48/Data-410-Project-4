@@ -18,6 +18,8 @@ One of the most common type of multivariate Regression is multiple linear regres
 
 ![2d](https://user-images.githubusercontent.com/98488236/155585904-ef005af3-1488-47ba-99e9-c81c1d647c5d.png)
 
+Notice for a model with two independent variables, a plane is fitted to the data points rather than a line.
+
 ## Feature Selection
 One important factor in multivariate regression is choosing the features that are the most important. There is often multicolinearity between certain independent variables, so removing the irrelevant or redundant features will improve learning accuracy on the training data and reduces the overall run time. Often, the most **parsimonious** model is selected with the least number of explanatory variables possible while still explaining the data.
 
