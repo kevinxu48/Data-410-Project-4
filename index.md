@@ -10,11 +10,11 @@ where F is the model or regressor we consider.
 
 One of the most common type of multivariate Regression is multiple linear regression, which fits a linear equation to given data in an attempt to model the relationship between a single independent variable and a dependent variable, with any other features having weights of 0. The fitting of the data points becomes harder to visualize as more features are included in the model, but we can visualize the fitting of data in lower dimensions.
 
-*Plot of 1-dimensional linear regression*
+*Example of 1-dimensional linear regression*
 
 ![multivariate reg](https://user-images.githubusercontent.com/98488236/155559992-a3eaf59e-dff7-442b-a75c-b0515f9c1422.gif)
 
-*Plot of 2-dimensional linear regression*
+*Example of 2-dimensional linear regression*
 
 ![2d](https://user-images.githubusercontent.com/98488236/155585904-ef005af3-1488-47ba-99e9-c81c1d647c5d.png)
 
