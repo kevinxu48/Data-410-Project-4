@@ -23,6 +23,12 @@ Notice for a model with two independent variables, a plane is fitted to the data
 ## Feature Selection
 One important factor in multivariate regression is choosing the features that are the most important. There is often multicolinearity between certain independent variables, so removing the irrelevant or redundant features will improve learning accuracy on the training data and reduces the overall run time. Often, the most **parsimonious** model is selected with the least number of explanatory variables possible while still explaining the data.
 
+In this project, we will use **Principle Component Analysis (PCA)** to determine the three most important features when there are multiple to consider. PCA is a dimensionality reduction technique contribution of a subset of features based on finding the direction of the biggest variablity or variance. Such directions, that summarize most of the variablility in the data, are called principal components.
+
+*Example of PCA in 2 dimensions*
+![PCA2d](https://user-images.githubusercontent.com/98488236/155624717-9d8ba64c-4c6c-495c-a6fa-a7db1893c0b1.PNG)
+
+
 To actually perform the feature selection, we multiply the <img src="https://render.githubusercontent.com/render/math?math=n"> variables in the selected model by a binary weight vector <img src="https://render.githubusercontent.com/render/math?math=(w_1,w_2,\cdots, w_n)">, <img src="https://render.githubusercontent.com/render/math?math=w_p\in \{0,1\}"> which has the value 1 if a variable should be included in the model or a value of 0 otherwise. This vector of weights is known as the **sparsity pattern** or the incidence matrix.
 
 Given the sparsity pattern, the mathematical function of a Multivariate regression model is usually of the form: 
@@ -30,9 +36,9 @@ Given the sparsity pattern, the mathematical function of a Multivariate regressi
 ![mlr model](https://user-images.githubusercontent.com/98488236/155565976-21670880-71ec-46f3-a823-44cdadcf699a.jpg)
 
  where <img src="https://render.githubusercontent.com/render/math?math=\beta_i"> determines the contribution of the independent variable <img src="https://render.githubusercontent.com/render/math?math=Y = X_i"> and <img src="https://render.githubusercontent.com/render/math?math=\sigma"> is the residual standard deviation with the residuals being i.i.d. with an expected value of 0. The sparsity pattern means that a subset of the <img src="https://render.githubusercontent.com/render/math?math=\beta">'s will be 0. 
-
+ 
 ## Rank Deficiency
-Moreover, we can solve for the weights by utilizing some Algebra and the method of Least Squares to obtain:
+We can solve for the weights by utilizing some Algebra and the method of Least Squares to obtain:
 
 ![equation](https://user-images.githubusercontent.com/98488236/155569885-3253811f-acd1-4f05-92f1-e6befd4f0c6b.jpg)
 
