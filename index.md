@@ -287,13 +287,59 @@ From the K-Fold validation results, we see that the Triweight kernel obtained th
 
 ## Tuning the hyperparameters
 ### Lowess and Boosted Lowess
+To find, we performed non-nested K-Fold validations for a certain tau range for both Lowess and Boosted Lowess using their respective optimal kernels.
+
+```
+# Narrow a good value for the tau parameter for Lowess with triweight kern
+k = 10
+t_range = np.arange(0.1,1, step=.1)
+test_mse = []
+for t in t_range:
+  te_mse = DoKFoldLoess(Xcars,ycars,k,Triweight, t, False, True)
+  test_mse.append(np.mean(te_mse))
+```
+
+```
+# plot the test mse to find the best value for tau
+
+idx = np.argmin(test_mse)
+print([t_range[idx], test_mse[idx]])
+plt.plot(t_range,test_mse, '-xr',label='Test')
+plt.xlabel('tau value')
+plt.ylabel('Avg. MSE')
+plt.title('K-fold validation with k = ' + str(k))
+plt.show()
+```
+
+[1.2999999999999998, 17.06326606831356]
 
 <img src="https://user-images.githubusercontent.com/98488236/155764542-02e92cc8-1536-4f84-86d7-0f5e7d00eed1.png" width=40% height=40%>
 
+```
+# Narrow a good value for the tau parameter for Boosted Lowess with triweight kern
+k = 10
+t_range = np.arange(0.9,3, step=.1)
+test_mse = []
+for t in t_range:
+  te_mse = DoKFoldLoess(Xcars,ycars,k,Triweight, t, True, True)
+  test_mse.append(np.mean(te_mse))
+```
 
+```
+# plot the test mse to find the best value for tau
 
-![DecisionTreeExample](https://user-images.githubusercontent.com/98488236/153451668-f0f8905e-8bff-4673-a949-89316eb768ae.png)
+idx = np.argmin(test_mse)
+print([t_range[idx], test_mse[idx]])
+plt.plot(t_range,test_mse, '-xr',label='Test')
+plt.xlabel('tau value')
+plt.ylabel('Avg. MSE')
+plt.title('K-fold validation with k = ' + str(k))
+plt.show()
+```
 
+[0.8, 16.94224157210573]
+
+<img src="https://user-images.githubusercontent.com/98488236/155766277-2e33e7a8-7c8b-4e5d-9224-fe2702edd7ee.png" width=40% height=40%>
 
 
 *Python Regression Tree Example*
