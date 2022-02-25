@@ -229,14 +229,52 @@ print(abs( pca.components_))
 ## KFold validations
 
 ### Cars dataset
-Now using the cars data, we will perform nested 10-Fold validations for Lowess, Boosted Lowess, XGBoost, and random forest
+Now using the cars data, we will perform nested 10-Fold validations for Lowess, Boosted Lowess, XGBoost, Random Forest, and the Nadaraya–Watson kernel regression techniques and comapre the results.
 
-Random Forest is a versatile algorithm discussed in DATA 310 that can perform both regression and classification tasks. The regression tasks require picking a random set of points in the data and building Regression or **Decision Trees**, which are nested if-else conditions, and the splitting of a tree are decided based on criteria such as the gini impurity. 
+### Finding the optimal kernel for Lowess and Boosted Lowess
+To find the best kernel to use for Lowess, we performed nested 10-Fold validations to determine which kernel produced the lowest MSE values for Lowess and boosted Lowess. 
 
-In this example, we use a single Regression tree to predict the price of a car by using a combination of features such as wheelbase and horsepower.
+```
+# Perform KFold validations
+mse_lwr = []
+mse_blwr = []
+for i in range(6):
+  kf = KFold(n_splits=10,shuffle=True,random_state=i)
+  for idxtrain, idxtest in kf.split(Xcars):
+    xtrain = Xcars[idxtrain]
+    ytrain = ycars[idxtrain]
+    ytest = ycars[idxtest]
+    xtest = Xcars[idxtest]
+    xtrain = scale.fit_transform(xtrain)
+    xtest = scale.transform(xtest)
+    
+    # repeat for each of the kernels
+    yhat_lwr = lw_reg(xtrain,ytrain, xtest,Epanechnikov,tau=0.9,intercept=True)
+    yhat_blwr = boosted_lwr(xtrain,ytrain, xtest,Epanechnikov,tau=0.9,intercept=True)
 
-*Example of a single Decision Tree*
+    mse_lwr.append(mse(ytest,yhat_lwr))
+    mse_blwr.append(mse(ytest,yhat_blwr))
 
+print('The Cross-validated MSE for LWR using an Epanechnikov kernel is : '+str(np.mean(mse_lwr)))
+print('The Cross-validated MSE for LWR using an Epanechnikov kernel is : '+str(np.mean(mse_blwr)))
+```
+
+The The Cross-validated MSE for LWR using an Epanechnikov kernel is : 16.92355587607597
+The The Cross-validated MSE for BLWR using an Epanechnikov kernel is : 16.67408952303382
+
+The Cross-validated MSE for LWR using a tricubic kernel is : 16.918805606713004
+The Cross-validated MSE for BLWR using a tricubic kernel is : 16.653971741537834
+
+The Cross-validated MSE for LWR using a Cosine kernel is : 16.907304021052653
+The Cross-validated MSE for BLWR using a Cosine kernel is : 16.629873784998786
+
+The Cross-validated MSE for LWR using a Triweight kernel is : 16.89347748851244
+The Cross-validated MSE for BLWR using a Triweight kernel is : 16.632454032571296
+
+The Cross-validated MSE for LWR using a Cosine kernel is : 16.919496872521297
+The Cross-validated MSE for BLWR using a Cosine kernel is : 16.67846228790907
+
+From the results, we get a
 ![DecisionTreeExample](https://user-images.githubusercontent.com/98488236/153451668-f0f8905e-8bff-4673-a949-89316eb768ae.png)
 
 
