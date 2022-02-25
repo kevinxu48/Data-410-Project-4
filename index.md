@@ -383,160 +383,31 @@ There are many hyperparameters to consider for XGBoost, so it is difficult to de
 It is unlikely
 
 
-
-*Python Regression Tree Example*
-
-<img width="502" alt="RegressionTreePython" src="https://user-images.githubusercontent.com/98488236/153451519-b7b2f8c7-30d1-4987-9559-e8ae1750cd67.png">
-
-Random Forest Regression also involves the concept of **bootstrapping**, which is sampling from a dataset with replacement and **feature bagging**, which is when a random subset of the feature dimensions is selected at each split in the growth of each Decision Trees. 
-
-This means that at each split of the Decision tree, the model randomly considers only a small subset of features and the best split feature from the subset is used to split each node in a tree, unlike in regular **bagging** where all features are considered for the splitting of a node.
-
-*Random Forest General Example*
-
-![random forest](https://user-images.githubusercontent.com/98488236/153299496-9cbddba2-c965-4dd7-b8fa-d23941da6f47.png)
-### Advantages of Random Forests
-As previously stated, Random Forests are versatile and can perform both tasks in regression and classification. In the case of regression, the mean prediction of the trees is outputted for each forest grown, so unlike individual Decision Trees, Random Forests better avoids the problem of overfitting data.
-
-Random Forest Regression also handles large datasets well and works especially well with non-linear data compared to other regression techniques.
-### Disadvantages of Random Forests
-Random Forests can be hard to visualize compared to single decision trees and often require large memory for storage.
-
-Even though it is less likely to be overfit than individual Decision Trees, Random Forests can still overfit if the hyperparameters are not properly tuned, so we will try to optimize them in this project.
-
-## Implementation of Random Forests
-Sklearn has a Random Forest Regressor class that we import, and there are many hyperparemeters that we can tune to find a better model. For this project we will consider two hyperparameters for simplicity: number of trees in the forest and the maximum depth of each tree.
-
+## Results for Cars Dataset
+We compared the nested cross-validated results for Lowess, Boosted Lowess, RandomForest, and XGBoost regressors, and we obtained these results.
 
 ```
-# import Random Forest Regressor from sklearn library
-from sklearn.ensemble import RandomForestRegressor as RFR
-rfr = RFR(n_estimators=150,max_depth=3)
+model_rf = RFR(n_estimators = 178, max_depth=3)
+
+print('The Cross-validated Mean Squared Error for LWR is : ' +str(DoNestedKFoldLoess(Xcars, ycars, 10, Triweight, 1.3, False, True)))
+print('The Cross-validated Mean Squared Error for BLWR is : '+str(DoNestedKFoldLoess(Xcars, ycars,10,  Cosine, 0.8, True, True)))
+print('The Cross-validated Mean Squared Error for RF is : '+str(DoKFold(model_rf,Xcars,ycars,10,410,True)))
+print('The Cross-validated Mean Squared Error for XGB is : '+str(DoKFoldXGB(Xcars,ycars, 'reg:squarederror',60,15,0,12.4,2, 410, True)))
 ```
+*Results from the Nested K-Fold validations*
 
-We will later find optimal values for the number of trees and max depth
+The Cross-validated Mean Squared Error for LWR is : 16.959251056181547
+The Cross-validated Mean Squared Error for BLWR is : 16.687318388260138
+The Cross-validated Mean Squared Error for RF is : 16.80957591130398
+The Cross-validated Mean Squared Error for XGB is : 15.731945730590105
 
-# Comparison of the Regression Techniques using 10-Fold validations
-To find the cross-validated MSE of both regressions, two separate functions were created, since Lowess is not an SKlearn model.
-```
-# KFold function for Lowess Regression
+From the MSE values, we clearly see that XGBoost performed far better than any other technique, and that Boosted Lowess performed marginally better than Random Forest, and Lowess Regression came last.
 
-def DoKFoldLoess(x,y,k, kern, tau, rseed):
-  scale = SS()
-  mse_lwr = []
-  kf = KFold(n_splits=k,shuffle=True,random_state=rseed)
-  for idxtrain, idxtest in kf.split(x):
-    ytrain = y[idxtrain]
-    xtrain = x[idxtrain]
-    xstrain = scale.fit_transform(xtrain.reshape(-1,1))
-    ytest = y[idxtest]
-    xtest = x[idxtest]
-    xstest = scale.transform(xtest.reshape(-1,1))
-    yhat_lwr = lowess_reg(xstrain.ravel(),ytrain,xstest.ravel(),kern,tau)
-    mse_lwr.append(mse(ytest,yhat_lwr))
-  return np.mean(mse_lwr)
-
-```
-
-```
-# KFold function for sklearn models
-
-def DoKFold(model,x,y,k,rseed):
-  scale = SS()
-  mse_train = []
-  mse_test = []
-  kf = KFold(n_splits=k,shuffle=True,random_state=rseed)
-  for idxtrain, idxtest in kf.split(x):
-    ytrain = y[idxtrain]
-    xtrain = x[idxtrain]
-    xstrain = scale.fit_transform(xtrain.reshape(-1,1))
-    ytest = y[idxtest]
-    xtest = x[idxtest]
-    xstest = scale.transform(xtest.reshape(-1,1))
-    model.fit(xstrain,ytrain)
-    mse_train.append(mse(ytrain,model.predict(xstrain)))
-    mse_test.append(mse(ytest,model.predict(xstest)))
-  return np.mean(mse_test)
-
-```
-
-# Optimizing the Hyperparameters
-First, for Lowess Regression, to find the optimal kernel and value for tau, we perform multiple 10-Fold validations with different combinations of the two using three for-loops.
-### Optimal Tau for Tricubic kernel
-``` 
-# find optimal tau for tricubic kernel
-
-k = 10
-t_range = np.arange(0.01,0.3, step=.01)
-test_mse = []
-for t in t_range:
-  te_mse = DoKFoldLoess(x,y,k,tricubic, t, 410)
-  test_mse.append(np.mean(te_mse))
-```
+### Concrete dataset
+Now we will repeat our steps on the concrete strength dataset to verify that the results were not just a fluke.
 
 
-```
-# plot the test mse to find the best value for tau
-
-idx = np.argmin(test_mse)
-print([t_range[idx], test_mse[idx]])
-plt.plot(t_range,test_mse, '-xr',label='Test')
-plt.xlabel('tau value')
-plt.ylabel('Avg. MSE')
-plt.title('K-fold validation with k = ' + str(k))
-plt.show()
-```
-[0.2, 17.638049656558326]
-![tricubicmse](https://user-images.githubusercontent.com/98488236/153296675-f4ae3c37-0607-4bfa-a19d-26145736ed74.png)
-
-The same code was repeated, except switching the 'tricubic' kernel for the 'Epanechnikov' and 'quartic' kernels. The results and plots obtained were
-### Optimal Tau for Epanechnikov kernel
-[0.16, 17.640646421523392]
-![epanechnikovmse](https://user-images.githubusercontent.com/98488236/153298160-b0e42109-eb4c-4a00-bc48-d92e8e1e2e50.png)
-
-
-### Optimal Tau for Quartic kernel
-[0.2, 17.645295248233868]
-![quarticmse](https://user-images.githubusercontent.com/98488236/153298413-b28cf387-fbbf-4a0d-b827-4f38074cb55a.png)
-
-Hence, we got that a tricubic kernel with a tau value of 0.2, produced the best cross-validated MSE of about 17.638.
-
-
-## Optimizing Number of Trees and Max Depth for Random Forest
-As for Random Forest, we found that a max_depth of 3 in conjunction with any value of n_estimators outperformed other values for max_depth and gave the lowest MSE values. Hence, all that was left was to find optimal values for n_estimators paired with a maximum depth of 3. This was done using a for loop and plotting the MSE values of the test sets to find the number of trees that produced the minimum value.
-
-```
-k = 10
-t_range = np.arange(60,200, step=1)
-test_mse = []
-for t in t_range:
-  rfr = RFR(n_estimators = t, max_depth = 3, random_state=410)
-  te_mse = DoKFold(rfr,x,y,k,410)
-  test_mse.append(np.mean(te_mse))
-```
-```
-# plot the test mse to find the best value for n_estimators
-```
-idx = np.argmin(test_mse)
-print([t_range[idx], test_mse[idx]])
-plt.plot(t_range,test_mse, '-xr',label='Test')
-plt.xlabel('number of trees')
-plt.ylabel('Avg. MSE')
-plt.title('K-fold validation with k = ' + str(k))
-plt.show()
-```
-[142, 17.866590990045857]
-
-![MSE](https://user-images.githubusercontent.com/98488236/153284569-0e3435a5-5321-4866-a075-b9d390d09109.png)
-
-Hence, we got that 142 trees in the forest with a maximum depth of 3 produced an MSE of about 17.866. 
-
-Despite, trying our best to obtain a tau and the kernel that minimized the cross-validated test MSE, this value obtained for Random Forest Regression is still greater/worse than that obtained from Lowess Regression.
-## Conclusion
-
-By comparing the Locally Weighted Regression with Random Forest Regression on the "Cars" dataset, we found that, after tuning the hyperparameters for both Regression techniques, Lowess Regression produced a smaller cross-validated MSE: 17.638, than that produced by Random Forest Regression: 17.866. Moreover, even the suboptimal kernels implemented, Epanechnikov and quartic, also produced MSE values that were lower than Random Forest's 17.866.
-
-Since we desire smaller MSE values, we can conclude that Locally Weighted Regression is superior to Random Forest Regression in this example using the cars dataset. Given the prevalence and importance of Random Forest, this project is a great introduction in demonstrating the significance and potential of Locally Weighted Regression.
+# Conclusion
 
 ## References
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3049417/
