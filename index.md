@@ -238,7 +238,7 @@ To find the best kernel to use for Lowess, we performed nested 10-Fold validatio
 # Perform KFold validations
 mse_lwr = []
 mse_blwr = []
-for i in range(6):
+for i in range(10):
   kf = KFold(n_splits=10,shuffle=True,random_state=i)
   for idxtrain, idxtest in kf.split(Xcars):
     xtrain = Xcars[idxtrain]
@@ -259,22 +259,27 @@ print('The Cross-validated MSE for LWR using an Epanechnikov kernel is : '+str(n
 print('The Cross-validated MSE for LWR using an Epanechnikov kernel is : '+str(np.mean(mse_blwr)))
 ```
 
-The The Cross-validated MSE for LWR using an Epanechnikov kernel is : 16.92355587607597
-The The Cross-validated MSE for BLWR using an Epanechnikov kernel is : 16.67408952303382
+The Cross-validated MSE for LWR using an Epanechnikov kernel is : 16.907313732004027
+The Cross-validated MSE for BLWR using an Epanechnikov kernel is : 16.688312676731158
 
-The Cross-validated MSE for LWR using a tricubic kernel is : 16.918805606713004
-The Cross-validated MSE for BLWR using a tricubic kernel is : 16.653971741537834
+The Cross-validated MSE for LWR using a tricubic kernel is : 16.91047562708034
+The Cross-validated MSE for BLWR using a tricubic kernel is : 16.701844078368637
 
-The Cross-validated MSE for LWR using a Cosine kernel is : 16.907304021052653
-The Cross-validated MSE for BLWR using a Cosine kernel is : 16.629873784998786
+The Cross-validated MSE for LWR using a Triweight kernel is : 16.893423122247928
+The Cross-validated MSE for BLWR using a Triweight kernel is : 16.662140711391444
 
-The Cross-validated MSE for LWR using a Triweight kernel is : 16.89347748851244
-The Cross-validated MSE for BLWR using a Triweight kernel is : 16.632454032571296
+The Cross-validated MSE for LWR using a Cosine kernel is : 16.904756187972154
+The Cross-validated MSE for BLWR using a Cosine kernel is : 16.6555524753039
 
-The Cross-validated MSE for LWR using a Cosine kernel is : 16.919496872521297
-The Cross-validated MSE for BLWR using a Cosine kernel is : 16.67846228790907
+The Cross-validated MSE for LWR using a Quartic kernel is : 16.89986707278945
+The Cross-validated MSE for BLWR using a Quartic kernel is : 16.67269713223806
 
-From the results, we get a
+From the results, we get that a triweight kernel obtained the best results for Lowess, but the Cosine kernel obtained the best results for Boosted Lowess. Hence, when tuning the hyperparameters to perform comparisons, we will use triweight for Lowess and a Cosine kernel for Boosted Lowess.
+
+## Tuning the hyperparameters
+### Lowess and Boosted Lowess
+
+
 ![DecisionTreeExample](https://user-images.githubusercontent.com/98488236/153451668-f0f8905e-8bff-4673-a949-89316eb768ae.png)
 
 
