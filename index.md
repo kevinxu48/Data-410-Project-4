@@ -376,7 +376,13 @@ plt.show()
 From the results of the cross-validations we get that the optimal hyperparameter values are 178 trees with a maximum depth of 3.
 
 ### XGBoost
-There are many hyperparameters to consider for XGBoost, so it is difficult to determine exactly what the best value is for each parameter. Spoiler Alert: it appears that regardless of the values chosen for the hyperparameters, XGBoost performs leagues better than the other regression techniques. Hence,   
+There are many hyperparameters to consider for XGBoost, so it is difficult to determine exactly what the best value is for each parameter. Spoiler Alert: it appears that regardless of the values chosen for the hyperparameters, XGBoost performs leagues better than the other regression techniques. Hence, we did a basic iteration through different values for hyperparameters and found that the parameters that obtained the best cross-validated results was:   
+```
+ model_xgb = xgb.XGBRegressor(objective='reg:squarederror',n_estimators=60,reg_lambda=15,alpha=0,gamma=12.4,max_depth=2)
+```
+It is unlikely
+
+
 
 *Python Regression Tree Example*
 
