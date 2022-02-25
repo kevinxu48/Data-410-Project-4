@@ -90,7 +90,6 @@ import xgboost as xgb
 ## Disadvantages of XGB
 - It does not work as well on unstructured data
 - It is sensitive to outliers, since boosting methods build each tree on the previous trees' residuals
-- 
 # Comparison of Various Regression Methods
 ## New Kernels for Lowess
 In addition to the tricubic, quartic, and Epanechnikov kernels we implemented in project 2, this project will implement two additional kernels: Triweight and Cosine.
