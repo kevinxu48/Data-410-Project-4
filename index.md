@@ -83,10 +83,14 @@ To implement XGB in python, we can simply install the xgboost package by running
 import xgboost as xgb
 ```
 ## Advantages of XGB
--
+- It is known for performing regression and classification tasks very quickly
+- It performs especially well on structured datasets with not too many features. 
+- It is a robust algorithm that prevents over-fitting
 
 ## Disadvantages of XGB
-
+- It does not work as well on unstructured data
+- It is sensitive to outliers, since boosting methods build each tree on the previous trees' residuals
+- 
 # Comparison of Various Regression Methods
 ## New Kernels for Lowess
 In addition to the tricubic, quartic, and Epanechnikov kernels we implemented in project 2, this project will implement two additional kernels: Triweight and Cosine.
@@ -97,54 +101,38 @@ def Triweight(x):
     x = x.reshape(-1,1)
   d = np.sqrt(np.sum(x**2,axis=1))
   return np.where(d>1,0,35/32*(1-d**2)**3)
+```
 
+```
+# Plot of the Triweight Kernel
+x = np.arange(-1.5,1.51,0.01)
+y = Triweight(x)
+fig, ax = plt.subplots()
+ax.plot(x,y,lw=2)
+plt.show()
+```
+
+![triweight](https://user-images.githubusercontent.com/98488236/155627828-f0f18879-e24f-4972-a867-a0f77934e64d.png)
+
+```
 # Cosine Kernel
 def Cosine(x):
   if len(x.shape) == 1:
     x = x.reshape(-1,1)
   d = np.sqrt(np.sum(x**2,axis=1))
-  return np.where(d>1,0,np.pi/4*(np.cos((np.pi/2) *d)) 
+  return np.where(d>1,0,np.pi/4*(np.cos(np.pi/2 *d)))
 ```
-# Plot of the Tricubic Kernel
-y = tricubic(x)
+```
+# Plot of the Cosine Kernel
+x = np.arange(-1.5,1.51,0.01)
+y = Cosine(x)
 fig, ax = plt.subplots()
 ax.plot(x,y,lw=2)
 plt.show()
 ```
-![tricubic](https://user-images.githubusercontent.com/98488236/152915484-7139fe6c-6e27-4add-a391-deb20cdf4af7.png)
-```
-# Epanechnikov kernel
-def Epanechnikov(x):
-  if len(x.shape) == 1:  
-    x = x.reshape(-1,1)
-  return np.where(np.abs(x)>1,0,3/4*(1-np.abs(x)**2)) 
-```
-```
-# Plot of the Epanechnikov Kernel
-y = Epanechnikov(x)
-fig, ax = plt.subplots()
-ax.plot(x,y,lw=2)
-plt.show()
-```
-![epanechnikov](https://user-images.githubusercontent.com/98488236/152915711-8851bf57-bec8-4368-bfaa-346df657da06.png)
+![cosine](https://user-images.githubusercontent.com/98488236/155627892-368920c3-1858-4144-9ffb-ef954d2e56a5.png)
 
-
-```
-# Plot of the Quartic Kernel
-# Quartic kernel
-def Quartic(x):
-  if len(x.shape) == 1:  
-    x = x.reshape(-1,1)
-  return np.where(np.abs(x)>1,0,15/16*(1-np.abs(x)**2)**2) 
-```
-```
-y = Quartic(x)
-fig, ax = plt.subplots()
-ax.plot(x,y,lw=2)
-plt.show()
-```
-![quartic](https://user-images.githubusercontent.com/98488236/152915763-a6cf2c21-96e8-44ff-9e27-f0d9568cab31.png)
-
+The other kernels are the same as described in Project 2.
 ### Implementation of the Lowess Regression
 Python and SKlearn do not have an implementation of Lowess Regression, so to use it we must define our own function.
 ```
