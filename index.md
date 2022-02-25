@@ -132,7 +132,7 @@ plt.show()
 ![cosine](https://user-images.githubusercontent.com/98488236/155627892-368920c3-1858-4144-9ffb-ef954d2e56a5.png)
 
 The other kernels are the same as described in Project 2.
-### Implementation of Lowess and Boosted Lowess Regression
+## Implementation of Lowess and Boosted Lowess Regression
 Since Project 2, we have added an intercept parameter to the lowess function and also created a boosted lowess function.
 ```
 #Defining the kernel local regression model
@@ -191,7 +191,24 @@ def boosted_lwr(X, y, xnew, kern, tau, intercept):
   output = model.predict(xnew) + lw_reg(X,y,xnew,kern,tau,intercept)
   return output 
 ```
-# Random Forest Regression
+## Data Sets
+In this project we will test the regression methods on the cars and a new concrete strength data set. For the cars dataset, we will use all 3 features: number of cylinder, and engine displacement, and weight. 
+
+```
+# Obtain and scale the features for the car dataset
+scale = SS()
+
+Xcars = cars[['CYL', 'ENG', 'WGT']].values
+ycars = cars['MPG'].values
+
+Xcars_scaled = scale.fit_transform(Xcars)
+```
+
+The concrete dataset is more complicated in that it has 8 features: . Using PCA we will narrow it down to the 3 features that summarize most of the variability.
+```
+
+```
+
 Random Forest is a versatile algorithm discussed in DATA 310 that can perform both regression and classification tasks. The regression tasks require picking a random set of points in the data and building Regression or **Decision Trees**, which are nested if-else conditions, and the splitting of a tree are decided based on criteria such as the gini impurity. 
 
 In this example, we use a single Regression tree to predict the price of a car by using a combination of features such as wheelbase and horsepower.
