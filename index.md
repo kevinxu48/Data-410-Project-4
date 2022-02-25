@@ -258,6 +258,22 @@ Now using the cars data, we will perform nested 10-Fold validations for Lowess, 
 To find the best kernel to use for Lowess, we performed nested 10-Fold validations to determine which kernel produced the lowest MSE values for Lowess and boosted Lowess. 
 
 ```
+# obtain a list of Lowess MSE values for each kernel
+mse_blwr = []
+for kern in [Epanechnikov, Tricubic, Triweight, Cosine, Quartic]:
+  mse_blwr.append(DoNestedKFoldLoess(Xcars, ycars, 10, kern, 0.9, False, True))
+mse_blwr
+```
+
+```
+# obtain a list of boosted Lowess MSE values for each kernel
+mse_blwr = []
+for kern in [Epanechnikov, Tricubic, Triweight, Cosine, Quartic]:
+  mse_blwr.append(DoNestedKFoldLoess(Xcars, ycars, 10, kern, 0.9, True, True))
+mse_blwr
+```
+
+```
 # Perform KFold validations
 mse_lwr = []
 mse_blwr = []
