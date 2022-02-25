@@ -226,8 +226,31 @@ print(abs( pca.components_))
   
  From the PCA, we see that variables 4 (water), 2 (slag), and 1 (concrete) summarize most of the variability, so we will select those as our features.
 
-## KFold validations
+## K-Fold validations
+To perform the K-Fold validations, two functions were created: one for the boosted and unboosted Lowess, and one for the other models. We perform nested KFolds using a range of random states to better validate the results.
+```
+def DoNestedKFoldLoess(x,y,k, kern, tau, boosted, intercept):
+  scale = SS()
+  mse_lwr = []
+  for i in range(10):
+    kf = KFold(n_splits=k,shuffle=True,random_state=i)
+    for idxtrain, idxtest in kf.split(x):
+      xtrain = x[idxtrain]
+      ytrain = y[idxtrain]
+      ytest = y[idxtest]
+      xtest = x[idxtest]
+      xtrain = scale.fit_transform(xtrain)
+      xtest = scale.transform(xtest)
 
+      # call the boosted lowess function if it is desired
+      if boosted:  
+        yhat_blwr = boosted_lwr(xtrain,ytrain, xtest,kern,tau,intercept)
+        mse_lwr.append(mse(ytest,yhat_blwr))
+      else:
+        yhat_lwr = lw_reg(xtrain, ytrain,xtest,kern,tau, intercept)
+        mse_lwr.append(mse(ytest,yhat_lwr))
+  return np.mean(mse_lwr)
+```
 ### Cars dataset
 Now using the cars data, we will perform nested 10-Fold validations for Lowess, Boosted Lowess, XGBoost, Random Forest, and the Nadaraya–Watson kernel regression techniques and comapre the results.
 
