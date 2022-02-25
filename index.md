@@ -259,12 +259,17 @@ To find the best kernel to use for Lowess, we performed nested 10-Fold validatio
 
 ```
 # obtain a list of Lowess MSE values for each kernel
-mse_blwr = []
+mse_lwr = []
 for kern in [Epanechnikov, Tricubic, Triweight, Cosine, Quartic]:
   mse_blwr.append(DoNestedKFoldLoess(Xcars, ycars, 10, kern, 0.9, False, True))
-mse_blwr
+mse_lwr
 ```
-
+[16.907313732004027,
+ 16.91047562708034,
+ 16.893423122247928,
+ 16.904756187972154,
+ 16.89986707278945]
+ 
 ```
 # obtain a list of boosted Lowess MSE values for each kernel
 mse_blwr = []
@@ -272,7 +277,14 @@ for kern in [Epanechnikov, Tricubic, Triweight, Cosine, Quartic]:
   mse_blwr.append(DoNestedKFoldLoess(Xcars, ycars, 10, kern, 0.9, True, True))
 mse_blwr
 ```
-
+[16.658546136310715,
+ 16.655829186199618,
+ 16.69154129746709,
+ 16.699096648159966,
+ 16.64468914082364]
+ 
+From the K-Fold validations we see that the Triweight kernel performed the best for Lowess Regression, but the Tricubic performed the best for boosted Lowess. Hence, when tuning the hyperparameters to perform comparisons, we will use triweight for Lowess and a Tricubic kernel for Boosted Lowess.
+ 
 ```
 # Perform KFold validations
 mse_lwr = []
@@ -412,6 +424,7 @@ for t in t_range:
   te_mse = DoKFoldLoess(x,y,k,tricubic, t, 410)
   test_mse.append(np.mean(te_mse))
 ```
+
 
 ```
 # plot the test mse to find the best value for tau
