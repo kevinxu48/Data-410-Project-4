@@ -283,52 +283,13 @@ mse_blwr
  16.664779472237093,
  16.716134961065322]
  
-From the K-Fold validations we see that the Triweight kernel performed the best for Lowess Regression, but the Cosine performed the best for boosted Lowess. Hence, when tuning the hyperparameters to perform comparisons, we will use triweight for Lowess and a Tricubic kernel for Boosted Lowess.
- 
-```
-# Perform KFold validations
-mse_lwr = []
-mse_blwr = []
-for i in range(10):
-  kf = KFold(n_splits=10,shuffle=True,random_state=i)
-  for idxtrain, idxtest in kf.split(Xcars):
-    xtrain = Xcars[idxtrain]
-    ytrain = ycars[idxtrain]
-    ytest = ycars[idxtest]
-    xtest = Xcars[idxtest]
-    xtrain = scale.fit_transform(xtrain)
-    xtest = scale.transform(xtest)
-    
-    # repeat for each of the kernels
-    yhat_lwr = lw_reg(xtrain,ytrain, xtest,Epanechnikov,tau=0.9,intercept=True)
-    yhat_blwr = boosted_lwr(xtrain,ytrain, xtest,Epanechnikov,tau=0.9,intercept=True)
-
-    mse_lwr.append(mse(ytest,yhat_lwr))
-    mse_blwr.append(mse(ytest,yhat_blwr))
-
-print('The Cross-validated MSE for LWR using an Epanechnikov kernel is : '+str(np.mean(mse_lwr)))
-print('The Cross-validated MSE for LWR using an Epanechnikov kernel is : '+str(np.mean(mse_blwr)))
-```
-
-The Cross-validated MSE for LWR using an Epanechnikov kernel is : 16.907313732004027
-The Cross-validated MSE for BLWR using an Epanechnikov kernel is : 16.688312676731158
-
-The Cross-validated MSE for LWR using a tricubic kernel is : 16.91047562708034
-The Cross-validated MSE for BLWR using a tricubic kernel is : 16.701844078368637
-
-The Cross-validated MSE for LWR using a Triweight kernel is : 16.893423122247928
-The Cross-validated MSE for BLWR using a Triweight kernel is : 16.662140711391444
-
-The Cross-validated MSE for LWR using a Cosine kernel is : 16.904756187972154
-The Cross-validated MSE for BLWR using a Cosine kernel is : 16.6555524753039
-
-The Cross-validated MSE for LWR using a Quartic kernel is : 16.89986707278945
-The Cross-validated MSE for BLWR using a Quartic kernel is : 16.67269713223806
-
-From the results, we get that a triweight kernel obtained the best results for Lowess, but the Cosine kernel obtained the best results for Boosted Lowess. Hence, when tuning the hyperparameters to perform comparisons, we will use triweight for Lowess and a Cosine kernel for Boosted Lowess.
+From the K-Fold validation results, we see that the Triweight kernel obtained the best results for Lowess Regression, but the Cosine performed the best for boosted Lowess. Hence, when tuning the hyperparameters to perform comparisons, we will use Triweight kernel for Lowess and a Cosine kernel for Boosted Lowess.
 
 ## Tuning the hyperparameters
 ### Lowess and Boosted Lowess
+
+<img src="https://user-images.githubusercontent.com/98488236/155764542-02e92cc8-1536-4f84-86d7-0f5e7d00eed1.png" width=40% height=40%>
+
 
 
 ![DecisionTreeExample](https://user-images.githubusercontent.com/98488236/153451668-f0f8905e-8bff-4673-a949-89316eb768ae.png)
