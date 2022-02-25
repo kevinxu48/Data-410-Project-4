@@ -287,12 +287,12 @@ From the K-Fold validation results, we see that the Triweight kernel obtained th
 
 ## Tuning the hyperparameters
 ### Lowess and Boosted Lowess
-To find, we performed non-nested K-Fold validations for a certain tau range for both Lowess and Boosted Lowess using their respective optimal kernels.
+To tune the hyperparameters for Lowess and Boosted Lowess, we performed non-nested K-Fold validations for a certain tau range for both Lowess and Boosted Lowess using their respective optimal kernels.
 
 ```
 # Narrow a good value for the tau parameter for Lowess with triweight kern
 k = 10
-t_range = np.arange(0.1,1, step=.1)
+t_range = np.arange(0.9,3, step=.1)
 test_mse = []
 for t in t_range:
   te_mse = DoKFoldLoess(Xcars,ycars,k,Triweight, t, False, True)
@@ -318,10 +318,10 @@ plt.show()
 ```
 # Narrow a good value for the tau parameter for Boosted Lowess with triweight kern
 k = 10
-t_range = np.arange(0.9,3, step=.1)
+t_range = np.arange(0.1,1, step=.1)
 test_mse = []
 for t in t_range:
-  te_mse = DoKFoldLoess(Xcars,ycars,k,Triweight, t, True, True)
+  te_mse = DoKFoldLoess(Xcars,ycars,k,Cosine, t, True, True)
   test_mse.append(np.mean(te_mse))
 ```
 
@@ -341,6 +341,42 @@ plt.show()
 
 <img src="https://user-images.githubusercontent.com/98488236/155766277-2e33e7a8-7c8b-4e5d-9224-fe2702edd7ee.png" width=40% height=40%>
 
+Hence, from the K-Fold validations, we get an optimized tau of 1.3 for Lowess Regression and a tau of 0.8 for Boosted Lowess Regression.
+
+### Random Forest Regression
+For Random Forest Regression, we will be tuning the max_depth and n_estimators parameters. From plotting results for a max depth from 1-5, we have determined that a max_depth of 3 produces the best cross-validated results. Hence, we will tune the number of trees based on a max_depth of 3.
+
+```
+# First use K-Fold to narrow a good value for the n_estimator
+k = 10
+t_range = np.arange(60,200, step=1)
+test_mse = []
+for t in t_range:
+  rfr = RFR(n_estimators = t, max_depth = 3, random_state=410)
+  te_mse = DoKFold(rfr,Xcars,ycars,k,410)
+  test_mse.append(np.mean(te_mse))
+```
+
+```
+
+# plot the test mse to find the best value for n_estimators
+
+idx = np.argmin(test_mse)
+print([t_range[idx], test_mse[idx]])
+plt.plot(t_range,test_mse, '-xr',label='Test')
+plt.xlabel('number of trees')
+plt.ylabel('Avg. MSE')
+plt.title('K-fold validation with k = ' + str(k))
+plt.show()
+```
+[178, 16.961528636028113]
+
+<img src="https://user-images.githubusercontent.com/98488236/155767913-9b31cf3c-b07e-434f-b24a-8c78aca6ab15.png" width=40% height=40%>
+
+From the results of the cross-validations we get that the optimal hyperparameter values are 178 trees with a maximum depth of 3.
+
+### XGBoost
+There are many hyperparameters to consider for XGBoost, so it is difficult to determine exactly what the best value is for each parameter. Spoiler Alert: it appears that regardless of the values chosen for the hyperparameters, XGBoost performs leagues better than the other regression techniques. Hence,   
 
 *Python Regression Tree Example*
 
