@@ -406,6 +406,35 @@ From the MSE values, we clearly see that XGBoost performed far better than any o
 ### Concrete dataset
 Now we will repeat our steps on the concrete strength dataset to verify that the results were not just a fluke.
 
+## Finding the Best Kernel for Lowess and Boosted Lowesss
+Here we repeat the same process as for the cars dataset, except instead of performing nested K-Fold validations, we will simply perform standard cross-validations because the concrete dataset is much larger, and results in a significantly longer runtime.
+```
+mse_blwr = []
+for kern in [Epanechnikov, Tricubic, Triweight, Cosine, Quartic]:
+  mse_blwr.append(DoKFoldLoess(X_conc, y_conc, 10, kern, 0.9, False, True))
+  mse_blwr
+```
+
+[147.50254368228087,
+ 146.4227649591804,
+ 145.88023526561545,
+ 147.2636028932561,
+ 146.34599111816914]
+ 
+ ```
+ mse_blwr = []
+for kern in [Epanechnikov, Tricubic, Triweight, Cosine, Quartic]:
+  mse_blwr.append(DoKFoldLoess(X_conc, y_conc, 10, kern, 0.9, True, True))
+  mse_blwr
+ ```
+ 
+ [142.5072230143699,
+ 142.58612792373117,
+ 142.74523440367054,
+ 142.44087542013045,
+ 142.13448284090876]
+ 
+We see that similarly, a Triweight kernel produced the best results for Lowess, but a Quartic kernel produced the best results for Boosted Lowess. Perhaps the lack of nested loops resulted in a random state that was more favorable for a Quartic kernel, but regardless we will proceed with a Triweight kernel for Lowess regression and a Quartic kernel for boosted Lowess regression.
 
 # Conclusion
 
