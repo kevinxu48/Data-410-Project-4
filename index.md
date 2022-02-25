@@ -5,7 +5,7 @@ Multivariate regression is a regression technique that estimates a regression mo
 
 In general for Multivariate models, for <img src="https://render.githubusercontent.com/render/math?math=n"> number of features, we want 
 
-<img src="https://render.githubusercontent.com/render/math?math=E(y|X_1,X_2,\cdots, X_n) = F(X_1,X_2,\cdots, X_n) = Y">
+<img src="https://render.githubusercontent.com/render/math?math=E(y | X_1,X_2,\cdots, X_n) = F(X_1,X_2,\cdots, X_n) = Y">
 where F is the model or regressor we consider.
 
 One of the most common type of multivariate Regression is multiple linear regression, which fits a linear equation to given data in an attempt to model the relationship between a single independent variable and a dependent variable, with any other features having weights of 0. The fitting of the data points becomes harder to visualize as more features are included in the model, but we can visualize the fitting of data in lower dimensions.
@@ -192,7 +192,7 @@ def boosted_lwr(X, y, xnew, kern, tau, intercept):
   return output 
 ```
 ## Data Sets
-In this project we will test the regression methods on the cars and a new concrete strength data set. For the cars dataset, we will use all 3 features: number of cylinder, and engine displacement, and weight. 
+In this project we will test the regression methods on the cars and a new concrete strength data set. For the cars dataset, we will use all 3 features: number of cylinder, and engine displacement, and weight to predict the Miles Per Gallon. 
 
 ```
 # Obtain and scale the features for the car dataset
@@ -204,10 +204,32 @@ ycars = cars['MPG'].values
 Xcars_scaled = scale.fit_transform(Xcars)
 ```
 
-The concrete dataset is more complicated in that it has 8 features: . Using PCA we will narrow it down to the 3 features that summarize most of the variability.
+The concrete dataset is more complicated in that it has 8 features: age of the mixture and the amount of Cement, Blast Furnace Slag, Fly Ash, Water, Superplasticizer, Coarse Aggregate, and Fine Aggregate in the mixture to predict the concrete strength. Using PCA we will narrow it down to the 3 features that summarize most of the variability.
+```
+X_conc = concrete[['cement','slag','ash', 'water', 'superplastic', 'coarseagg', 'fineagg', 'age']].values
+y_conc = concrete[['strength']].values
+
+Xconc_scale = scale.fit_transform(X_conc)
+```
+```
+pca = PCA(n_components=3)
+Xconc_new = pca.fit_transform(Xconc_scale) # project the original data into the PCA space
+print(abs( pca.components_))
 ```
 
-```
+[[0.09840137 0.17726197 0.39466185 0.54700395 0.50594541 0.03792808
+  0.40192597 0.29147949]
+ [0.11373709 0.6860529  0.14294751 0.05325628 0.2829296  0.62994342
+  0.01939111 0.12598089]
+ [0.81420224 0.17179437 0.40822055 0.21318975 0.23459653 0.17408781
+  0.00456921 0.10052137]]
+  
+ From the PCA, we see that variables 4 (water), 2 (slag), and 1 (concrete) summarize most of the variability, so we will select those as our features.
+
+## KFold validations
+
+### Cars dataset
+Now using the cars data, we will perform nested 10-Fold validations for Lowess, Boosted Lowess, XGBoost, and random forest
 
 Random Forest is a versatile algorithm discussed in DATA 310 that can perform both regression and classification tasks. The regression tasks require picking a random set of points in the data and building Regression or **Decision Trees**, which are nested if-else conditions, and the splitting of a tree are decided based on criteria such as the gini impurity. 
 
