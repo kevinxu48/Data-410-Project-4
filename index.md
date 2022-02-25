@@ -82,12 +82,12 @@ To implement XGB in python, we can simply install the xgboost package by running
 ```
 import xgboost as xgb
 ```
-## Advantages of XGB
+### Advantages of XGB
 - It is known for performing regression and classification tasks very quickly
 - It performs especially well on structured datasets with not too many features. 
 - It is a robust algorithm that prevents over-fitting
 
-## Disadvantages of XGB
+### Disadvantages of XGB
 - It does not work as well on unstructured data
 - It is sensitive to outliers, since boosting methods build each tree on the previous trees' residuals
 # Comparison of Various Regression Methods
@@ -132,30 +132,65 @@ plt.show()
 ![cosine](https://user-images.githubusercontent.com/98488236/155627892-368920c3-1858-4144-9ffb-ef954d2e56a5.png)
 
 The other kernels are the same as described in Project 2.
-### Implementation of the Lowess Regression
-Python and SKlearn do not have an implementation of Lowess Regression, so to use it we must define our own function.
+### Implementation of Lowess and Boosted Lowess Regression
+Since Project 2, we have added an intercept parameter to the lowess function and also created a boosted lowess function.
 ```
-def lowess_reg(x, y, xnew, kern, tau):
-    # We expect x to the sorted increasingly
-    n = len(x)
+#Defining the kernel local regression model
+
+def lw_reg(X, y, xnew, kern, tau, intercept):
+    # tau is called bandwidth K((x-x[i])/(2*tau))
+    n = len(X) # the number of observations
     yest = np.zeros(n)
 
-    #Initializing all weights from the bell shape kernel function    
-    w = np.array([kern((x - x[i])/(2*tau)) for i in range(n)])     
-    
-    #Looping through all x-points
-    for i in range(n):
-        weights = w[:, i]
-        b = np.array([np.sum(weights * y), np.sum(weights * y * x)])
-        A = np.array([[np.sum(weights), np.sum(weights * x)],
-                    [np.sum(weights * x), np.sum(weights * x * x)]])
-        #theta = linalg.solve(A, b) # A*theta = b
-        theta, res, rnk, s = linalg.lstsq(A, b)
-        yest[i] = theta[0] + theta[1] * x[i] 
-    f = interp1d(x, yest,fill_value='extrapolate')
-    return f(xnew)
-```
+    if len(y.shape)==1: # here we make column vectors
+      y = y.reshape(-1,1)
 
+    if len(X.shape)==1:
+      X = X.reshape(-1,1)
+    
+    if intercept:
+      X1 = np.column_stack([np.ones((len(X),1)),X])
+    else:
+      X1 = X
+
+    w = np.array([kern((X - X[i])/(2*tau)) for i in range(n)]) # here we compute n vectors of weights
+
+    #Looping through all X-points
+    for i in range(n):          
+        W = np.diag(w[:,i])
+        b = np.transpose(X1).dot(W).dot(y)
+        A = np.transpose(X1).dot(W).dot(X1)
+        #A = A + 0.001*np.eye(X1.shape[1]) # if we want L2 regularization
+        #theta = linalg.solve(A, b) # A*theta = b
+        beta, res, rnk, s = lstsq(A, b)
+        yest[i] = np.dot(X1[i],beta)
+    if X.shape[1]==1:
+      f = interp1d(X.flatten(),yest,fill_value='extrapolate')
+    else:
+      f = LinearNDInterpolator(X, yest)
+    output = f(xnew) # the output may have NaN's where the data points from xnew are outside the convex hull of X
+    if sum(np.isnan(output))>0:
+      g = NearestNDInterpolator(X,y.ravel()) 
+      # output[np.isnan(output)] = g(X[np.isnan(output)])
+      output[np.isnan(output)] = g(xnew[np.isnan(output)])
+    return output
+```
+```
+# boosted Lowess model
+
+def boosted_lwr(X, y, xnew, kern, tau, intercept):
+  # we need decision trees
+  # for training the boosted method we use X and y
+  Fx = lw_reg(X,y,X,kern,tau,intercept) # we need this for training the Decision Tree
+  # Now train the Decision Tree on y_i - F(x_i)
+  new_y = y - Fx
+  #model = DecisionTreeRegressor(max_depth=2, random_state=123)
+  model = RFR(n_estimators=100,max_depth=2)
+  #model = model_xgb
+  model.fit(X,new_y)
+  output = model.predict(xnew) + lw_reg(X,y,xnew,kern,tau,intercept)
+  return output 
+```
 # Random Forest Regression
 Random Forest is a versatile algorithm discussed in DATA 310 that can perform both regression and classification tasks. The regression tasks require picking a random set of points in the data and building Regression or **Decision Trees**, which are nested if-else conditions, and the splitting of a tree are decided based on criteria such as the gini impurity. 
 
