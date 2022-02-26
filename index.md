@@ -382,8 +382,8 @@ There are many hyperparameters to consider for XGBoost, so it is difficult to de
 ```
  model_xgb = xgb.XGBRegressor(objective='reg:squarederror',n_estimators=60,reg_lambda=15,alpha=0,gamma=12.4,max_depth=2)
 ```
-It is unlikely
 
+This is likely not the most optimal combination of the hyperparameters, but regardless it will serve as an efficient model.
 
 ## Results for Cars Dataset
 We compared the nested cross-validated results for Lowess, Boosted Lowess, RandomForest, and XGBoost regressors, and we obtained these results.
@@ -496,13 +496,22 @@ plt.show()
 From the results obtained, we will use a tau value of 0.9 for Lowess and a tau value of 1.3 for Boosted Lowess.
 
 ### Random Forest Regressor
-Like before for Random Forest Regression, we will be tuning the max_depth and n_estimators parameters. This time from plotting results for a max depth from 1-5, we have determined that a max_depth of 4 produces the best cross-validated results. Hence, we will tune the number of trees based on a max_depth of 4.
+Like before for Random Forest Regression, we will be tuning the max_depth and n_estimators parameters. This time from plotting results for a max depth from 1-7, we have determined that a max_depth of 6 produces the best cross-validated results. Hence, we will tune the number of trees based on a max_depth of 6.
 
-[43, 151.2366157793651]
+[59, 146.53884274619216]
 
-<img src=https://user-images.githubusercontent.com/98488236/155824497-53a9801e-761a-4e0e-acf4-d573339e744e.png width=40% height=40%>
+<img src=(https://user-images.githubusercontent.com/98488236/155825157-eb716883-c788-4f57-a524-a223e786828c.png width=40% height=40%>
 
-From the results of the cross-validations we get that the optimal hyperparameter values are 43 trees with a maximum depth of 4.
+From the results of the cross-validations we get that the optimal hyperparameter values are 59 trees with a maximum depth of 6.
+
+### XGBoost
+Like before, we did basic iterations to tune each hyperparameter, and got that a 
+found that the parameters that obtained the best cross-validated results was:   
+```
+ model_xgb = xgb.XGBRegressor(objective='reg:squarederror',n_estimators=60,reg_lambda=15,alpha=0,gamma=12.4,max_depth=2)
+```
+
+
 
 # Conclusion
 
