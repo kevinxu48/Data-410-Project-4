@@ -391,17 +391,17 @@ We compared the nested cross-validated results for Lowess, Boosted Lowess, Rando
 ```
 model_rf = RFR(n_estimators = 178, max_depth=3)
 
-print('The Cross-validated Mean Squared Error for LWR is : ' +str(DoNestedKFoldLoess(Xcars, ycars, 10, Triweight, 1.3, False, True)))
-print('The Cross-validated Mean Squared Error for BLWR is : '+str(DoNestedKFoldLoess(Xcars, ycars,10,  Cosine, 0.8, True, True)))
-print('The Cross-validated Mean Squared Error for RF is : '+str(DoKFold(model_rf,Xcars,ycars,10,410,True)))
-print('The Cross-validated Mean Squared Error for XGB is : '+str(DoKFoldXGB(Xcars,ycars, 'reg:squarederror',60,15,0,12.4,2, 410, True)))
+print('The Cross-validated MSE for LWR is : ' +str(DoNestedKFoldLoess(Xcars, ycars, 10, Triweight, 1.3, False, True)))
+print('The Cross-validated MSE for BLWR is : '+str(DoNestedKFoldLoess(Xcars, ycars,10,  Cosine, 0.8, True, True)))
+print('The Cross-validated MSE for RF is : '+str(DoKFold(model_rf,Xcars,ycars,10,410,True)))
+print('The Cross-validated MSE for XGB is : '+str(DoKFoldXGB(Xcars,ycars, 'reg:squarederror',60,15,0,12.4,2, 410, True)))
 ```
 *Results from the Nested K-Fold validations*
 
-The Cross-validated Mean Squared Error for LWR is : 16.959251056181547
-The Cross-validated Mean Squared Error for BLWR is : 16.687318388260138
-The Cross-validated Mean Squared Error for RF is : 16.80957591130398
-The Cross-validated Mean Squared Error for XGB is : 15.731945730590105
+The Cross-validated MSE for LWR is : 16.959251056181547
+The Cross-validated MSE for BLWR is : 16.687318388260138
+The Cross-validated MSE for RF is : 16.80957591130398
+The Cross-validated MSE for XGB is : 15.731945730590105
 
 From the MSE values, we clearly see that XGBoost performed far better than any other technique, and that Boosted Lowess performed marginally better than Random Forest, and Lowess Regression came last.
 
