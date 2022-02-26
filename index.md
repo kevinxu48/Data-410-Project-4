@@ -506,8 +506,11 @@ print('The Cross-validated MSE for XGB is : '+str(DoKFoldXGB(Xcars,ycars, 'reg:s
 *Results from the Nested K-Fold validations*
 
 The Cross-validated MSE for LWR is : 16.959251056181547
+
 The Cross-validated MSE for BLWR is : 16.687318388260138
+
 The Cross-validated MSE for RF is : 16.80957591130398
+
 The Cross-validated MSE for XGB is : 15.731945730590105
 
 From the MSE values, we clearly see that XGBoost performed far better than any other technique, and that Boosted Lowess performed marginally better than Random Forest, and Lowess Regression came last, which is different from the results obtained in Project 2 with Lowess beating Random Forest.
@@ -635,8 +638,11 @@ print('The Cross-validated MSE for XGB is : '+str(DoKFoldXGB(X_conc,y_conc,'reg:
 *Results from the Nested K-Fold validations*
 
 The Cross-validated MSE for LWR is : 147.32619293270477
+
 The Cross-validated MSE for BLWR is : 142.00138749527653
+
 The Cross-validated MSE for RF is : 148.88023867477833
+
 The Cross-validated MSE for XGB is : 141.90434578773935
 
 From the MSE values, we see that XGBoost performed far better than any other technique, but this time Boosted Lowess came very close to beating it. Moreover, Random Forest actually performed worse than Lowess Regression on the concrete dataset, which matched the results from Project 2.
