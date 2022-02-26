@@ -50,7 +50,7 @@ However, we reach a problem when <img src="https://render.githubusercontent.com/
 ![rank deficient](https://user-images.githubusercontent.com/98488236/155574702-22481663-87ae-4e87-968e-3fa7b34a0dc4.jpg)
 
 
-To bypass this issue we can take the <img src="https://render.githubusercontent.com/render/math?math=X^TX"> matrix and add the identity matrix scaled by some small value <img src="https://render.githubusercontent.com/render/math?math=\large\lambda">. In the case of multicolinearity, we can use **Regularization** techniques, such as the L1 and L2 regularization models to minimize the sum of the square residuals.
+To bypass this issue we can take the <img src="https://render.githubusercontent.com/render/math?math=\large X^TX"> matrix and add the identity matrix scaled by some small value <img src="https://render.githubusercontent.com/render/math?math=\large\lambda">. In the case of multicolinearity, we can use **Regularization** techniques, such as the L1 and L2 regularization models to minimize the sum of the square residuals.
 ### Applications of Multivariate Regression
 Here are some regression problems that we can solve using Multivariate Regression (we will be doing the second and third in this project):
 - Predict the median value of a house given variables such as average number of rooms, amount per capita crime, proportions of non-retail business acres per town, etc.
