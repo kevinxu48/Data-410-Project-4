@@ -229,8 +229,110 @@ print(abs( pca.components_))
  From the PCA, we see that variables 4 (water), 2 (slag), and 1 (concrete) summarize most of the variability, so we will select those as our features.
 
 ## K-Fold validations
-To perform the K-Fold validations, two functions were created: one for the boosted and unboosted Lowess, and one for the other models. We perform nested KFolds using a range of random states to better validate the results.
+To perform the K-Fold validations, 4 functions were created: two for the boosted and unboosted Lowess, one for Random Forest, and one for XGBoost. The functions for RF and XGB were given an option to perform nested or unnested validations using a range of random states to better validate the results. *Note: the two Lowess functions could have been combined into a single function with a parameter for nesting, but I had already called both functions multiple times and didn't want to do more work*.
+
+*K-Fold functions used for cross validation*
+
 ```
+# K-Fold function for sklearn models
+
+def DoKFold(model,x,y,k,rseed,nested):
+  scale = SS()
+  mse_train = []
+  mse_test = []
+  if nested:
+    for rs in range(10):
+      kf = KFold(n_splits=k,shuffle=True,random_state=rs)
+      for idxtrain, idxtest in kf.split(x):
+        ytrain = y[idxtrain]
+        xtrain = x[idxtrain]
+        xstrain = scale.fit_transform(xtrain)
+        ytest = y[idxtest]
+        xtest = x[idxtest]
+        xstest = scale.transform(xtest)
+        model.fit(xstrain,ytrain)
+        mse_train.append(mse(ytrain,model.predict(xstrain)))
+        mse_test.append(mse(ytest,model.predict(xstest)))
+  else:
+    kf = KFold(n_splits=k,shuffle=True,random_state=rseed)
+    for idxtrain, idxtest in kf.split(x):
+      ytrain = y[idxtrain]
+      xtrain = x[idxtrain]
+      xstrain = scale.fit_transform(xtrain)
+      ytest = y[idxtest]
+      xtest = x[idxtest]
+      xstest = scale.transform(xtest)
+      model.fit(xstrain,ytrain)
+      mse_train.append(mse(ytrain,model.predict(xstrain)))
+      mse_test.append(mse(ytest,model.predict(xstest)))
+  return np.mean(mse_test)
+
+```
+
+```
+# KFold function for xgb
+
+def DoKFoldXGB(X,y, obj, n_est, rl, a, g, md, random_state, nested):
+  mse_xgb = []
+  scale = SS()
+  if nested:
+    for i in range(10):
+      kf = KFold(n_splits=10,shuffle=True,random_state=i)
+      for idxtrain, idxtest in kf.split(X):
+        xtrain = X[idxtrain]
+        ytrain = y[idxtrain]
+        ytest = y[idxtest]
+        xtest = X[idxtest]
+        xtrain = scale.fit_transform(xtrain)
+        xtest = scale.transform(xtest)
+
+        model_xgb = xgb.XGBRegressor(objective =obj,n_estimators=n_est,reg_lambda=rl,alpha=a,gamma=g,max_depth=md, random_state=i)
+        model_xgb.fit(xtrain,ytrain)
+        yhat_xgb = model_xgb.predict(xtest)
+        mse_xgb.append(mse(ytest,yhat_xgb))
+
+  else:
+    kf = KFold(n_splits=10,shuffle=True,random_state=random_state)
+    for idxtrain, idxtest in kf.split(X):
+      xtrain = X[idxtrain]
+      ytrain = y[idxtrain]
+      ytest = y[idxtest]
+      xtest = X[idxtest]
+      xtrain = scale.fit_transform(xtrain)
+      xtest = scale.transform(xtest)
+
+      model_xgb = xgb.XGBRegressor(objective =obj,n_estimators=n_est,reg_lambda=rl,alpha=a,gamma=g,max_depth=md, random_state=random_state)
+      model_xgb.fit(xtrain,ytrain)
+      yhat_xgb = model_xgb.predict(xtest)
+      mse_xgb.append(mse(ytest,yhat_xgb))
+  return np.mean(mse_xgb)
+```
+```
+# Unnested Lowess
+
+def DoKFoldLoess(x,y,k, kern, tau, boosted, intercept):
+  scale = SS()
+  mse_lwr = []
+  kf = KFold(n_splits=k,shuffle=True,random_state=410)
+  for idxtrain, idxtest in kf.split(x):
+    xtrain = x[idxtrain]
+    ytrain = y[idxtrain]
+    ytest = y[idxtest]
+    xtest = x[idxtest]
+    xtrain = scale.fit_transform(xtrain)
+    xtest = scale.transform(xtest)
+    # call the boosted lowess function if it is desired
+    if boosted:  
+      yhat_blwr = boosted_lwr(xtrain,ytrain, xtest,kern,tau,intercept)
+      mse_lwr.append(mse(ytest,yhat_blwr))
+    else:
+      yhat_lwr = lw_reg(xtrain, ytrain,xtest,kern,tau, intercept)
+      mse_lwr.append(mse(ytest,yhat_lwr))
+  return np.mean(mse_lwr)
+```
+
+```
+# Nested Lowess
 def DoNestedKFoldLoess(x,y,k, kern, tau, boosted, intercept):
   scale = SS()
   mse_lwr = []
@@ -253,6 +355,8 @@ def DoNestedKFoldLoess(x,y,k, kern, tau, boosted, intercept):
         mse_lwr.append(mse(ytest,yhat_lwr))
   return np.mean(mse_lwr)
 ```
+
+
 ### Cars dataset
 Now using the cars data, we will perform nested 10-Fold validations for Lowess, Boosted Lowess, XGBoost, Random Forest, and the Nadaraya–Watson kernel regression techniques and comapre the results.
 
