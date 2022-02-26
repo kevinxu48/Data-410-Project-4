@@ -496,7 +496,13 @@ plt.show()
 From the results obtained, we will use a tau value of 0.9 for Lowess and a tau value of 1.3 for Boosted Lowess.
 
 ### Random Forest Regressor
-Like before for Random Forest Regression, we will be tuning the max_depth and n_estimators parameters. Again, from plotting results for a max depth from 1-5, we have determined that a max_depth of 3 produces the best cross-validated results. Hence, we will tune the number of trees based on a max_depth of 3.
+Like before for Random Forest Regression, we will be tuning the max_depth and n_estimators parameters. This time from plotting results for a max depth from 1-5, we have determined that a max_depth of 4 produces the best cross-validated results. Hence, we will tune the number of trees based on a max_depth of 4.
+
+[43, 151.2366157793651]
+
+<img src=https://user-images.githubusercontent.com/98488236/155824497-53a9801e-761a-4e0e-acf4-d573339e744e.png width=40% height=40%>
+
+From the results of the cross-validations we get that the optimal hyperparameter values are 43 trees with a maximum depth of 4.
 
 # Conclusion
 
