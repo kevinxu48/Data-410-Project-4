@@ -508,12 +508,32 @@ From the results of the cross-validations we get that the optimal hyperparameter
 Like before, we did basic iterations to tune each hyperparameter, and got that a 
 found that the parameters that obtained the best cross-validated results was:   
 ```
- model_xgb = xgb.XGBRegressor(objective='reg:squarederror',n_estimators=60,reg_lambda=15,alpha=0,gamma=12.4,max_depth=2)
+ model_xgb = xgb.XGBRegressor(objective='reg:squarederror',n_estimators=140,reg_lambda=15.4,alpha=0,gamma=8.2,max_depth=2)
 ```
 
+Again, while these might not be the most optimal hyperparameter values, we still expect this XGBoost model to perform the best regardless.
 
+## Results for Concrete Dataset
+This time, we compared the nested cross-validated results for Lowess, Boosted Lowess, RandomForest, and XGBoost regressors on the concrete strength dataset. After 3 hours, we obtained these results:
 
+```
+model_rf = RFR(n_estimators = 59, max_depth = 6)
+
+print('The Cross-validated MSE for LWR is : ' +str(DoNestedKFoldLoess(X_conc, y_conc, 10, Triweight, 1.3, False, True)))
+print('The Cross-validated MSE for BLWR is : '+str(DoNestedKFoldLoess(X_conc, y_conc,10,  Cosine, 0.8, True, True)))
+print('The Cross-validated MSE for RF is : '+str(DoKFold(model_rf,Xcars,ycars,10,410,True)))
+print('The Cross-validated MSE for XGB is : '+str(DoKFoldXG(X_conc,y_conc,'reg:squarederror',140,15.4,0,12.4, 2, 410, True)))
+```
+*Results from the Nested K-Fold validations*
+
+The Cross-validated MSE for LWR is : 16.959251056181547
+The Cross-validated MSE for BLWR is : 16.687318388260138
+The Cross-validated MSE for RF is : 16.80957591130398
+The Cross-validated MSE for XGB is : 15.731945730590105
+
+From the MSE values, we clearly see that XGBoost performed far better than any other technique, and that Boosted Lowess performed marginally better than Random Forest, and Lowess Regression came last.
 # Conclusion
+
 
 ## References
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3049417/
