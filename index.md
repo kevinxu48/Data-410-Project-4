@@ -533,7 +533,7 @@ The Cross-validated MSE for XGB is : 15.731945730590105
 
 From the MSE values, we clearly see that XGBoost performed far better than any other technique, and that Boosted Lowess performed marginally better than Random Forest, and Lowess Regression came last.
 # Conclusion
-
+Ultimately, XGBoost swept the competition regardless of the dataset used, and Boosted Lowess Regression performed better than Random Forest and Regular Lowess Regression. It was expected that XGBoost would produce the best results, since it is widely regarded as one of the most efficient and fast gradient boosting algorithms. However, compared to the results in Project 2, the Random Forest Regressor marginally outperformed Lowess Regression; this may be due to the two additional features in the car dataset that we included in this project that were ommited in Project 2. We could have also constructed a neural network to compete in the regression tasks, but it likely would not have stood a chance because it tends to perform better at classification rather than regression tasks. Overall, this project helped introduce various multivariate regression models and demonstrates the power of Gradient Boosting, especially XGBoost.  
 
 ## References
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3049417/
