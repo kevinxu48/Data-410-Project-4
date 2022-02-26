@@ -95,6 +95,7 @@ import xgboost as xgb
 # Comparison of Various Regression Methods
 ## New Kernels for Lowess
 In addition to the tricubic, quartic, and Epanechnikov kernels we implemented in project 2, this project will implement two additional kernels: Triweight and Cosine.
+
 ```
 # Triweight Kernel
 def Triweight(x):
@@ -529,7 +530,7 @@ for kern in [Epanechnikov, Tricubic, Triweight, Cosine, Quartic]:
  
  ```
  mse_blwr = []
-for kern in [Epanechnikov, Tricubic, Triweight, Cosine, Quartic]:
+ for kern in [Epanechnikov, Tricubic, Triweight, Cosine, Quartic]:
   mse_blwr.append(DoKFoldLoess(X_conc, y_conc, 10, kern, 0.9, True, True))
   mse_blwr
  ```
@@ -604,7 +605,7 @@ Like before for Random Forest Regression, we will be tuning the max_depth and n_
 
 [59, 146.53884274619216]
 
-<img src=(https://user-images.githubusercontent.com/98488236/155825157-eb716883-c788-4f57-a524-a223e786828c.png width=40% height=40%>
+<img src=https://user-images.githubusercontent.com/98488236/155825157-eb716883-c788-4f57-a524-a223e786828c.png width=40% height=40%>
 
 From the results of the cross-validations we get that the optimal hyperparameter values are 59 trees with a maximum depth of 6.
 
