@@ -229,7 +229,7 @@ print(abs( pca.components_))
  From the PCA, we see that variables 4 (water), 2 (slag), and 1 (concrete) summarize most of the variability, so we will select those as our features.
 
 ## K-Fold validations
-To perform the K-Fold validations, 4 functions were created: two for the boosted and unboosted Lowess, one for Random Forest, and one for XGBoost. The functions for RF and XGB were given an option to perform nested or unnested validations using a range of random states to better validate the results. *Note: the two Lowess functions could have been combined into a single function with a parameter for nesting, but I had already called both functions multiple times and didn't want to do more work*.
+To perform the K-Fold validations, 4 functions were created: two for the boosted and unboosted Lowess, one for Random Forest, and one for XGBoost. The functions for RF and XGB were given an option to perform nested or unnested validations using a range of random states to better validate the results. *(Note: the two Lowess functions could have been combined into a single function with a parameter for nesting, but I had already called both functions multiple times and didn't want to do more work)*.
 
 *K-Fold functions used for cross validation*
 
