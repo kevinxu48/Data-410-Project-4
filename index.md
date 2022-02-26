@@ -489,7 +489,11 @@ plt.title('K-fold validation with k = ' + str(k))
 plt.show()
 ```
 
-From the results obtained, we will use a tau value of 0.9 for Lowess and a tau value of _ for Boosted Lowess.
+[1.3000000000000003, 142.0938341529481]
+
+<img src=https://user-images.githubusercontent.com/98488236/155823893-05d9507a-02c6-4a3e-b902-6cc17e6511fb.png width=40% height=40%>
+
+From the results obtained, we will use a tau value of 0.9 for Lowess and a tau value of 1.3 for Boosted Lowess.
 
 ### Random Forest Regressor
 Like before for Random Forest Regression, we will be tuning the max_depth and n_estimators parameters. Again, from plotting results for a max depth from 1-5, we have determined that a max_depth of 3 produces the best cross-validated results. Hence, we will tune the number of trees based on a max_depth of 3.
