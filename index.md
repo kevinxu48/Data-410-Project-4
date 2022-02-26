@@ -6,6 +6,7 @@ Multivariate regression is a regression technique that estimates a regression mo
 In general for Multivariate models, for <img src="https://render.githubusercontent.com/render/math?math=n"> number of features, we want 
 
 <img src="https://render.githubusercontent.com/render/math?math=E(y | X_1,X_2,\cdots, X_n) = F(X_1,X_2,\cdots, X_n) = Y">
+
 where F is the model or regressor we consider.
 
 One of the most common type of multivariate Regression is multiple linear regression, which fits a linear equation to given data in an attempt to model the relationship between a single independent variable and a dependent variable, with any other features having weights of 0. The fitting of the data points becomes harder to visualize as more features are included in the model, but we can visualize the fitting of data in lower dimensions.
@@ -21,9 +22,9 @@ One of the most common type of multivariate Regression is multiple linear regres
 Notice for a model with two independent variables, a plane is fitted to the data points rather than a line.
 
 ## Feature Selection
-One important factor in multivariate regression is choosing the features that are the most important. There is often multicolinearity between certain independent variables, so removing the irrelevant or redundant features will improve learning accuracy on the training data and reduces the overall run time. Often, the most **parsimonious** model is selected with the least number of explanatory variables possible while still explaining the data.
+One important factor in multivariate regression is choosing the features that are the most important. There can often be multicolinearity between certain independent variables, so removing the irrelevant or redundant features will improve learning accuracy on the training data and reduces the overall run time. Often, the most **parsimonious** model is selected with the least number of explanatory variables possible while still explaining the data.
 
-In this project, we will use **Principle Component Analysis (PCA)** to determine the three most important features when there are multiple to consider. PCA is a dimensionality reduction technique used to obtain a subset of features based on the direction of the biggest variablity. by projecting (dot product) the original data into the reduced PCA space using the eigenvectors of the correlation matrix which are known as the principal components and results in linear combinations of the original data that summarize most of the variablility.
+In this project, we will use **Principle Component Analysis (PCA)** to determine the three most important features when there are multiple to consider. PCA is a dimensionality reduction technique used to obtain a subset of features based on the direction of the biggest variablity. by projecting (dot product) the original data into the reduced PCA space using the eigenvectors of the correlation matrix, which are known as the principal components, and results in linear combinations of the original data that summarize most of the variablility.
 
 *Example of PCA in 2 dimensions*
 
@@ -35,7 +36,7 @@ Given the sparsity pattern, the mathematical function of a Multivariate regressi
 
 ![mlr model](https://user-images.githubusercontent.com/98488236/155565976-21670880-71ec-46f3-a823-44cdadcf699a.jpg)
 
- where <img src="https://render.githubusercontent.com/render/math?math=\beta_i"> determines the contribution of the independent variable <img src="https://render.githubusercontent.com/render/math?math=Y = X_i"> and <img src="https://render.githubusercontent.com/render/math?math=\sigma"> is the residual standard deviation with the residuals being i.i.d. with an expected value of 0. The sparsity pattern means that a subset of the <img src="https://render.githubusercontent.com/render/math?math=\beta">'s will be 0. 
+ where <img src="https://render.githubusercontent.com/render/math?math=\large\beta_i"> determines the contribution of the independent variable <img src="https://render.githubusercontent.com/render/math?math=\large Y = X_i"> and <img src="https://render.githubusercontent.com/render/math?math=\large\sigma"> is the residual standard deviation with the residuals being i.i.d. with an expected value of 0. The sparsity pattern means that a subset of the <img src="https://render.githubusercontent.com/render/math?math=\beta">'s will be 0. 
  
 ## Rank Deficiency
 We can solve for the weights by utilizing some Algebra and the method of Least Squares to obtain:
@@ -49,11 +50,11 @@ However, we reach a problem when <img src="https://render.githubusercontent.com/
 ![rank deficient](https://user-images.githubusercontent.com/98488236/155574702-22481663-87ae-4e87-968e-3fa7b34a0dc4.jpg)
 
 
-To bypass this issue we can take the <img src="https://render.githubusercontent.com/render/math?math=X^TX"> matrix and add the identity matrix scaled by some small value <img src="https://render.githubusercontent.com/render/math?math=\lambda">. In the case of multicolinearity, we can use **Regularization** techniques, such as the L1 and L2 regularization models to minimize the sum of the square residuals.
+To bypass this issue we can take the <img src="https://render.githubusercontent.com/render/math?math=X^TX"> matrix and add the identity matrix scaled by some small value <img src="https://render.githubusercontent.com/render/math?math=\large\lambda">. In the case of multicolinearity, we can use **Regularization** techniques, such as the L1 and L2 regularization models to minimize the sum of the square residuals.
 ### Applications of Multivariate Regression
-Here are some regression problems that we will solve using Multivariate Regression in this project:
-- Predict the miles per gallon of a car given variables such as its weight, number of cylinder, and engine displacement
+Here are some regression problems that we can solve using Multivariate Regression (we will be doing the second and third in this project):
 - Predict the median value of a house given variables such as average number of rooms, amount per capita crime, proportions of non-retail business acres per town, etc.
+- Predict the miles per gallon of a car given variables such as its weight, number of cylinder, and engine displacement
 - Predict the strength of concrete given variables such as the amount of concrete, fly ash, water, etc. present in the mixture, and the age in days 
 ### Advantages of Multivariate Regression
 - We are able to find relationships between the dependent variable and the independent variables, specifically we can find the relative influence of the predictor variables to the target variable
@@ -66,7 +67,7 @@ Here are some regression problems that we will solve using Multivariate Regressi
 # Gradient Boosting for Regression
 Gradient Boosting can be used for both classification and regression problems, but for this project we will mainly focus on its regression applications. The concept of Gradient boosting originated with the idea of turning a *weak learner*, a learner whose performance is marginally better than random guessing, into a stronger learner. Moreover, it combines the concept of Gradient Descent and "Boosting", such that an additive model in the form of a Decision Tree is added to a weak learner to optimize a loss function, in our case we will minimize the Mean Squared Error on the test sets through the addition of our Decision Tree.
 
-In general, say we are given a weak learner such as a regressor <img src="https://render.githubusercontent.com/render/math?math=F"> that for <img src="https://render.githubusercontent.com/render/math?math=n"> observations makes predictions: <img src="https://render.githubusercontent.com/render/math?math=F(x_i)"> for the ith observation for <img src="https://render.githubusercontent.com/render/math?math=i \in \{1,2,\cdots, n\}">. To turn <img src="https://render.githubusercontent.com/render/math?math=F"> into a stronger learner, a decision tree <img src="https://render.githubusercontent.com/render/math?math=h"> is trained with the goal of predicting the residuals with the outputs being the residuals <img src="https://render.githubusercontent.com/render/math?math=y_i - F(x_i)"> which are the difference between the observed and predicted values.
+In general, say we are given a weak learner such as a regressor <img src="https://render.githubusercontent.com/render/math?math=\large F"> that for <img src="https://render.githubusercontent.com/render/math?math=\large n"> observations makes predictions: <img src="https://render.githubusercontent.com/render/math?math=\large F(x_i)"> for the ith observation for <img src="https://render.githubusercontent.com/render/math?math=i \in \{1,2,\cdots, n\}">. To turn <img src="https://render.githubusercontent.com/render/math?math=\large F"> into a stronger learner, a decision tree <img src="https://render.githubusercontent.com/render/math?math=\large h"> is trained with the goal of predicting the residuals with the outputs being the residuals <img src="https://render.githubusercontent.com/render/math?math=\large y_i - F(x_i)"> which are the difference between the observed and predicted values.
 
 To start the algorithm, a single leaf is created that represents the initial guess for the weights of all the samples. Gradient Boost's first prediction is the average value of the dependent variable, and a Decision Tree is built from this prediction that has a restricted number of leaves. The algorithm will continue to build trees based on the errors of previous trees, and only stops until additional trees do not improve the fit or it reaches the max number of trees you will set as a hyperparameter.
 
@@ -76,9 +77,10 @@ To start the algorithm, a single leaf is created that represents the initial gue
 To prevent overfitting and reduce variance, each tree's contribution to the prediction can be scaled with a learning rate between 0 and 1.
 
 ## Extreme Gradient Boosting (XGB)
-XGB is an open source implementation of Gradient Boosting in which regularization parameters are , and is faster, more memory efficient and accurate compared to other implementations of Gradient Boosting. XGBoost has multiple hyperparameters that we can tune: the objective/learning task which is MSE in this project, the number of gradient boosted trees, the maximum depth of the trees, Gamma-the minimum loss reduction required to partition a leaf, Lambda and Alpha- the L1 and L2 norms respectively that control the weights, and the learning rate.
+XGB is an open source implementation of Gradient Boosting that improves upon the base Gradient Boosting framework through optimizations such as changing the order of loops to improve run time, using a max_depth parameter to improve computational performance, handling sparsity patterns more efficiently, and prevens overfitting through Lasso (L1) and Ridge (L2) regularization. Hence, it is known for being faster, more memory efficient and accurate compared to other implementations of Gradient Boosting. 
 
-To implement XGB in python, we can simply install the xgboost package by running 
+XGBoost has multiple hyperparameters that we can tune: the objective/learning task which is MSE in this project, the number of gradient boosted trees, the maximum depth of the trees, Gamma-the minimum loss reduction required to partition a leaf, Lambda and Alpha- the L1 and L2 norms respectively that control the weights, and the learning rate. To implement XGB in python, we can simply install the xgboost package by running:
+
 ```
 import xgboost as xgb
 ```
@@ -287,7 +289,7 @@ From the K-Fold validation results, we see that the Triweight kernel obtained th
 
 ## Tuning the hyperparameters
 ### Lowess and Boosted Lowess
-To tune the hyperparameters for Lowess and Boosted Lowess, we performed non-nested K-Fold validations for a certain tau range for both Lowess and Boosted Lowess using their respective optimal kernels.
+To tune the hyperparameters for Lowess and Boosted Lowess for the cars dataset, we performed non-nested K-Fold validations for a certain tau range for both Lowess and Boosted Lowess using their respective optimal kernels.
 
 ```
 # Narrow a good value for the tau parameter for Lowess with triweight kern
@@ -344,7 +346,7 @@ plt.show()
 Hence, from the K-Fold validations, we get an optimized tau of 1.3 for Lowess Regression and a tau of 0.8 for Boosted Lowess Regression.
 
 ### Random Forest Regression
-For Random Forest Regression, we will be tuning the max_depth and n_estimators parameters. From plotting results for a max depth from 1-5, we have determined that a max_depth of 3 produces the best cross-validated results. Hence, we will tune the number of trees based on a max_depth of 3.
+For Random Forest Regression, we will be tuning the max_depth and n_estimators parameters. From plotting results for a max depth from 1-5, we have determined that a max_depth of 3 produces the best cross-validated results when paired with other hyperparameters. Hence, we will tune the number of trees based on a max_depth of 3.
 
 ```
 # First use K-Fold to narrow a good value for the n_estimator
@@ -436,6 +438,62 @@ for kern in [Epanechnikov, Tricubic, Triweight, Cosine, Quartic]:
  
 We see that similarly, a Triweight kernel produced the best results for Lowess, but a Quartic kernel produced the best results for Boosted Lowess. Perhaps the lack of nested loops resulted in a random state that was more favorable for a Quartic kernel, but regardless we will proceed with a Triweight kernel for Lowess regression and a Quartic kernel for boosted Lowess regression.
 
+## Tuning the hyperparameters
+### Lowess and Boosted Lowess
+To tune the hyperparameters for Lowess and Boosted Lowess for the concrete strength dataset, we performed similar non-nested K-Fold validations for a certain tau range for both Lowess and Boosted Lowess using their respective optimal kernels.
+
+```
+# Narrow a good value for the tau parameter for Lowess with triweight kern
+k = 10
+t_range = np.arange(0.1,3, step=.1)
+test_mse = []
+for t in t_range:
+  te_mse = DoKFoldLoess(X_conc,y_conc,k,Triweight, t, False, True)
+  test_mse.append(np.mean(te_mse))
+# plot the test mse to find the best value for tau
+```
+
+```
+idx = np.argmin(test_mse)
+print([t_range[idx], test_mse[idx]])
+plt.plot(t_range,test_mse, '-xr',label='Test')
+plt.xlabel('tau value')
+plt.ylabel('Avg. MSE')
+plt.title('K-fold validation with k = ' + str(k))
+plt.show()
+```
+
+[0.9, 145.88023526561545]
+
+<img src=https://user-images.githubusercontent.com/98488236/155820074-19aecf09-fea8-4421-afaf-fded220899c2.png width=40% height=40%>
+
+
+```
+# Narrow a good value for the tau parameter for Lowess with Quartic kern
+k = 10
+t_range = np.arange(0.1,3, step=.1)
+test_mse = []
+for t in t_range:
+  te_mse = DoKFoldLoess(X_conc,y_conc,k,Quartic, t, False, True)
+  test_mse.append(np.mean(te_mse))
+# plot the test mse to find the best value for tau
+```
+
+```
+idx = np.argmin(test_mse)
+print([t_range[idx], test_mse[idx]])
+plt.plot(t_range,test_mse, '-xr',label='Test')
+plt.xlabel('tau value')
+plt.ylabel('Avg. MSE')
+plt.title('K-fold validation with k = ' + str(k))
+plt.show()
+```
+
+From the results obtained, we will use a tau value of 0.9 for Lowess and a tau value of _ for Boosted Lowess.
+
+### Random Forest Regressor
+Like before for Random Forest Regression, we will be tuning the max_depth and n_estimators parameters. Again, from plotting results for a max depth from 1-5, we have determined that a max_depth of 3 produces the best cross-validated results. Hence, we will tune the number of trees based on a max_depth of 3.
+
 # Conclusion
 
 ## References
@@ -458,3 +516,5 @@ https://towardsdatascience.com/machine-learning-part-18-boosting-algorithms-grad
 https://www.geeksforgeeks.org/ml-gradient-boosting/
 
 https://en.wikipedia.org/wiki/Kernel_(statistics)
+
+https://towardsdatascience.com/https-medium-com-vishalmorde-xgboost-algorithm-long-she-may-rein-edd9f99be63d
