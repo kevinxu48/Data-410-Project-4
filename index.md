@@ -507,7 +507,7 @@ The Cross-validated MSE for BLWR is : 16.687318388260138
 The Cross-validated MSE for RF is : 16.80957591130398
 The Cross-validated MSE for XGB is : 15.731945730590105
 
-From the MSE values, we clearly see that XGBoost performed far better than any other technique, and that Boosted Lowess performed marginally better than Random Forest, and Lowess Regression came last.
+From the MSE values, we clearly see that XGBoost performed far better than any other technique, and that Boosted Lowess performed marginally better than Random Forest, and Lowess Regression came last, which is different from the results obtained in Project 2 with Lowess beating Random Forest.
 
 ### Concrete dataset
 Now we will repeat our steps on the concrete strength dataset to verify that the results were not just a fluke.
@@ -625,19 +625,22 @@ model_rf = RFR(n_estimators = 59, max_depth = 6)
 
 print('The Cross-validated MSE for LWR is : ' +str(DoNestedKFoldLoess(X_conc, y_conc, 10, Triweight, 1.3, False, True)))
 print('The Cross-validated MSE for BLWR is : '+str(DoNestedKFoldLoess(X_conc, y_conc,10,  Cosine, 0.8, True, True)))
-print('The Cross-validated MSE for RF is : '+str(DoKFold(model_rf,Xcars,ycars,10,410,True)))
-print('The Cross-validated MSE for XGB is : '+str(DoKFoldXG(X_conc,y_conc,'reg:squarederror',140,15.4,0,12.4, 2, 410, True)))
+print('The Cross-validated MSE for RF is : '+str(DoKFold(model_rf,X_conc,y_conc,10,410,True)))
+print('The Cross-validated MSE for XGB is : '+str(DoKFoldXGB(X_conc,y_conc,'reg:squarederror',140,15.4,0,12.4, 2, 410, True)))
 ```
 *Results from the Nested K-Fold validations*
 
-The Cross-validated MSE for LWR is : 16.959251056181547
-The Cross-validated MSE for BLWR is : 16.687318388260138
-The Cross-validated MSE for RF is : 16.80957591130398
-The Cross-validated MSE for XGB is : 15.731945730590105
+The Cross-validated MSE for LWR is : 147.32619293270477
+The Cross-validated MSE for BLWR is : 142.00138749527653
+The Cross-validated MSE for RF is : 148.88023867477833
+The Cross-validated MSE for XGB is : 141.90434578773935
 
-From the MSE values, we clearly see that XGBoost performed far better than any other technique, and that Boosted Lowess performed marginally better than Random Forest, and Lowess Regression came last.
+From the MSE values, we see that XGBoost performed far better than any other technique, but this time Boosted Lowess came very close to beating it. Moreover, Random Forest actually performed worse than Lowess Regression on the concrete dataset, which matched the results from Project 2.
+
 # Conclusion
-Ultimately, XGBoost swept the competition regardless of the dataset used, and Boosted Lowess Regression performed better than Random Forest and Regular Lowess Regression. It was expected that XGBoost would produce the best results, since it is widely regarded as one of the most efficient and fast gradient boosting algorithms. However, compared to the results in Project 2, the Random Forest Regressor marginally outperformed Lowess Regression; this may be due to the two additional features in the car dataset that we included in this project that were ommited in Project 2. We could have also constructed a neural network to compete in the regression tasks, but it likely would not have stood a chance because it tends to perform better at classification rather than regression tasks. Overall, this project helped introduce various multivariate regression models and demonstrates the power of Gradient Boosting, especially XGBoost.  
+Ultimately, XGBoost swept the competition regardless of the dataset used, and Boosted Lowess Regression performed better than Random Forest and Regular Lowess Regression. It was expected that XGBoost would produce the best results, since it is widely regarded as one of the most efficient and fast gradient boosting algorithms. However, boosted Lowess Regression almost matched the results for XGBoost on the concrete dataset, demonstrating that in specific circumstances it may have potential to be a superior model. 
+
+Compared to the results in Project 2, the Random Forest Regressor marginally outperformed Lowess Regression for the cars dataset; this may be due to the two additional features in the car dataset that we included in this project that were ommited in Project 2. We could have also constructed a neural network to compete in the regression tasks, but it likely would not have stood a chance because it tends to perform better at classification rather than regression tasks. Overall, this project helped introduce various multivariate regression models and demonstrates the power of Gradient Boosting, especially XGBoost.  
 
 ## References
 https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3049417/
