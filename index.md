@@ -420,7 +420,8 @@ plt.show()
 
 [1.2999999999999998, 17.06326606831356]
 
-<img src="https://user-images.githubusercontent.com/98488236/155764542-02e92cc8-1536-4f84-86d7-0f5e7d00eed1.png" width=40% height=40%>
+![tauLowess](https://user-images.githubusercontent.com/98488236/155847041-101f5339-ee96-4b3d-af7c-9580e84630ff.png)
+
 
 ```
 # Narrow a good value for the tau parameter for Boosted Lowess with triweight kern
@@ -446,7 +447,8 @@ plt.show()
 
 [0.8, 16.94224157210573]
 
-<img src="https://user-images.githubusercontent.com/98488236/155766277-2e33e7a8-7c8b-4e5d-9224-fe2702edd7ee.png" width=40% height=40%>
+![tauboostedlowess](https://user-images.githubusercontent.com/98488236/155847082-cd29d0df-2ee2-4c23-8407-0410eee2314f.png)
+
 
 Hence, from the K-Fold validations, we get an optimized tau of 1.3 for Lowess Regression and a tau of 0.8 for Boosted Lowess Regression.
 
@@ -478,7 +480,7 @@ plt.show()
 ```
 [178, 16.961528636028113]
 
-<img src="https://user-images.githubusercontent.com/98488236/155767913-9b31cf3c-b07e-434f-b24a-8c78aca6ab15.png" width=40% height=40%>
+![estimators_rfr](https://user-images.githubusercontent.com/98488236/155847098-01a3ad00-3211-4a92-8113-c1f1287ce0df.png)
 
 From the results of the cross-validations we get that the optimal hyperparameter values are 178 trees with a maximum depth of 3.
 
@@ -570,7 +572,7 @@ plt.show()
 
 [0.9, 145.88023526561545]
 
-<img src=https://user-images.githubusercontent.com/98488236/155820074-19aecf09-fea8-4421-afaf-fded220899c2.png width=40% height=40%>
+![concrete_tauloess](https://user-images.githubusercontent.com/98488236/155847114-2e462aeb-068f-4e44-9e17-f9a57caa2a1d.png)
 
 
 ```
@@ -596,7 +598,8 @@ plt.show()
 
 [1.3000000000000003, 142.0938341529481]
 
-<img src=https://user-images.githubusercontent.com/98488236/155823893-05d9507a-02c6-4a3e-b902-6cc17e6511fb.png width=40% height=40%>
+![concrete_tauboosted](https://user-images.githubusercontent.com/98488236/155847126-1703610e-fc2a-4e55-a7e5-0fbadbf5c8e3.png)
+
 
 From the results obtained, we will use a tau value of 0.9 for Lowess and a tau value of 1.3 for Boosted Lowess.
 
@@ -605,7 +608,7 @@ Like before for Random Forest Regression, we will be tuning the max_depth and n_
 
 [59, 146.53884274619216]
 
-<img src=https://user-images.githubusercontent.com/98488236/155825157-eb716883-c788-4f57-a524-a223e786828c.png width=40% height=40%>
+![concrete_estimators_rfr](https://user-images.githubusercontent.com/98488236/155847132-0ed0cc7e-6410-4c3a-84d9-c167f2c03cb6.png)
 
 From the results of the cross-validations we get that the optimal hyperparameter values are 59 trees with a maximum depth of 6.
 
