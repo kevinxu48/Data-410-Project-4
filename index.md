@@ -21,3 +21,5 @@ LightGBM is an open source gradient boosting algorithm proposed and developed by
 https://www.kaggle.com/lasmith/house-price-regression-with-lightgbm
 
 https://lightgbm.readthedocs.io/en/latest/Features.html
+
+https://www.analyticsvidhya.com/blog/2017/06/which-algorithm-takes-the-crown-light-gbm-vs-xgboost/
