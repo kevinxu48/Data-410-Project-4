@@ -3,8 +3,8 @@
 ## Multiple Boosting
 In this project, we will update the algorithms created in Project 3, to implement repeated boosting. Compare with more boosting algorithms such as LightGBM
 
-# LightGBM
-LightGBM is a 
+# Light Gradient Boosting Machine (LightGBM)
+LightGBM is an open source gradient boosting algorithm proposed and developed by Microsoft.
 
 ## Conclusion
 
