@@ -25,7 +25,7 @@ The python implementation of LightGBM can use a dictionary to tune the hyperpara
 ### Disadvantages
 
 ## Hyperparameter Tuning
-To tune the LightGBM hyperparameters, we will use the Optunity library, which contains various optimizers for hyperparameter tuning.
+To tune the LightGBM hyperparameters, we will use the Optuna library, which contains various optimizers for hyperparameter tuning.
 
 ## Conclusion
 
