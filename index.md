@@ -37,3 +37,5 @@ https://lightgbm.readthedocs.io/en/latest/Features.html
 https://www.analyticsvidhya.com/blog/2017/06/which-algorithm-takes-the-crown-light-gbm-vs-xgboost/
 
 https://optunity.readthedocs.io/en/latest/
+
+https://medium.com/optuna/lightgbm-tuner-new-optuna-integration-for-hyperparameter-optimization-8b7095e99258
