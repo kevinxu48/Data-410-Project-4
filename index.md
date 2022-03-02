@@ -19,10 +19,13 @@ The python implementation of LightGBM can use a dictionary to tune the hyperpara
 
 ![xgboost tree growth](https://user-images.githubusercontent.com/98488236/156248659-ab655193-601b-4df8-8c84-b5e6854d9bad.png)
 
-## Advantages
+### Advantages
  - Reduced cost of calculating the gain for each split
  - Easy to access histograms for each leaf
-## Disadvantages
+### Disadvantages
+
+## Hyperparameter Tuning
+To tune the LightGBM hyperparameters, we will use the Optunity library, which contains various optimizers for hyperparameter tuning.
 
 ## Conclusion
 
@@ -32,3 +35,5 @@ https://www.kaggle.com/lasmith/house-price-regression-with-lightgbm
 https://lightgbm.readthedocs.io/en/latest/Features.html
 
 https://www.analyticsvidhya.com/blog/2017/06/which-algorithm-takes-the-crown-light-gbm-vs-xgboost/
+
+https://optunity.readthedocs.io/en/latest/
