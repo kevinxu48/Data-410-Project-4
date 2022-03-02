@@ -9,6 +9,8 @@ LightGBM is an open source gradient boosting algorithm proposed and developed by
 
 In this project we will implement the LightGBM regressor. The LightGBM algorithm utilizes two techniques called Gradient-Based One-Side Sampling (GOSS) and Exclusive Feature Bundling (EFB) which allow the algorithm to run faster while maintaining a high level of accuracy
 
+The python implementation of LightGBM can use a dictionary to tune the hyperparameters.
+
 *Illustration of LightGBM Decision Tree Growth*
 
 ![lightgbm tree growth](https://user-images.githubusercontent.com/98488236/156248524-17d3be55-97f7-43ed-9691-e5552ba1c19d.png)
