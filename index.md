@@ -64,7 +64,94 @@ The python implementation of LightGBM can use a dictionary to tune the hyperpara
 ### Disadvantages
 
 ## Hyperparameter Tuning
-To tune the LightGBM hyperparameters, we will use the Optuna library, which contains various optimizers for hyperparameter tuning.
+To tune the LightGBM hyperparameters, normally we would use a library such as Optuna, which contains various optimizers for hyperparameter tuning, but this requires a lot of coding and a long run time to obtain the optimal hyperparameters. Instead, we will use Hyperopt, which requires less coding and has a faster run time.
+
+```
+# import hyperopt and define lgb parameters
+from hyperopt import hp
+from sklearn.metrics import mean_squared_error as mse
+
+
+lgb_reg_params = {
+    'learning_rate':    hp.choice('learning_rate',    np.arange(0.05, 0.31, 0.05)),
+    'max_depth':        hp.choice('max_depth',        np.arange(5, 16, 1, dtype=int)),
+    'min_child_weight': hp.choice('min_child_weight', np.arange(1, 8, 1, dtype=int)),
+    'colsample_bytree': hp.choice('colsample_bytree', np.arange(0.3, 0.8, 0.1)),
+    'min_data_in_leaf': hp.choice('min_data_in_leaf', np.arange(200, 10000, step=100)),
+    'subsample':        hp.uniform('subsample', 0.8, 1),
+    'num_leaves':       hp.choice('num_leaves', np.arange(20, 3000, step = 20)),
+    'n_estimators':     1000,
+    'bagging_fraction': hp.choice('bagging_fraction',   np.arange(0.2, 0.95, step=0.1)),
+    'feature_fraction': hp.choice('feature_fraction',   np.arange(0.2, 0.95, step=0.1)),
+}
+lgb_fit_params = {
+    'eval_metric': 'l2',
+    'early_stopping_rounds': 10,
+    'verbose': False
+}
+lgb_para = dict()
+lgb_para['reg_params'] = lgb_reg_params
+lgb_para['fit_params'] = lgb_fit_params
+lgb_para['loss_func' ] = lambda y, pred: np.sqrt(mse(y, pred))
+```
+
+```
+# instantiate the hyperopt class
+from hyperopt import fmin, tpe, STATUS_OK, STATUS_FAIL, Trials
+
+
+class HPOpt(object):
+
+    def __init__(self, x_train, x_test, y_train, y_test):
+        self.x_train = x_train
+        self.x_test  = x_test
+        self.y_train = y_train
+        self.y_test  = y_test
+
+    def process(self, fn_name, space, trials, algo, max_evals):
+        fn = getattr(self, fn_name)
+        try:
+            result = fmin(fn=fn, space=space, algo=algo, max_evals=max_evals, trials=trials)
+        except Exception as e:
+            return {'status': STATUS_FAIL,
+                    'exception': str(e)}
+        return result, trials
+
+    def lgb_reg(self, para):
+        reg = lgb.LGBMRegressor(**para['reg_params'])
+        return self.train_reg(reg, para)
+
+    def train_reg(self, reg, para):
+        reg.fit(self.x_train, self.y_train,
+                eval_set=[(self.x_train, self.y_train), (self.x_test, self.y_test)],
+                **para['fit_params'])
+        pred = reg.predict(self.x_test)
+        loss = para['loss_func'](self.y_test, pred)
+        return {'loss': loss, 'status': STATUS_OK}
+```
+
+```
+# Find optimal hyperparameters on a single train-test split
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=410)
+
+obj = HPOpt(X_train, X_test, y_train, y_test)
+lgb_opt = obj.process(fn_name='lgb_reg', space=lgb_para, trials=Trials(), algo=tpe.suggest, max_evals=100)
+
+```
+
+*Optimal hyperparameters obtained from Hyperopt*
+
+({'bagging_fraction': 5,
+  'colsample_bytree': 3,
+  'feature_fraction': 5,
+  'learning_rate': 1,
+  'max_depth': 7,
+  'min_child_weight': 0,
+  'min_data_in_leaf': 0,
+  'num_leaves': 120,
+  'subsample': 0.8504697538908891},
+ <hyperopt.base.Trials at 0x7f2b2449a750>)
+ 
 
 ## Conclusion
 
@@ -75,8 +162,8 @@ https://lightgbm.readthedocs.io/en/latest/Features.html
 
 https://www.analyticsvidhya.com/blog/2017/06/which-algorithm-takes-the-crown-light-gbm-vs-xgboost/
 
-https://optunity.readthedocs.io/en/latest/
-
 https://medium.com/optuna/lightgbm-tuner-new-optuna-integration-for-hyperparameter-optimization-8b7095e99258
 
 https://towardsdatascience.com/feature-selection-in-machine-learning-using-lasso-regression-7809c7c2771a
+
+https://towardsdatascience.com/an-example-of-hyperparameter-optimization-on-xgboost-lightgbm-and-catboost-using-hyperopt-12bc41a271e
