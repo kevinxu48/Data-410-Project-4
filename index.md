@@ -71,19 +71,17 @@ To tune the LightGBM hyperparameters, normally we would use a library such as Op
 from hyperopt import hp
 from sklearn.metrics import mean_squared_error as mse
 
-
 lgb_reg_params = {
     'learning_rate':    hp.choice('learning_rate',    np.arange(0.05, 0.31, 0.05)),
     'max_depth':        hp.choice('max_depth',        np.arange(5, 16, 1, dtype=int)),
-    'min_child_weight': hp.choice('min_child_weight', np.arange(1, 8, 1, dtype=int)),
     'colsample_bytree': hp.choice('colsample_bytree', np.arange(0.3, 0.8, 0.1)),
-    'min_data_in_leaf': hp.choice('min_data_in_leaf', np.arange(200, 10000, step=100)),
     'subsample':        hp.uniform('subsample', 0.8, 1),
     'num_leaves':       hp.choice('num_leaves', np.arange(20, 3000, step = 20)),
-    'n_estimators':     1000,
-    'bagging_fraction': hp.choice('bagging_fraction',   np.arange(0.2, 0.95, step=0.1)),
-    'feature_fraction': hp.choice('feature_fraction',   np.arange(0.2, 0.95, step=0.1)),
+    'reg_alpha':        hp.choice('reg_alpha', np.arange(0, 50, step = 1)),
+    'reg_lambda':       hp.choice('reg_lambda', np.arange(0, 50, step = 1)),
+    'n_estimators':     100,
 }
+
 lgb_fit_params = {
     'eval_metric': 'l2',
     'early_stopping_rounds': 10,
@@ -141,18 +139,17 @@ lgb_opt = obj.process(fn_name='lgb_reg', space=lgb_para, trials=Trials(), algo=t
 
 *Optimal hyperparameters obtained from Hyperopt*
 
-({'bagging_fraction': 5,
-  'colsample_bytree': 3,
-  'feature_fraction': 5,
-  'learning_rate': 1,
-  'max_depth': 7,
-  'min_child_weight': 0,
-  'min_data_in_leaf': 0,
-  'num_leaves': 120,
-  'subsample': 0.8504697538908891},
- <hyperopt.base.Trials at 0x7f2b2449a750>)
- 
+({'colsample_bytree': 3,
+  'learning_rate': 5,
+  'max_depth': 5,
+  'num_leaves': 6,
+  'reg_alpha': 8,
+  'reg_lambda': 19,
+  'subsample': 0.989104078059746},
+ <hyperopt.base.Trials at 0x7f09e7bebc10>)
 
+## Cross Validation
+To obtain cross-validated results, we will use the cv function in the LightGBM class, that automatically performs K-Fold validations.
 ## Conclusion
 
 ### References
