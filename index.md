@@ -177,7 +177,13 @@ def DoKFoldLGB(X,y, obj, md, n_est, nl, rl, ra, lr,ff, s, random_state):
   return np.mean(mse_lgb)
 ```
 
+```
 DoKFoldLGB(X,y,'regression',7,100,39,7.394,3.0377,0.33,0.6,.9154483095843352,410)
+```
+
+18.822660433997175
+
+Thus, using Hyperopt to tune the hyperparameters for LightGBM Regression, we obtained a cross-validated MSE of 18.822660433997175, which is compared to our repeated boosting function.
 
 ## Conclusion
 
