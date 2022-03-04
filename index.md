@@ -1,6 +1,8 @@
 # Comparison of Repeated Boosting Algorithms With LightGBM
 ## Multiple Boosting
-In this project, we will update the algorithms created in Project 3, to implement repeated boosting. Compare with more boosting algorithms such as LightGBM
+In this project, we will update the algorithms created in Project 3, to implement repeated boosting. We will be repeatedly boosting Lowess Regression and compare the results with more boosting algorithms such as XGBoost and LightGBM.
+
+## Implementation of Repeated Boosting
 
 ## Data and Feature Selection
 For this project we will again be using the concrete strength dataset, and to select the features. However in project 3 we used dimensionality reduction, specifically PCA, to reduce the number of features. In this project, we will be using Lasso (L1) Regularization for the purposes of feature selection. We can use the sklearn Lasso regularization and the Pipeline objects, which allows us to scale the data in advanced
