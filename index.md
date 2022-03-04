@@ -72,16 +72,15 @@ from hyperopt import hp
 from sklearn.metrics import mean_squared_error as mse
 
 lgb_reg_params = {
-    'learning_rate':    hp.choice('learning_rate',    np.arange(0.05, 0.31, 0.05)),
-    'max_depth':        hp.choice('max_depth',        np.arange(5, 16, 1, dtype=int)),
-    'colsample_bytree': hp.choice('colsample_bytree', np.arange(0.3, 0.8, 0.1)),
+    'learning_rate': hp.quniform("learning_rate", 0.05, 0.4, 0.01),
+    'max_depth': hp.choice("max_depth", np.arange(2, 10, 1, dtype=int)),
+    'num_leaves': hp.choice("num_leaves", np.arange(4, 200, 4, dtype=int)),
+    'reg_alpha': hp.uniform("reg_alpha", 2.0, 8.0),
+    'reg_lambda': hp.uniform("reg_lambda", 2.0, 8.0),
     'subsample':        hp.uniform('subsample', 0.8, 1),
-    'num_leaves':       hp.choice('num_leaves', np.arange(20, 3000, step = 20)),
-    'reg_alpha':        hp.choice('reg_alpha', np.arange(0, 50, step = 1)),
-    'reg_lambda':       hp.choice('reg_lambda', np.arange(0, 50, step = 1)),
+    'feature_fraction': hp.quniform("feature_fraction", 0.2, 0.8, 0.1),
     'n_estimators':     100,
 }
-
 lgb_fit_params = {
     'eval_metric': 'l2',
     'early_stopping_rounds': 10,
@@ -139,17 +138,47 @@ lgb_opt = obj.process(fn_name='lgb_reg', space=lgb_para, trials=Trials(), algo=t
 
 *Optimal hyperparameters obtained from Hyperopt*
 
-({'colsample_bytree': 3,
-  'learning_rate': 5,
-  'max_depth': 5,
-  'num_leaves': 6,
-  'reg_alpha': 8,
-  'reg_lambda': 19,
-  'subsample': 0.989104078059746},
- <hyperopt.base.Trials at 0x7f09e7bebc10>)
+({'feature_fraction': 0.6000000000000001,
+  'learning_rate': 0.33,
+  'max_depth': 7,
+  'num_leaves': 39,
+  'reg_alpha': 3.037722287779516,
+  'reg_lambda': 7.3938913277804525,
+  'subsample': 0.9154483095843352},
+ <hyperopt.base.Trials at 0x7f8b6be51e10>)
 
 ## Cross Validation
-To obtain cross-validated results, we will use the cv function in the LightGBM class, that automatically performs K-Fold validations.
+To obtain cross-validated results, we will slightly modify the DoKFoldXGB function from Project 3 to perform cross validations for LightGBM. 
+
+```
+# KFold function for lgb
+
+def DoKFoldLGB(X,y, obj, md, n_est, nl, rl, ra, lr,ff, s, random_state):
+  mse_lgb = []
+  scale = SS()
+  kf = KFold(n_splits=10,shuffle=True,random_state=random_state)
+  for idxtrain, idxtest in kf.split(X):
+    xtrain = X[idxtrain]
+    ytrain = y[idxtrain]
+    ytest = y[idxtest]
+    xtest = X[idxtest]
+    xtrain = scale.fit_transform(xtrain)
+    xtest = scale.transform(xtest)
+    
+    y_train = np.squeeze(ytrain)
+    train_set = lgb.Dataset(xtrain, y_train, silent=True)
+    
+    model_lgb = lgb.LGBMRegressor(objective =obj,max_depth=md, n_estimators=n_est, learning_rate=lr, num_leaves = nl, reg_lambda=rl, reg_alpha=ra, 
+                                     feature_fraction =ff, subsample = s,  random_state=410)
+    #lgb.train()
+    model_lgb.fit(xtrain,ytrain)
+    yhat_lgb = model_lgb.predict(xtest)
+    mse_lgb.append(mse(ytest,yhat_lgb))
+  return np.mean(mse_lgb)
+```
+
+DoKFoldLGB(X,y,'regression',7,100,39,7.394,3.0377,0.33,0.6,.9154483095843352,410)
+
 ## Conclusion
 
 ### References
