@@ -42,7 +42,7 @@ Thus, we will proceed with 6 out of the 8 features: cement, slag, ash, water, su
 ## Multiple Boosting
 In this project, we will update the algorithms created in Project 3, to implement repeated boosting. We will be repeatedly boosting Lowess Regression with Decision Trees and RandomForest regressors as the boosters. We will try different combinations of kernels and hyperparameters for the Random Forests, and then we will compare the results obtained from our repeated boosting algorithm with other boosting algorithms such as XGBoost and LightGBM.
 
-## Implementation of Repeated Boosting
+## Implementation of Repeated Boosting in Python
 ```
 #Defining the kernel local regression model
 
@@ -122,17 +122,87 @@ for idxtrain, idxtest in kf.split(X):
 print('The Cross-validated Mean Squared Error for Boosted LWR is : '+str(np.mean(mse_blwr)))
 
 ```
+### Testing for the best kernel
+Before applying boosts to the large concrete dataset, first we will use the cars dataset to test for the optimal kernel for Lowess Regression.
+```
+cars = pd.read_csv('drive/MyDrive/Data Sets/cars.csv')
+X = cars[['ENG','CYL','WGT']].values
+y = cars['MPG'].values
+
+# test mse for each kernel
+mse_blwr_tc = []
+mse_blwr_ep = []
+mse_blwr_tw = []
+mse_blwr_qt = []
+mse_blwr_cs = []
+
+
+for i in range(5):
+  kf = KFold(n_splits=10,shuffle=True,random_state=i)
+  # this is the Cross-Validation Loop
+  for idxtrain, idxtest in kf.split(X):
+    xtrain = X[idxtrain]
+    ytrain = y[idxtrain]
+    ytest = y[idxtest]
+    xtest = X[idxtest]
+    xtrain = scale.fit_transform(xtrain)
+    xtest = scale.transform(xtest)
+    dat_train = np.concatenate([xtrain,ytrain.reshape(-1,1)],axis=1)
+    dat_test = np.concatenate([xtest,ytest.reshape(-1,1)],axis=1)
+    
+    yhat_blwr_tc = boosted_lwr(xtrain,ytrain,xtest,Tricubic,1,True,model_boosting,2)
+    yhat_blwr_ep = boosted_lwr(xtrain,ytrain,xtest,Epanechnikov,1,True,model_boosting,2)
+    yhat_blwr_tw = boosted_lwr(xtrain,ytrain,xtest,Triweight,1,True,model_boosting,2)
+    yhat_blwr_qt = boosted_lwr(xtrain,ytrain,xtest,Quartic,1,True,model_boosting,2)
+    yhat_blwr_cs = boosted_lwr(xtrain,ytrain,xtest,Cosine,1,True,model_boosting,2)
+
+    mse_blwr_tc.append(mse(ytest,yhat_blwr_tc))
+    mse_blwr_ep.append(mse(ytest,yhat_blwr_ep))
+    mse_blwr_tw.append(mse(ytest,yhat_blwr_tw))
+    mse_blwr_qt.append(mse(ytest,yhat_blwr_qt))
+    mse_blwr_cs.append(mse(ytest,yhat_blwr_cs))
+   
+print('The Cross-validated Mean Squared Error for Boosted LWR with tricubic kernel is : '+str(np.mean(mse_blwr_tc)))
+print('The Cross-validated Mean Squared Error for Boosted LWR with Epanechnikov kernel is : '+str(np.mean(mse_blwr_ep)))
+print('The Cross-validated Mean Squared Error for Boosted LWR is : '+str(np.mean(mse_blwr_tw)))
+print('The Cross-validated Mean Squared Error for Boosted LWR is : '+str(np.mean(mse_blwr_qt)))
+print('The Cross-validated Mean Squared Error for Boosted LWR is : '+str(np.mean(mse_blwr_cs)))
+
+```
+*Note: the cars dataset has fewer features and less observations than that of the concrete dataset and these MSE values are much lower than those that will be obtained for the concrete dataset*
+
+The Cross-validated Mean Squared Error for Boosted LWR with tricubic kernel is : 16.41163570862233
+
+The Cross-validated Mean Squared Error for Boosted LWR with Epanechnikov kernel is : 16.440379787777104
+
+The Cross-validated Mean Squared Error for Boosted LWR with Triweight kernel is : 16.429855147105258
+
+The Cross-validated Mean Squared Error for Boosted LWR with Quartic kernel is : 16.42772218916662
+
+The Cross-validated Mean Squared Error for Boosted LWR with Cosine kernel is : 16.461336627972102
+
+Thus, it appears that the best kernel for repeated boosting is tricubic, so we will use that for the Lowess regressors that will be boosted.
+
 ## Finding the optimal Booster
 Between using a single DecisionTree or a RandomForest as the booster for lowess, we will use a grid search algorithm to find the best hyperparameters for Random Forest and Decision trees, then repeatedly boost our Lowess function with these regressors.
 
-But before using a grid search to find the optimal parameters for our booster, we first test the strength of our repeated boosting algorithm, we use an untuned basic RandomForest Regressor
+But before using a grid search to find the optimal parameters for our booster, we first test the strength of our repeated boosting algorithm, we use an untuned basic RandomForest Regressor to boost Lowess regression with a Tricubic kernel.
 ```
 model_boosting = RFR(n_estimators=100,max_depth=3)
+
+yhat_blwr = boosted_lwr(xtrain,ytrain,xtest,Tricubic,1,True,model_boosting,2)
 ```
 
-Using this regressor as a booster, the Cross-validated Mean Squared Error obtained for Boosted LWR : 37.859234476190416 
+Using this regressor as a booster, the Cross-validated Mean Squared Error obtained for Boosted LWR : 
+
+Next, we will see if increasing the number of boosts from 2 times to 3 improves the results.
+```
 
 ```
+yhat_blwr = boosted_lwr(xtrain,ytrain,xtest,Tricubic,1,True,model_boosting,3)
+```
+The Cross-validated Mean Squared Error for Boosted LWR is : 37.859234476190416
+
 from sklearn.model_selection import GridSearchCV
 # Create the parameter grid based on the results of random search 
 param_grid = {
