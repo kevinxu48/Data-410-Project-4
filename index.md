@@ -163,16 +163,16 @@ for i in range(5):
     mse_blwr_qt.append(mse(ytest,yhat_blwr_qt))
     mse_blwr_cs.append(mse(ytest,yhat_blwr_cs))
    
-print('The Cross-validated Mean Squared Error for Boosted LWR with tricubic kernel is : '+str(np.mean(mse_blwr_tc)))
+print('The Cross-validated Mean Squared Error for Boosted LWR with Tricubic kernel is : '+str(np.mean(mse_blwr_tc)))
 print('The Cross-validated Mean Squared Error for Boosted LWR with Epanechnikov kernel is : '+str(np.mean(mse_blwr_ep)))
-print('The Cross-validated Mean Squared Error for Boosted LWR is : '+str(np.mean(mse_blwr_tw)))
-print('The Cross-validated Mean Squared Error for Boosted LWR is : '+str(np.mean(mse_blwr_qt)))
-print('The Cross-validated Mean Squared Error for Boosted LWR is : '+str(np.mean(mse_blwr_cs)))
+print('The Cross-validated Mean Squared Error for Boosted LWR with Triweight kernel is : '+str(np.mean(mse_blwr_tw)))
+print('The Cross-validated Mean Squared Error for Boosted LWR with Quartic kernel is : '+str(np.mean(mse_blwr_qt)))
+print('The Cross-validated Mean Squared Error for Boosted LWR with Cosine kernel is : '+str(np.mean(mse_blwr_cs)))
 
 ```
 *Note: the cars dataset has fewer features and less observations than that of the concrete dataset and these MSE values are much lower than those that will be obtained for the concrete dataset*
 ```
-The Cross-validated Mean Squared Error for Boosted LWR with tricubic kernel is : 16.41163570862233
+The Cross-validated Mean Squared Error for Boosted LWR with Tricubic kernel is : 16.41163570862233
 
 The Cross-validated Mean Squared Error for Boosted LWR with Epanechnikov kernel is : 16.440379787777104
 
@@ -185,8 +185,25 @@ The Cross-validated Mean Squared Error for Boosted LWR with Cosine kernel is : 1
 
 Thus, it appears that the best kernel for repeated boosting is tricubic, so we will use that for the Lowess regressors that will be boosted.
 
-## Finding the optimal Booster
-Between using a single DecisionTree or a RandomForest as the booster for lowess, we will use a grid search algorithm to find the best hyperparameters for Random Forest and Decision trees, then repeatedly boost our Lowess function with these regressors.
+### Decision Tree vs Random Forest
+Moreover, with the cars dataset we can test how a single Decision Tree compares to a Random Forest as a booster for Lowess Regression
+
+```
+model_boosting = DTR(min_samples_split=12, max_depth=2, min_samples_leaf=3, max_features = 2)
+```
+
+```
+The Cross-validated Mean Squared Error for Boosted LWR with Tricubic kernel is : 17.358613038809576
+The Cross-validated Mean Squared Error for Boosted LWR with Epanechnikov kernel is : 17.096252262298123
+The Cross-validated Mean Squared Error for Boosted LWR with Triweight kernel is : 17.181497994357606
+The Cross-validated Mean Squared Error for Boosted LWR with Quartic kernel is : 17.149267638923494
+The Cross-validated Mean Squared Error for Boosted LWR with Cosine kernel is : 17.329591298571884
+```
+
+We can see from the results that even with optimized hyperparameters, a single Decision Tree is inferior to a Random Forest as a booster for every kernel, so we will use RandomForest as the booster .
+
+## Finding the optimal hyperparameters 
+For Random Forest, we will use a grid search algorithm to find the best hyperparameters, and then repeatedly boost our Lowess function with these regressors.
 
 But before using a grid search to find the optimal parameters for our booster, we first test the strength of our repeated boosting algorithm, we use an untuned basic RandomForest Regressor to boost Lowess regression with a Tricubic kernel.
 ```
