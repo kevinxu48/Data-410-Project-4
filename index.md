@@ -12,7 +12,7 @@ from sklearn.linear_model import Lasso
 pipeline = Pipeline([
                      ('scaler',SS()),
                      ('model',Lasso())
-])
+                    ])
 ```
 
 ```
