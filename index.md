@@ -199,12 +199,13 @@ Using this regressor as a booster, the Cross-validated Mean Squared Error obtain
 
 Next, we will see if increasing the number of boosts from 2 times to 3 improves the results.
 ```
-
-```
 yhat_blwr = boosted_lwr(xtrain,ytrain,xtest,Tricubic,1,True,model_boosting,3)
 ```
+
 The Cross-validated Mean Squared Error for Boosted LWR is : 37.859234476190416
 
+*Now we will use grid search algorithm to optimize the RandomForest booster* 
+```
 from sklearn.model_selection import GridSearchCV
 # Create the parameter grid based on the results of random search 
 param_grid = {
