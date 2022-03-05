@@ -150,12 +150,14 @@ The python implementation of LightGBM can use a dictionary to tune the hyperpara
 ![xgboost tree growth](https://user-images.githubusercontent.com/98488236/156248659-ab655193-601b-4df8-8c84-b5e6854d9bad.png)
 
 ### Advantages
- - Reduced cost of calculating the gain for each split
- - Easy to access histograms for each leaf
+- Reduced cost of calculating the gain for each split
+- Easy to access histograms for each leaf, which expedites the training procedure
+- Lower memory usage than other boosters like XGBoost, since it allocates continuous values to discrete bins
 ### Disadvantages
-
+- LightGBM splits the tree leaf-wise, which can lead to overfitting since it produces more complex trees than those produced by other boosting algorithms such as XGBoost. (this can be reduced by tuning the max_depth parameter)
+- There are a lot of hyperparameters that require tuning in order to achieve better scores and higher accuracies 
 ## Hyperparameter Tuning
-To tune the LightGBM hyperparameters, normally we would use a library such as Optuna, which contains various optimizers for hyperparameter tuning, but this requires a lot of coding and a long run time to obtain the optimal hyperparameters. Instead, we will use Hyperopt, which requires less coding and has a faster run time.
+To tune the LightGBM hyperparameters, normally we would use a library such as Optuna, which contains various optimizers for hyperparameter tuning, but this requires a lot of coding and a long run time to obtain the optimal hyperparameters. Instead, we will use the Hyperopt library, which requires less coding and has a faster run time.
 
 ```
 # import hyperopt and define lgb parameters
