@@ -259,7 +259,9 @@ model_boosting = RFR(max_depth=6, max_features=3,min_samples_leaf=3, min_samples
  
 yhat_blwr = boosted_lwr(xtrain,ytrain,xtest,Tricubic,1,True,model_boosting,2)
 ```
+The Cross-validated Mean Squared Error for Boosted LWR is : 31.403056929764166
 
+Thus, we see that after tuning the hyperparameters for our boosting Random Forest Regressor on Lowess Regression, the score significantly improved. Now we will compare this score with that obtained by other boosting algorithms such as LightGBM and XGBoost regressors.
 
 
 # Light Gradient Boosting Machine (LightGBM) Regressor
