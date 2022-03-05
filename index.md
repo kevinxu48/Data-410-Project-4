@@ -42,7 +42,8 @@ Thus, we will proceed with 6 out of the 8 features: cement, slag, ash, water, su
 ## Multiple Boosting
 In this project, we will update the algorithms created in Project 3, to implement repeated boosting. We will be repeatedly boosting Lowess Regression with Decision Trees and RandomForest regressors as the boosters. We will try different combinations of kernels and hyperparameters for the Random Forests, and then we will compare the results obtained from our repeated boosting algorithm with other boosting algorithms such as XGBoost and LightGBM.
 
-## Implementation of Repeated Boosting in Python
+## Implementation of Repeated Boosting 
+Now we will create a few functions in Python to perform our repeated boosting algorithm.
 ```
 #Defining the kernel local regression model
 
