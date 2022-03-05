@@ -40,7 +40,7 @@ The features removed are: Index(['coarseagg', 'fineagg'], dtype='object')
 Thus, we will proceed with 6 out of the 8 features: cement, slag, ash, water, superplastic, and age.
 
 ## Multiple Boosting
-In this project, we will update the algorithms created in Project 3, to implement repeated boosting. We will be repeatedly boosting Lowess Regression and compare the results with more boosting algorithms such as XGBoost and LightGBM.
+In this project, we will update the algorithms created in Project 3, to implement repeated boosting. We will be repeatedly boosting Lowess Regression with Decision Trees and RandomForest regressors as the boosters. We will try different combinations of kernels and hyperparameters for the Random Forests, and then we will compare the results obtained from our repeated boosting algorithm with other boosting algorithms such as XGBoost and LightGBM.
 
 ## Implementation of Repeated Boosting
 ```
@@ -322,8 +322,9 @@ DoKFoldXGB(X,y, 'reg:squarederror',100,.85,0.85,4,0.03, 0.737, 0.85, 410, False)
 ```
 22.157211602959503
 
+This is noticably worse than the score obtained by LightGBM
 ## Conclusion
-
+Even though we used Hyperopt to tune the hyperparameters for both LightGBM and XGBoost, LightGBM regression performed significantly better on the concrete strength dataset.
 ### References
 https://www.kaggle.com/lasmith/house-price-regression-with-lightgbm
 
