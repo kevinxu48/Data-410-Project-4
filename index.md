@@ -136,12 +136,11 @@ print('The Cross-validated Mean Squared Error for XGB is : '+str(np.mean(mse_xgb
 
 
 # Light Gradient Boosting Machine (LightGBM) Regressor
-LightGBM is an open source gradient boosting algorithm proposed and developed by Microsoft. Compared to XGBoost which grows Decision Trees based on a pre-sort-based algorithms, LightGBM instead uses histogram-based algorithms. LightGBM provides the following distributed learning algorithms: Feature parallel and Data parallel.
+LightGBM is an open source gradient boosting algorithm proposed and developed by Microsoft. Compared to XGBoost which grows Decision Trees based on a pre-sort-based algorithms, LightGBM instead uses histogram-based algorithms. Specifically, the LightGBM algorithm grows its trees vertically/leaf-wise, while other algorithms, such as XGBoost, grow trees level-wise. Moreover, LightGBM chooses the leaf with greater relative loss to grow, which leads to lower loss than that of a level wise algorithm. In this project we will test whether it truly performs better than XGBoost and whether our repeated boosting algorithm stands any chance.
 
+LightGBM algorithm utilizes two techniques called Gradient-Based One-Side Sampling (GOSS) and Exclusive Feature Bundling (EFB) which allow the algorithm to run faster while maintaining a high level of accuracy.
 
-In this project we will implement the LightGBM regressor. The LightGBM algorithm utilizes two techniques called Gradient-Based One-Side Sampling (GOSS) and Exclusive Feature Bundling (EFB) which allow the algorithm to run faster while maintaining a high level of accuracy
-
-The python implementation of LightGBM can use a dictionary to tune the hyperparameters.
+We will implement the LightGBM regressor from the LightGBM class. This python implementation of LightGBM can use a dictionary to tune the hyperparameters.
 
 *Illustration of LightGBM Decision Tree Growth*
 
@@ -157,6 +156,7 @@ The python implementation of LightGBM can use a dictionary to tune the hyperpara
 - Lower memory usage than other boosters like XGBoost, since it allocates continuous values to discrete bins
 ### Disadvantages
 - LightGBM splits the tree leaf-wise, which can lead to overfitting since it produces more complex trees than those produced by other boosting algorithms such as XGBoost. (this can be reduced by tuning the max_depth parameter)
+- The overfitting problem most commonly occurs when using small datasets, so it generally should only be used for medium/large datasets.
 - There are a lot of hyperparameters that require tuning in order to achieve better scores and higher accuracies 
 ## Hyperparameter Tuning
 To tune the LightGBM hyperparameters, normally we would use a library such as Optuna, which contains various optimizers for hyperparameter tuning, but this requires a lot of coding and a long run time to obtain the optimal hyperparameters. Instead, we will use the Hyperopt library, which requires less coding and has a faster run time.
