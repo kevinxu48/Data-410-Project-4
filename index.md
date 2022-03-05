@@ -212,7 +212,7 @@ model_boosting = RFR(n_estimators=100,max_depth=3)
 yhat_blwr = boosted_lwr(xtrain,ytrain,xtest,Tricubic,1,True,model_boosting,2)
 ```
 
-Using this regressor as a booster, the Cross-validated Mean Squared Error obtained for Boosted LWR : 37.
+Using this regressor as a booster, the Cross-validated Mean Squared Error obtained for Boosted LWR : 35.528579669987
 
 Next, we will see if increasing the number of boosts from 2 times to 3 improves the results.
 ```
@@ -220,6 +220,8 @@ yhat_blwr = boosted_lwr(xtrain,ytrain,xtest,Tricubic,1,True,model_boosting,3)
 ```
 
 The Cross-validated Mean Squared Error for Boosted LWR is : 37.859234476190416
+
+Surprisingly, adding an additional boost actually produced worse results, so moving forward, we will keep the number of boosts at 2.
 
 *Now we will use grid search algorithm to optimize the RandomForest booster* 
 ```
@@ -266,8 +268,6 @@ Thus, we see that after tuning the hyperparameters for our boosting Random Fores
 
 # Light Gradient Boosting Machine (LightGBM) Regressor
 LightGBM is an open source gradient boosting algorithm proposed and developed by Microsoft. Compared to XGBoost which grows Decision Trees based on a pre-sort-based algorithms, LightGBM instead uses histogram-based algorithms. Specifically, the LightGBM algorithm grows its trees vertically/leaf-wise, while other algorithms, such as XGBoost, grow trees level-wise. Moreover, LightGBM chooses the leaf with greater relative loss to grow, which leads to lower loss than that of a level wise algorithm. In this project we will test whether it truly performs better than XGBoost and whether our repeated boosting algorithm stands any chance.
-
-LightGBM algorithm utilizes two techniques called Gradient-Based One-Side Sampling (GOSS) and Exclusive Feature Bundling (EFB) which allow the algorithm to run faster while maintaining a high level of accuracy.
 
 We will implement the LightGBM regressor from the LightGBM class. This python implementation of LightGBM can use a dictionary to tune the hyperparameters.
 
@@ -407,7 +407,7 @@ DoKFoldLGB(X,y,'regression',7,100,39,7.394,3.0377,0.33,0.6,.9154483095843352,410
 
 18.822660433997175
 
-Thus, using Hyperopt to tune the hyperparameters for LightGBM Regression, we obtained a cross-validated MSE of 18.822660433997175, which is compared to our repeated boosting function.
+Thus, using Hyperopt to tune the hyperparameters for LightGBM Regression, we obtained a cross-validated MSE of 18.822660433997175, which is significantly better than the values obtained from our repeated boosting function of about 31.4. Now we will compare these results to XGBoost, which was the clear winner in Project 3. 
 
 ## XGBoost
 ## Hyperparameter tuning
@@ -451,9 +451,10 @@ DoKFoldXGB(X,y, 'reg:squarederror',100,.85,0.85,4,0.03, 0.737, 0.85, 410, False)
 ```
 22.157211602959503
 
-This is noticably worse than the score obtained by LightGBM
+This is noticably worse than the score obtained by LightGBM, but still better than our repeated boosting algorithm.
 ## Conclusion
-Even though we used Hyperopt to tune the hyperparameters for both LightGBM and XGBoost, LightGBM regression performed significantly better on the concrete strength dataset.
+Even though we used Hyperopt to tune the hyperparameters for both LightGBM and XGBoost, LightGBM regression performed significantly better on the concrete strength dataset than both XGBoost and our repeated boosting algorithm. Perhaps if more features were ommited from the model, the results would look different because LightGBM and XGBoost generally perform better on complex datasets compared to Lowess Regression. Ultimately, repeated boosting certainly is an improvement to a single boost in terms of achieving better results, but the tradeoff in computation and run time may not be worth it, especially with more complex data like the one used in this project. On the other hand, both XGBoost and LightGBM are efficient and fast regression gradient boosting frameworks, but from performing analysis on the concrete strength dataset, it seems that LightGBM has the advantage. 
+
 ### References
 https://www.kaggle.com/lasmith/house-price-regression-with-lightgbm
 
