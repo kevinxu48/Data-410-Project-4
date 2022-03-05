@@ -212,7 +212,7 @@ model_boosting = RFR(n_estimators=100,max_depth=3)
 yhat_blwr = boosted_lwr(xtrain,ytrain,xtest,Tricubic,1,True,model_boosting,2)
 ```
 
-Using this regressor as a booster, the Cross-validated Mean Squared Error obtained for Boosted LWR : 
+Using this regressor as a booster, the Cross-validated Mean Squared Error obtained for Boosted LWR : 37.
 
 Next, we will see if increasing the number of boosts from 2 times to 3 improves the results.
 ```
@@ -245,6 +245,20 @@ grid_search.fit(X=X_train, y=y_train)
 grid_search.best_params_                          
 ```
 
+```
+Fitting 3 folds for each of 360 candidates, totalling 1080 fits
+{'bootstrap': True,
+ 'max_depth': 6,
+ 'max_features': 3,
+ 'min_samples_leaf': 3,
+ 'min_samples_split': 8,
+ 'n_estimators': 1000}
+ 
+# Use the tuned hyperparameters obtained from grid search
+model_boosting = RFR(max_depth=6, max_features=3,min_samples_leaf=3, min_samples_split=8,n_estimators=1000, random_state=410)
+ 
+yhat_blwr = boosted_lwr(xtrain,ytrain,xtest,Tricubic,1,True,model_boosting,2)
+```
 
 
 
