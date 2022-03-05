@@ -171,7 +171,7 @@ print('The Cross-validated Mean Squared Error for Boosted LWR is : '+str(np.mean
 
 ```
 *Note: the cars dataset has fewer features and less observations than that of the concrete dataset and these MSE values are much lower than those that will be obtained for the concrete dataset*
-
+```
 The Cross-validated Mean Squared Error for Boosted LWR with tricubic kernel is : 16.41163570862233
 
 The Cross-validated Mean Squared Error for Boosted LWR with Epanechnikov kernel is : 16.440379787777104
@@ -181,6 +181,7 @@ The Cross-validated Mean Squared Error for Boosted LWR with Triweight kernel is 
 The Cross-validated Mean Squared Error for Boosted LWR with Quartic kernel is : 16.42772218916662
 
 The Cross-validated Mean Squared Error for Boosted LWR with Cosine kernel is : 16.461336627972102
+```
 
 Thus, it appears that the best kernel for repeated boosting is tricubic, so we will use that for the Lowess regressors that will be boosted.
 
