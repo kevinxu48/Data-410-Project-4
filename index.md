@@ -110,28 +110,51 @@ for idxtrain, idxtest in kf.split(X):
   xtest = scale.transform(xtest)
   dat_train = np.concatenate([xtrain,ytrain.reshape(-1,1)],axis=1)
   dat_test = np.concatenate([xtest,ytest.reshape(-1,1)],axis=1)
-  #yhat_lwr = lw_reg(xtrain,ytrain, xtest,Epanechnikov,tau=0.9,intercept=True)
-  #yhat_blwr = boosted_lwr(xtrain,ytrain, xtest,Epanechnikov,tau=0.9,intercept=True)
+
   yhat_blwr = boosted_lwr(xtrain,ytrain,xtest,Tricubic,1,True,model_boosting,2)
-  #model_rf = RandomForestRegressor(n_estimators=100,max_depth=3)
-    #model_rf.fit(xtrain,ytrain)
-    #yhat_rf = model_rf.predict(xtest)
+
   model_xgb = xgb.XGBRegressor(objective ='reg:squarederror',n_estimators=100,reg_lambda=20,alpha=1,gamma=10,max_depth=1)
   model_xgb.fit(xtrain,ytrain)
   yhat_xgb = model_xgb.predict(xtest)
   
   mse_blwr.append(mse(ytest,yhat_blwr))
-    #mse_rf.append(mse(ytest,yhat_rf))
-  mse_xgb.append(mse(ytest,yhat_xgb))
-    ##mse_nn.append(mse(ytest,yhat_nn))
-    #mse_NW.append(mse(ytest,yhat_sm))
-#print('The Cross-validated Mean Squared Error for LWR is : '+str(np.mean(mse_lwr)))
+
 print('The Cross-validated Mean Squared Error for Boosted LWR is : '+str(np.mean(mse_blwr)))
-#print('The Cross-validated Mean Squared Error for RF is : '+str(np.mean(mse_rf)))
-print('The Cross-validated Mean Squared Error for XGB is : '+str(np.mean(mse_xgb)))
-#print('The Cross-validated Mean Squared Error for NN is : '+str(np.mean(mse_nn)))
-#print('The Cross-validated Mean Squared Error for Nadarya-Watson Regressor is : '+str(np.mean(mse_NW)))
+
 ```
+## Finding the optimal Booster
+Between using a single DecisionTree or a RandomForest as the booster for lowess, we will use a grid search algorithm to find the best hyperparameters for Random Forest and Decision trees, then repeatedly boost our Lowess function with these regressors.
+
+But before using a grid search to find the optimal parameters for our booster, we first test the strength of our repeated boosting algorithm, we use an untuned basic RandomForest Regressor
+```
+model_boosting = RFR(n_estimators=100,max_depth=3)
+```
+
+Using this regressor as a booster, the Cross-validated Mean Squared Error obtained for Boosted LWR : 37.859234476190416 
+
+```
+from sklearn.model_selection import GridSearchCV
+# Create the parameter grid based on the results of random search 
+param_grid = {
+    'bootstrap': [True],
+    'max_depth': [2, 3, 4, 5, 6],
+    'max_features': [2, 3],
+    'min_samples_leaf': [3, 4, 5],
+    'min_samples_split': [8, 10, 12],
+    'n_estimators': [100, 200, 300, 1000]
+}
+# Create a based model
+rf = RFR()
+# Instantiate the grid search model
+grid_search = GridSearchCV(estimator = rf, param_grid = param_grid, 
+                          cv = 3, n_jobs = -1, verbose = 2)
+
+X_train, X_test, y_train, y_test = tts(X, y, test_size=0.25, random_state=410)
+
+grid_search.fit(X=X_train, y=y_train)
+grid_search.best_params_                          
+```
+
 
 
 
