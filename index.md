@@ -1,4 +1,44 @@
 # Comparison of Repeated Boosting Algorithms With LightGBM
+## Data and Feature Selection
+For this project we will again be using the concrete strength dataset, and to select the features. However in project 3 we used dimensionality reduction, specifically PCA, to reduce the number of features. In this project, we will be using Lasso (L1) Regularization for the purposes of feature selection. We can use the sklearn Lasso regularization and the Pipeline objects, which allows us to scale the data in advanced
+
+
+```
+from sklearn.pipeline import Pipeline
+from sklearn.model_selection import train_test_split, GridSearchCV
+from sklearn.linear_model import Lasso
+
+# use Pipeline to scale the data before performing L1 Regularization
+pipeline = Pipeline([
+                     ('scaler',SS()),
+                     ('model',Lasso())
+])
+```
+
+```
+# Perform a single train-test split before doing regularization
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=410)
+
+search.fit(X_train,y_train)
+
+coefficients = search.best_estimator_.named_steps['model'].coef_
+importance = np.abs(coefficients)
+importance
+```
+
+```
+# see what features are kept
+print("The features kept are: " + str(concrete.drop(columns = ['strength']).columns[importance > 0]))
+print("The features removed are: " + str(concrete.drop(columns = ['strength']).columns[importance == 0]))
+```
+
+The features kept are: Index(['cement', 'slag', 'ash', 'water', 'superplastic', 'age'], dtype='object')
+
+The features removed are: Index(['coarseagg', 'fineagg'], dtype='object')
+
+Thus, we will proceed with 6 out of the 8 features: cement, slag, ash, water, superplastic, and age.
+
 ## Multiple Boosting
 In this project, we will update the algorithms created in Project 3, to implement repeated boosting. We will be repeatedly boosting Lowess Regression and compare the results with more boosting algorithms such as XGBoost and LightGBM.
 
@@ -93,45 +133,7 @@ print('The Cross-validated Mean Squared Error for XGB is : '+str(np.mean(mse_xgb
 #print('The Cross-validated Mean Squared Error for Nadarya-Watson Regressor is : '+str(np.mean(mse_NW)))
 ```
 
-## Data and Feature Selection
-For this project we will again be using the concrete strength dataset, and to select the features. However in project 3 we used dimensionality reduction, specifically PCA, to reduce the number of features. In this project, we will be using Lasso (L1) Regularization for the purposes of feature selection. We can use the sklearn Lasso regularization and the Pipeline objects, which allows us to scale the data in advanced
 
-
-```
-from sklearn.pipeline import Pipeline
-from sklearn.model_selection import train_test_split, GridSearchCV
-from sklearn.linear_model import Lasso
-
-# use Pipeline to scale the data before performing L1 Regularization
-pipeline = Pipeline([
-                     ('scaler',SS()),
-                     ('model',Lasso())
-])
-```
-
-```
-# Perform a single train-test split before doing regularization
-
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.33, random_state=410)
-
-search.fit(X_train,y_train)
-
-coefficients = search.best_estimator_.named_steps['model'].coef_
-importance = np.abs(coefficients)
-importance
-```
-
-```
-# see what features are kept
-print("The features kept are: " + str(concrete.drop(columns = ['strength']).columns[importance > 0]))
-print("The features removed are: " + str(concrete.drop(columns = ['strength']).columns[importance == 0]))
-```
-
-The features kept are: Index(['cement', 'slag', 'ash', 'water', 'superplastic', 'age'], dtype='object')
-
-The features removed are: Index(['coarseagg', 'fineagg'], dtype='object')
-
-Thus, we will proceed with 6 out of the 8 features: cement, slag, ash, water, superplastic, and age.
 
 # Light Gradient Boosting Machine (LightGBM) Regressor
 LightGBM is an open source gradient boosting algorithm proposed and developed by Microsoft. Compared to XGBoost which grows Decision Trees based on a pre-sort-based algorithms, LightGBM instead uses histogram-based algorithms. LightGBM provides the following distributed learning algorithms: Feature parallel and Data parallel.
